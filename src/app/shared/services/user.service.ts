@@ -3,14 +3,26 @@ import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
 import {Http} from "@angular/http";
 import {Admin} from "../models/Admin";
+import {Config} from "../config";
 
 @Injectable()
 export class UserService extends GenericService {
-  loggedUser: Admin;
+  loggedAdmin: Admin;
 
   constructor(private http: Http, private storageService: StorageService) {
     super();
-    this.loggedUser = <Admin> storageService.read('admin');
+    this.loggedAdmin = <Admin> storageService.read('admin');
+  }
+
+  getLoggedAdmin() {
+    this.headers.set("Authorization", "Bearer " + this.getTokent());
+    const url = Config.baseUrl + "/admin/me";
+
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
   }
 
   getTokent() {

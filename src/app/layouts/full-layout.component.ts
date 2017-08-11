@@ -17,10 +17,17 @@ export class FullLayoutComponent implements OnInit {
   constructor(private storageService: StorageService,
               public router: Router, private userService: UserService,
               private route: ActivatedRoute) {
-    this.admin = this.userService.loggedUser;
+    this.admin = this.userService.loggedAdmin;
     if (!this.admin) {
       this.admin = new Admin();
     }
+    this.userService.getLoggedAdmin().subscribe(data => {
+      this.admin = this.userService.loggedAdmin = data.admin;
+      this.storageService.write("admin", data.admin);
+    }, error => {
+      this.storageService.removeAll();
+      this.router.navigateByUrl('login');
+    });
   }
 
   ngOnInit() {

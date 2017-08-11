@@ -18,7 +18,9 @@
         <th>#</th>
         <th>Nom</th>
         <th>Prénom</th>
-        <th>Identifiant</th>
+        <th>CIN</th>
+        <th>email</th>
+        <th>birthday</th>
         <th>Status</th>
         <th class="text-center">Actions</th>
       </tr>
@@ -35,6 +37,12 @@
         </td>
         <td>
           {{student.cin?student.cin:student.passport}}
+        </td>
+        <td>
+          {{student.email}}
+        </td>
+        <td>
+          {{student.birthday}}
         </td>
         <td>
           <ul class="list list-unstyled text-right">
