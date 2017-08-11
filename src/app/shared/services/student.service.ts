@@ -33,7 +33,7 @@ export class StudentService extends GenericService {
   }
 
   deleteStudent(studentId: number) {
-    const url = Config.baseUrl + '/admin/student/' + studentId + '/status';
+    const url = Config.baseUrl + '/admin/student/' + studentId ;
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.delete(url, {
       headers: this.headers
