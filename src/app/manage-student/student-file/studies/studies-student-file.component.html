@@ -1,0 +1,163 @@
+<!-- Page container -->
+<div class="page-container">
+
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+
+      <!-- Content area -->
+      <div class="content" [ngBusy]="busy">
+
+        <!-- Registration form -->
+        <form #registerForm="ngForm" class="form-validate">
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+              <div class="panel registration-form">
+                <div class="panel-body">
+                  <div class="text-center">
+                    <h4 class="content-group-lg"> Etudes médicales antérieures
+                    </h4>
+                  </div>
+
+
+                  <div *ngFor="let study of student.studies;let i = index">
+                    <h5>Année {{i+1}}</h5>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Année universitaire :</label>
+                          <select name="country" class="select-year_{{i}}">
+                            <option disabled value="0">Choisir une année</option>
+                            <option *ngFor="let year of years" value="{{year}}">
+                              {{year}}
+                            </option>
+                          </select>
+                        </div>
+                        <label *ngIf="submitted&&!study.year" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Résultat : </label>
+                          <select name="country" class="select-result_{{i}}">
+                            <option value="0">Choisir Le resultat</option>
+                            <option *ngFor="let result of results" value="{{result.id_result}}">
+                              {{result.label}}
+                            </option>
+                          </select>
+                        </div>
+                        <label *ngIf="submitted&&!study.id_result" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+
+                      <div *ngIf="study.id_result==3" class="col-md-4">
+                        <div class="form-group">
+                          <label>Crédit :</label>
+                          <select name="country" class="select-credit_{{i}}">
+                            <option disabled value="0">Choisir Le crédit</option>
+                            <option *ngFor="let credit of credits" value="{{credit.id_credit}}">
+                              {{credit.label}}
+                            </option>
+                          </select>
+                        </div>
+                        <label *ngIf="submitted&&!study.id_result" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Niveau :</label>
+                          <select name="country" class="select-level_{{i}}">
+                            <option disabled value="0">Choisir le niveau</option>
+                            <option *ngFor="let level of levels" value="{{level.id_level}}">
+                              {{level.label}}
+                            </option>
+                          </select>
+                        </div>
+                        <label *ngIf="submitted&&!study.id_level" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Faculté :</label>
+                          <select name="country" class="select-university_{{i}}">
+                            <option disabled value="0">Choisir la faculté</option>
+                            <option *ngFor="let university of universities" value="{{university.id_university}}">
+                              {{university.label}}
+                            </option>
+                          </select>
+                        </div>
+                        <label *ngIf="submitted&&!study.id_university" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+                    </div>
+                    <div class=" row ">
+                      <div class="col-md-12 form-group">
+                        <label>Piéce(s) jointe(s) :</label>
+                        <input type="file" class="file-input-study-{{i}}" multiple="multiple">
+                        <span class="help-block">Piéce(s) jointe(s)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6  text-right" style="margin-bottom: 15px">
+                      <button (click)="removeStudy()"
+                              class="btn bg-danger btn-labeled btn-labeled-right ml-10"><b><i
+                        class="icon-cross2"></i></b> Supprimer
+                      </button>
+                    </div>
+                    <div class="col-md-6 text-right" style="margin-bottom: 15px">
+                      <button (click)="addStudy()"
+                              class="btn bg-blue btn-labeled btn-labeled-right ml-10"><b><i
+                        class="icon-plus3"></i></b> Ajouter
+                      </button>
+                    </div>
+
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-6  text-right" style="margin-bottom: 15px">
+                      <button [routerLink]="['/student-file']"
+                              class="btn bg-grey-400"> Annuler
+                      </button>
+                    </div>
+                    <div class="col-md-6 text-right" style="margin-bottom: 15px">
+                      <button (click)="validationStudies()"
+                              class="btn bg-teal-400"> Valider
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </form>
+        <!-- /registration form -->
+
+
+      </div>
+      <!-- /content area -->
+
+    </div>
+    <!-- /main content -->
+
+  </div>
+  <!-- /page content -->
+
+</div>
+<!-- /page container -->

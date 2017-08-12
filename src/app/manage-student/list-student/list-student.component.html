@@ -49,13 +49,15 @@
             <li></li>
             <li class="dropdown">
               <a href="#"
-                 class="label {{student.administration_review===0?'bg-grey':student.administration_review===-1?'bg-danger':'bg-green'}}  dropdown-toggle"
+                 class="label {{student.administration_review===0?'bg-grey':student.administration_review===-1?'bg-danger':student.administration_review===1?'bg-green':'bg-warning'}}  dropdown-toggle"
                  data-toggle="dropdown">{{student.administration_review===0?"En
-                attente":student.administration_review===-1?'Invalid':'Valid'}}
+                attente":student.administration_review===-1?'Invalid':student.administration_review===-1?'Valid':'A
+                reviser'}}
                 <span class="caret"></span></a>
               <ul class="dropdown-menu dropdown-menu-right">
                 <li><a (click)="updateStudentStatusAfterReview(i,1)"><i
                   class="icon-checkmark3"></i>Valider</a></li>
+                <li><a (click)="updateStudentStatusAfterReview(i,2)"><i class="icon-warning"></i>A reviser</a>
                 <li class="divider"></li>
                 <li><a (click)="updateStudentStatusAfterReview(i,-1)"><i class="icon-cross2"></i>Refuser</a>
                 </li>
@@ -72,8 +74,9 @@
               </a>
 
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a><i class="icon-file-eye"></i>Voir détails</a></li>
-                <li><a><i class="icon-pencil"></i>Editer</a></li>
+                <li><a [routerLink]="'/student/'+student.id_student+'/detail'"><i class="icon-file-eye"></i>Voir détails</a>
+                </li>
+                <li><a [routerLink]="'/student/'+student.id_student+'/edit'"><i class="icon-pencil"></i>Editer</a></li>
                 <li><a (click)="deleteStudent(i)"><i class="icon-close2"></i>Supprimer</a></li>
               </ul>
             </li>

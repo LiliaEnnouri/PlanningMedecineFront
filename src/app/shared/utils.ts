@@ -158,6 +158,7 @@ export class Utils {
   static convertDateServer(date: string) {
     return date.substring(6, 10) + "-" + date.substring(3, 5) + "-" + date.substring(0, 2);
   }
+
   static loadTypeFromExtension(ext: string) {
     if (ext.toLowerCase().match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i)) {
       return "video";
@@ -175,6 +176,7 @@ export class Utils {
       return "pdf";
     }
   }
+
   static getYears(minYear: number) {
     const years: number[] = [];
 
@@ -182,6 +184,25 @@ export class Utils {
       years.push(i);
     }
     return years;
+  }
+
+  static getUniversityYears(minYear: number) {
+    const uniYears: string[] = [];
+
+    for (let i = minYear; i <= new Date().getFullYear(); i++) {
+      let j = i + 1;
+      uniYears.push(i + "-" + j);
+    }
+
+    return uniYears;
+  }
+
+  static verifyNewStudent(study_access_year: string) {
+    if (!study_access_year) {
+      return false;
+    }
+    const year = parseInt(study_access_year.substring(0, 4));
+    return year === new Date().getFullYear();
   }
 }
 

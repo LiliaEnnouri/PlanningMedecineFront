@@ -33,9 +33,19 @@ export class StudentService extends GenericService {
   }
 
   deleteStudent(studentId: number) {
-    const url = Config.baseUrl + '/admin/student/' + studentId ;
+    const url = Config.baseUrl + '/admin/student/' + studentId;
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.delete(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  getStudentById(studentId: number) {
+    const url = Config.baseUrl + '/admin/student/' + studentId;
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get(url, {
       headers: this.headers
     })
       .map(res => res.json())

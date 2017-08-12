@@ -1,0 +1,117 @@
+<!-- Page container -->
+<div class="page-container">
+
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+
+      <!-- Content area -->
+      <div class="content" [ngBusy]="busy">
+
+        <!-- Registration form -->
+        <form #registerForm="ngForm" class="form-validate">
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+              <div class="panel registration-form">
+                <div class="panel-body">
+
+                  <div>
+                    <h4>Doctaurat</h4>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Numéro (code)</label>
+                          <input [(ngModel)]="student.doctaurat.numero" type="text" class="form-control" name="numero"
+                                 placeholder="Numero" required>
+                        </div>
+                        <label *ngIf="submitted&&!student.doctaurat.numero" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div>
+                          <label>Date de soutenance </label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                            <input type="text"
+                                   class="form-control date-doctaurat">
+                          </div>
+                        </div>
+                        <label *ngIf="submitted&&!student.doctaurat.date_of_pitch" class="validation-error-label">Ce
+                          champs
+                          est
+                          obligatoire.</label>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Mention</label>
+                          <select name="mention" class="select-mention">
+                            <option value="0">Choisir une mention</option>
+                            <option *ngFor="let mention of mentions" value="{{mention.id_mention}}">
+                              {{mention.label}}
+                            </option>
+                          </select>
+                        </div>
+                        <label *ngIf="submitted&&!student.doctaurat.id_mention" class="validation-error-label">Ce
+                          champs
+                          est
+                          obligatoire.</label>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Faculté </label>
+                          <select name="university" class="select-university">
+                            <option value="0">Choisir la faculté</option>
+                            <option *ngFor="let university of universities" value="{{university.id_university}}">
+                              {{university.label}}
+                            </option>
+                          </select>
+                        </div>
+                        <label *ngIf="submitted&&!student.doctaurat.id_university"
+                               class="validation-error-label">Ce
+                          champs
+                          est
+                          obligatoire.</label>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="text-right">
+                    <button [routerLink]="['/student-file']"
+                            class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+                      class="icon-close2"></i></b> Annuler
+                    </button>
+                    <button (click)="submitdoctaurat()"
+                            class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+                      class="icon-pen2"></i></b> Valider
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </form>
+        <!-- /registration form -->
+
+      </div>
+      <!-- /content area -->
+
+    </div>
+    <!-- /main content -->
+
+  </div>
+  <!-- /page content -->
+
+</div>
+<!-- /page container -->
