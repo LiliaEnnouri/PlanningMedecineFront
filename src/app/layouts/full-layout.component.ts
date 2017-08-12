@@ -41,6 +41,17 @@ export class FullLayoutComponent implements OnInit {
             url: "/student/list"
           }]
       },
+      {
+        name: "Assistance",
+        icon: "icon-lifebuoy",
+        childrens: [
+          {
+            name: "Boite des réclamations",
+            url: "/support/boitereclamation",
+          },
+
+        ]
+      },
     ];
     this.route.queryParams.subscribe(
       params => {

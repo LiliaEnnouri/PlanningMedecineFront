@@ -11,13 +11,18 @@ export const routes: Routes = [
       {
         path: 'student',
         loadChildren: "./manage-student/manage-student.module#ManageStudentModule"
+      },
+      {
+        path: 'support',
+        loadChildren: "./support/support.module#SupportModule"
       }
     ],
   },
   {
     path: 'login',
     component: LoginComponent
-  }
+  },
+
 ];
 
 @NgModule({

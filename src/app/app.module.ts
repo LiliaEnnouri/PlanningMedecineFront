@@ -17,6 +17,9 @@ import {HttpModule} from "@angular/http";
 import {FullLayoutComponent} from "./layouts/full-layout.component";
 import {StudentService} from "./shared/services/student.service";
 import {ManageStudentModule} from "./manage-student/manage-student.module";
+import {BoiteReclamationComponent} from "./support/boite-reclamation/boite-reclamation.component";
+import {SupportModule} from "./support/support.module";
+import {ReclamationService} from "./shared/services/reclamation.service";
 
 @NgModule({
   declarations: [
@@ -34,13 +37,17 @@ import {ManageStudentModule} from "./manage-student/manage-student.module";
     FormsModule,
     HttpModule,
     LaddaModule,
-    ManageStudentModule
+    ManageStudentModule,
+    SupportModule
   ],
   providers: [
     AuthService,
     StorageService,
     UserService,
-    StudentService],
+    StudentService,
+    ReclamationService
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
