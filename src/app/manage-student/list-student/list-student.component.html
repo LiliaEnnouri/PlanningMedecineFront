@@ -11,7 +11,12 @@
         </ul>
       </div>
     </div>
-
+    <div class="checkbox checkbox-switchery">
+      <label>
+        <input type="checkbox" class="switch" [checked]="isReviewingMode">
+        Reviewing Students
+      </label>
+    </div>
     <table class="table datatable-basic" [ngBusy]="busy">
       <thead>
       <tr>

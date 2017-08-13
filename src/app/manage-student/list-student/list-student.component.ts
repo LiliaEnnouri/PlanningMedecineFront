@@ -3,6 +3,8 @@ import {StudentService} from "../../shared/services/student.service";
 import {Student} from "../../shared/models/student";
 import {Subscription} from "rxjs/Subscription";
 import {Utils} from "../../shared/utils";
+import {AdminService} from "../../shared/services/admin.service";
+import {StorageService} from "../../shared/services/storage.service";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -15,8 +17,10 @@ export class ListStudentComponent implements OnInit {
 
   students: Array<Student>;
   busy: Subscription;
+  isReviewingMode = false;
 
-  constructor(private studentService: StudentService) {
+  constructor(private studentService: StudentService, private adminService: AdminService, private storageService: StorageService) {
+    this.isReviewingMode = <boolean>this.storageService.read('isReviewingMode');
   }
 
   ngOnInit() {
@@ -27,6 +31,19 @@ export class ListStudentComponent implements OnInit {
         Utils.initializeDataTables(700, 6);
       }, 100);
     });
+    jQuery(".switch").bootstrapSwitch().on('switchChange.bootstrapSwitch', function (e, data) {
+      if (data) {
+        baseContext.adminService.startReviewingStudents().subscribe(() => {
+          console.log('startReviewingStudents');
+        });
+      } else {
+        baseContext.adminService.finishReviewingStudents().subscribe(() => {
+          console.log('finishReviewingStudents');
+        });
+      }
+      baseContext.storageService.write('isReviewingMode', data);
+    });
+
   }
 
   updateStudentStatusAfterReview(index: number, administrationReview: number) {
