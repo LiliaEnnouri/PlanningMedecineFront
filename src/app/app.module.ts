@@ -21,6 +21,7 @@ import {SupportModule} from "./support/support.module";
 import {ReclamationService} from "./shared/services/reclamation.service";
 import {StudentFileService} from "./shared/services/student-file.service";
 import {InscriptionService} from "./shared/services/inscription.service";
+import {AdminService} from "./shared/services/admin.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {InscriptionService} from "./shared/services/inscription.service";
     StudentService,
     ReclamationService,
     StudentFileService,
-    InscriptionService
+    InscriptionService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

@@ -23,7 +23,6 @@ export class StudentService extends GenericService {
     const url = Config.baseUrl + '/admin/student/' + studentId + '/status';
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.post(url, {
-      status: 3,
       administration_review: administrationReview
     }, {
       headers: this.headers

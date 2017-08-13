@@ -2,7 +2,7 @@
 <div class="content">
 
   <!-- Invoice archive -->
-  <div class="panel panel-white" [ngBusy]="busy">
+  <div class="panel panel-white">
     <div class="panel-heading">
       <h6 class="panel-title">Liste étudiant</h6>
       <div class="heading-elements">
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <table class="table datatable-basic">
+    <table class="table datatable-basic" [ngBusy]="busy">
       <thead>
       <tr>
         <th>#</th>
