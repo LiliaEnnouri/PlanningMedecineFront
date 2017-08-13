@@ -17,8 +17,8 @@ export class StudentFileService extends GenericService {
 
 
   editInformations(student: Student) {
-    const url = Config.baseUrl + "/student/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("student-token"));
+    const url = Config.baseUrl + "/admin/student/" + student.id_student + "/edit";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, {
         "first_name": student.first_name,
         "last_name": student.last_name,
@@ -67,9 +67,9 @@ export class StudentFileService extends GenericService {
       .catch(this.handleErrors);
   }
 
-  editBacInformation(bac: Bac) {
-    const url = Config.baseUrl + "/student/edit-bac";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("student-token"));
+  editBacInformation(studentId: number, bac: Bac) {
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/bac/edit";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, bac,
       {
         headers: this.headers
@@ -110,9 +110,9 @@ export class StudentFileService extends GenericService {
       .catch(this.handleErrors);
   }
 
-  editStudiesInformation(studies) {
-    const url = Config.baseUrl + "/student/me/studies/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("student-token"));
+  editStudiesInformation(studentId: number, studies) {
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/studies/edit";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, studies,
       {
         headers: this.headers
@@ -122,9 +122,9 @@ export class StudentFileService extends GenericService {
   }
 
 
-  editFonctionInformation(fonctions: Fonction[]) {
-    const url = Config.baseUrl + "/student/edit-fonctions";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("student-token"));
+  editFonctionInformation(studentId: number, fonctions: Fonction[]) {
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/fonctions/edit";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, fonctions, {
       headers: this.headers
     })
@@ -132,9 +132,9 @@ export class StudentFileService extends GenericService {
       .catch(this.handleErrors);
   }
 
-  editDoctaurat(doctaurat: Doctaurat) {
-    const url = Config.baseUrl + "/student/me/doctaurat/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("student-token"));
+  editDoctaurat(studentId: number, doctaurat: Doctaurat) {
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/doctaurat/edit";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, doctaurat,
 
       {
@@ -177,9 +177,9 @@ export class StudentFileService extends GenericService {
       .catch(this.handleErrors);
   }
 
-  editResidanatInformation(residanat: Residanat) {
-    const url = Config.baseUrl + "/student/edit-residanat";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("student-token"));
+  editResidanatInformation(studentId: number, residanat: Residanat) {
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/residanat/edit";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, residanat, {
       headers: this.headers
     })
@@ -189,7 +189,7 @@ export class StudentFileService extends GenericService {
 
   submitAdmin() {
     const url = Config.baseUrl + "/student/me/submitForReview";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("student-token"));
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.post(url, {},
       {
         headers: this.headers

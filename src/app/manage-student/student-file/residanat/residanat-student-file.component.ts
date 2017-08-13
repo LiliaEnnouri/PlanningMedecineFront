@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Student} from "../../../shared/models/student";
 import {UserService} from "../../../shared/services/user.service";
 import {StorageService} from "../../../shared/services/storage.service";
@@ -17,12 +17,13 @@ import {NationalExam} from "../../../shared/models/nationalExam";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
+  selector: 'app-student-residnat',
   templateUrl: 'residanat-student-file.component.html',
   styleUrls: [],
 })
 export class ResidanatStudentFileComponent implements OnInit {
 
-
+  @Input()
   student: Student;
   busy: Subscription;
   submitted: boolean;
@@ -37,7 +38,7 @@ export class ResidanatStudentFileComponent implements OnInit {
 
   ngOnInit() {
     const baseContext = this;
-    this.student = <Student> this.stoarageService.read("student");
+
     this.years = Utils.getYears(1990);
 
 
@@ -307,7 +308,6 @@ export class ResidanatStudentFileComponent implements OnInit {
     })
   }
 
-
   initServiceSelect(index: number) {
     const service = jQuery(".select-service" + "_" + index);
     const baseContext = this;
@@ -344,20 +344,17 @@ export class ResidanatStudentFileComponent implements OnInit {
     if (!this.isChampFulled()) {
       return;
     }
-    this.busy = this.studentFileService.editResidanatInformation(this.student.residanat)
+    this.busy = this.studentFileService.editResidanatInformation(this.student.id_student, this.student.residanat)
       .subscribe(
         (data) => {
           console.log(data);
           this.student.residanat = data;
-          this.stoarageService.write("student", this.student);
-
           swal({
             title: "Succès!",
             text: 'Ajout Concours Residanat avec succées',
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/student-file"]);
         },
         (error) => {
 

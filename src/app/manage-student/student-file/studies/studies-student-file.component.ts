@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Student} from "../../../shared/models/student";
 import {StorageService} from "../../../shared/services/storage.service";
 import {InitialPreviewConfig, Utils} from "../../../shared/utils";
@@ -16,11 +16,13 @@ import set = Reflect.set;
 declare var jQuery: any;
 declare var swal: any;
 @Component({
+  selector: 'app-student-studies',
   templateUrl: 'studies-student-file.component.html',
   styleUrls: [],
 })
 export class StudiesStudentFileComponent implements OnInit {
 
+  @Input()
   student: Student;
   years: string[] = [];
   submitted: boolean;
@@ -33,7 +35,6 @@ export class StudiesStudentFileComponent implements OnInit {
 
   ngOnInit() {
     const baseContext = this;
-    this.student = <Student>this.stoarageService.read("student");
     this.years = Utils.getUniversityYears(1990);
 
     this.editAction = this.student.studies.length !== 0;
@@ -194,19 +195,17 @@ export class StudiesStudentFileComponent implements OnInit {
     if (!this.isChampFulled()) {
       return;
     }
-    console.log(JSON.stringify(this.student.studies));
-    this.busy = this.studentFileServie.editStudiesInformation(this.student.studies)
+    this.busy = this.studentFileServie.editStudiesInformation(this.student.id_student, this.student.studies)
       .subscribe(
         (data) => {
           this.student.studies = data;
-          this.stoarageService.write("student", this.student);
           swal({
             title: "Succès!",
             text: 'Etudes médicales antérieures ' + (baseContext.editAction ? 'Editée' : 'ajoutée') + ' avec succées',
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/student-file"]);
+
         }
       )
   }

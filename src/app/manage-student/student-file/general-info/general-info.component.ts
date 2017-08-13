@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Student} from "../../../shared/models/student";
 import {Country} from "../../../shared/models/country";
@@ -13,12 +13,14 @@ import {StudentFileService} from "../../../shared/services/student-file.service"
 declare var jQuery: any;
 declare var swal: any;
 @Component({
+  selector: 'app-student-general-info',
   templateUrl: './general-info.component.html',
   styleUrls: [],
 })
 export class GeneralInfoComponent implements OnInit {
 
-  student: Student = new Student();
+  @Input()
+  student: Student;
   busy: Subscription;
   countries: Country[] = [];
   cities: City[] = [];
@@ -68,9 +70,7 @@ export class GeneralInfoComponent implements OnInit {
     });
   }
 
-
   settingInformation() {
-    this.student = <Student>this.stoarageService.read("student");
 
     this.student.label_address = this.student.adress.label_address;
     this.student.address_city = this.student.adress.id_adress;
@@ -123,7 +123,6 @@ export class GeneralInfoComponent implements OnInit {
       )
   }
 
-
   public registerStudent() {
     this.submitted = true;
 
@@ -138,18 +137,17 @@ export class GeneralInfoComponent implements OnInit {
       || !this.student.study_access_year) {
       return;
     }
+    console.log(JSON.stringify(this.student));
     this.busy = this.studentFileService.editInformations(this.student)
       .subscribe(
         (data) => {
           data.isNew = Utils.verifyNewStudent(data.study_access_year);
-          this.stoarageService.write("student", data);
           swal({
             title: "Succès!",
             text: 'Etudiant editée avec succées',
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/student-file"]);
         },
         (error) => {
           swal({
@@ -251,7 +249,7 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   goStudentFile() {
-    this.router.navigate(["/student-file"]);
+    this.router.navigate(["/student/liste"]);
   }
 }
 

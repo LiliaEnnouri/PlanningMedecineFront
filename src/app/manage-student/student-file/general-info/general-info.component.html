@@ -1,333 +1,301 @@
-<!-- Page container -->
-<div class="page-container">
+<!-- Registration form -->
+<form #registerForm="ngForm" class="form-validate" [ngBusy]="busy">
+  <div class="row">
+    <div class="{{editAction ? 'col-lg-9 col-lg-offset-2' : 'col-lg-8 col-lg-offset-2' }}">
+      <div class="panel registration-form">
+        <div class="panel-body">
+          <div *ngIf="!editAction" class="text-center">
+            <h5 class="content-group-lg">Inscription de l'étudiant à la platforme Médecine de sfax
+            </h5>
+          </div>
+          <div *ngIf="editAction" class="text-center">
+            <h5 class="content-group-lg">Modification générale des informations
+            </h5>
+          </div>
 
-  <!-- Page content -->
-  <div class="page-content">
 
-    <!-- Main content -->
-    <div class="content-wrapper">
-
-      <!-- Content area -->
-      <div class="content" [ngBusy]="busy">
-
-        <!-- Registration form -->
-        <form #registerForm="ngForm" class="form-validate">
           <div class="row">
-            <div class="{{editAction ? 'col-lg-9 col-lg-offset-2' : 'col-lg-8 col-lg-offset-2' }}">
-              <div class="panel registration-form">
-                <div class="panel-body">
-                  <div *ngIf="!editAction" class="text-center">
-                    <h5 class="content-group-lg">Inscription de l'étudiant à la platforme Médecine de sfax
-                    </h5>
-                  </div>
-                  <div *ngIf="editAction" class="text-center">
-                    <h5 class="content-group-lg">Modification générale des informations
-                    </h5>
-                  </div>
-
-
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="form-group has-feedback
+            <div class="col-md-3">
+              <div class="form-group has-feedback
 {{firstName.errors && (firstName.dirty || firstName.touched) ? 'has-error' :''}}">
-                        <label>Nom</label>
-                        <input type="text" class="form-control" placeholder="Nom"
-                               [(ngModel)]="student.first_name"
-                               #firstName="ngModel" name="first_name"
-                               required>
-                        <div class="form-control-feedback">
-                          <i class="icon-user-check text-muted"></i>
-                        </div>
-                      </div>
-                      <label *ngIf="submitted&&!student.first_name" class="validation-error-label">Ce champs
-                        est
-                        obligatoire.</label>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Nom de famille</label>
-                        <input type="text" class="form-control" placeholder="Nom de famille"
-                               [(ngModel)]="student.nom_de_famille"
-                               #nameFamille="ngModel" name="nom_de_famille"
-                        >
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group has-feedback
-                {{lastName.errors && (lastName.dirty || lastName.touched) ? 'has-error' :''}}">
-                        <label>Prénom</label>
-                        <input type="text" class="form-control" placeholder="Prénom" name="last_name"
-                               [(ngModel)]="student.last_name"
-                               #lastName="ngModel" required>
-                        <div class="form-control-feedback">
-                          <i class="icon-user-check text-muted"></i>
-                        </div>
-                      </div>
-                      <label *ngIf="submitted&&!student.last_name" class="validation-error-label">Ce champs
-                        est
-                        obligatoire.</label>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Deuxiéme prénom</label>
-                        <input type="text" class="form-control" placeholder="Deuxiéme prénom"
-                               [(ngModel)]="student.second_name"
-                               #secondName="ngModel" name="second_name"
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group" style="margin-left: 10px">
-                      <label class="radio-inline">
-                        <input [(ngModel)]="student.sex" value="Homme" type="radio" name="radio-inline-left"
-                               class="styled radioBox radioBox-sex"
-                               checked="checked">
-                        Homme
-                      </label>
-
-                      <label class="radio-inline">
-                        <input [(ngModel)]="student.sex" value="Femme" type="radio" name="radio-inline-left"
-                               class="styled radioBox radioBox-sex">
-                        Femme
-                      </label>
-                      <label *ngIf="submitted&&!student.sex" class="validation-error-label">Ce champs
-                        est
-                        obligatoire.</label>
-                    </div>
-
-                  </div>
-
-                  <div class="row">
-                    <h6>Lieu de naissance</h6>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Choisir pays</label>
-                        <select name="country" class="select-pays-naissance">
-                          <option disabled value="0">Choisir pays</option>
-                          <option *ngFor="let item of countries" value="{{item.Code}}">
-                            {{item.Name}}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Choisir ville</label>
-                        <select name="city" class="select-ville-naissance">
-                          <option disabled value="0">Choisir ville</option>
-                          <option *ngFor="let item of citiesNaissance" value="{{item.id_City}}">
-                            {{item.Name}}
-                          </option>
-                        </select>
-                        <label *ngIf="submitted&&!student.address_city" class="validation-error-label">Ce champs
-                          est
-                          obligatoire.</label>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <!-- student.birthday -->
-                      <div class="form-group">
-                        <label>Date de naissance</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="icon-calendar22"></i></span>
-                          <input type="text" placeholder="Date de naissance"
-                                 class="form-control  date_naissance">
-
-                        </div>
-                        <label *ngIf="submitted&&!student.birthday" class="validation-error-label">Ce champs
-                          est
-                          obligatoire.</label>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div class="row">
-                    <h6>Adresse postale</h6>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Choisir pays</label>
-                        <select name="country" class="select-pays">
-                          <option value="0">Choisir pays</option>
-                          <option *ngFor="let item of countries" value="{{item.Code}}">
-                            {{item.Name}}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Choisir ville</label>
-                        <select name="city" class="select-ville">
-                          <option value="0">Choisir ville</option>
-                          <option *ngFor="let item of cities" value="{{item.id_City}}">
-                            {{item.Name}}
-                          </option>
-                        </select>
-                        <label *ngIf="submitted&&!student.address_city" class="validation-error-label">Ce champs
-                          est
-                          obligatoire.</label>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Adresse</label>
-                        <input type="text" class="form-control" placeholder="Adresse" name="adresse"
-                               [(ngModel)]="student.label_address"
-                               #adresse="ngModel">
-                        <label *ngIf="submitted&&!student.label_address" class="validation-error-label">Ce champs
-                          est
-                          obligatoire.</label>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Code postal</label>
-                        <input type="text" class="form-control" placeholder="Code postal" name="postal_code"
-                               [(ngModel)]="student.postal_code"
-                               #postalCode="ngModel">
-
-                        <label *ngIf="submitted&&!student.postal_code" class="validation-error-label">Ce champs
-                          est
-                          obligatoire.</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>CIN</label>
-                        <input type="text" class="form-control" placeholder="CIN" name="cin"
-                               [(ngModel)]="student.cin"
-                               #cin="ngModel" required>
-                      </div>
-                      <label *ngIf="submitted&&(!student.cin && !student.passport)" class="validation-error-label">
-                        CIN ou Passport
-                        sont
-                        obligatoire.</label>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Passport</label>
-                        <input type="text" class="form-control" placeholder="Passport" name="passport"
-                               [(ngModel)]="student.passport"
-                               #passport="ngModel" required>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Mobile(*)</label>
-                        <input type="text" class="form-control" placeholder="Mobile(*)" name="mobile"
-                               [(ngModel)]="student.mobile"
-                               #mobile="ngModel" required>
-
-                        <label *ngIf="submitted&&!student.mobile" class="validation-error-label">Ce champs
-                          est
-                          obligatoire.</label>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Email(*)</label>
-                        <input [disabled]="editAction" type="text" class="form-control" placeholder="Email(*)"
-                               name="email"
-                               [(ngModel)]="student.email"
-                               #mobile="ngModel" required>
-                        <label *ngIf="submitted&&!student.email" class="validation-error-label">Ce champs
-                          est
-                          obligatoire.</label>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Téléphone fixe</label>
-                        <input type="text" class="form-control" placeholder="Téléphone fixe" name="phone"
-                               [(ngModel)]="student.phone"
-                               #mobile="ngModel" required>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <h6>Accés aux études médicales</h6>
-                    <div class="form-group" style="margin-left: 10px">
-                      <label class="radio-inline">
-                        <input [(ngModel)]="student.oriented" value="1" type="radio" name="radio-inline-left"
-                               class="styled radioBox radioBox-oriented"
-                               checked="checked">
-                        Orientation de premiére intention
-                      </label>
-
-                      <label class="radio-inline">
-                        <input [(ngModel)]="student.oriented" value="2" type="radio" name="radio-inline-left"
-                               class="styled radioBox radioBox-oriented">
-                        Réorientation
-                      </label>
-                      <label *ngIf="submitted&&!student.oriented" class="validation-error-label">Ce champs
-                        est
-                        obligatoire.</label>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Année universitaire</label>
-                      <select name="country" class="select-university-year">
-                        <option value="0" disabled>Choisir l'année universitaire</option>
-                        <option *ngFor="let item of uni_years" value="{{item}}">
-                          {{item}}
-                        </option>
-                      </select>
-                      <label *ngIf="submitted&&!student.study_access_year" class="validation-error-label">Ce champs
-                        est
-                        obligatoire.</label>
-                    </div>
-
-
-                  </div>
-
-
-                  <div class="text-right">
-                    <button *ngIf="!editAction" (click)="registerStudent()"
-                            class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
-                      class="icon-plus3"></i></b> Create account
-                    </button>
-                    <button *ngIf="editAction" (click)="goStudentFile()"
-                            class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
-                      class="icon-close2"></i></b> Annuler
-                    </button>
-                    <button *ngIf="editAction" (click)="registerStudent()"
-                            class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
-                      class="icon-pen"></i></b> Modifier
-                    </button>
-                  </div>
+                <label>Nom</label>
+                <input type="text" class="form-control" placeholder="Nom"
+                       [(ngModel)]="student.first_name"
+                       #firstName="ngModel" name="first_name"
+                       required>
+                <div class="form-control-feedback">
+                  <i class="icon-user-check text-muted"></i>
                 </div>
+              </div>
+              <label *ngIf="submitted&&!student.first_name" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Nom de famille</label>
+                <input type="text" class="form-control" placeholder="Nom de famille"
+                       [(ngModel)]="student.nom_de_famille"
+                       #nameFamille="ngModel" name="nom_de_famille"
+                >
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group has-feedback
+                {{lastName.errors && (lastName.dirty || lastName.touched) ? 'has-error' :''}}">
+                <label>Prénom</label>
+                <input type="text" class="form-control" placeholder="Prénom" name="last_name"
+                       [(ngModel)]="student.last_name"
+                       #lastName="ngModel" required>
+                <div class="form-control-feedback">
+                  <i class="icon-user-check text-muted"></i>
+                </div>
+              </div>
+              <label *ngIf="submitted&&!student.last_name" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Deuxiéme prénom</label>
+                <input type="text" class="form-control" placeholder="Deuxiéme prénom"
+                       [(ngModel)]="student.second_name"
+                       #secondName="ngModel" name="second_name"
+                >
               </div>
             </div>
           </div>
-        </form>
-        <!-- /registration form -->
+          <div class="row">
+            <div class="form-group" style="margin-left: 10px">
+              <label class="radio-inline">
+                <input [(ngModel)]="student.sex" value="Homme" type="radio" name="radio-inline-left"
+                       class="styled radioBox radioBox-sex"
+                       checked="checked">
+                Homme
+              </label>
+
+              <label class="radio-inline">
+                <input [(ngModel)]="student.sex" value="Femme" type="radio" name="radio-inline-left"
+                       class="styled radioBox radioBox-sex">
+                Femme
+              </label>
+              <label *ngIf="submitted&&!student.sex" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <h6>Lieu de naissance</h6>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Choisir pays</label>
+                <select name="country" class="select-pays-naissance">
+                  <option disabled value="0">Choisir pays</option>
+                  <option *ngFor="let item of countries" value="{{item.Code}}">
+                    {{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Choisir ville</label>
+                <select name="city" class="select-ville-naissance">
+                  <option disabled value="0">Choisir ville</option>
+                  <option *ngFor="let item of citiesNaissance" value="{{item.id_City}}">
+                    {{item.Name}}
+                  </option>
+                </select>
+                <label *ngIf="submitted&&!student.address_city" class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <!-- student.birthday -->
+              <div class="form-group">
+                <label>Date de naissance</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                  <input type="text" placeholder="Date de naissance"
+                         class="form-control  date_naissance">
+
+                </div>
+                <label *ngIf="submitted&&!student.birthday" class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+          </div>
 
 
-        <!-- Footer -->
-        <div *ngIf="!editAction" class="footer text-muted text-center">
-          &copy; 2017. <a href="#">Médecine Platforme</a> by <a href="http://www.vayetek.com"
-                                                                target="_blank">Vayetek</a>
+          <div class="row">
+            <h6>Adresse postale</h6>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Choisir pays</label>
+                <select name="country" class="select-pays">
+                  <option value="0">Choisir pays</option>
+                  <option *ngFor="let item of countries" value="{{item.Code}}">
+                    {{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Choisir ville</label>
+                <select name="city" class="select-ville">
+                  <option value="0">Choisir ville</option>
+                  <option *ngFor="let item of cities" value="{{item.id_City}}">
+                    {{item.Name}}
+                  </option>
+                </select>
+                <label *ngIf="submitted&&!student.address_city" class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Adresse</label>
+                <input type="text" class="form-control" placeholder="Adresse" name="adresse"
+                       [(ngModel)]="student.label_address"
+                       #adresse="ngModel">
+                <label *ngIf="submitted&&!student.label_address" class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Code postal</label>
+                <input type="text" class="form-control" placeholder="Code postal" name="postal_code"
+                       [(ngModel)]="student.postal_code"
+                       #postalCode="ngModel">
+
+                <label *ngIf="submitted&&!student.postal_code" class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>CIN</label>
+                <input type="text" class="form-control" placeholder="CIN" name="cin"
+                       [(ngModel)]="student.cin"
+                       #cin="ngModel" required>
+              </div>
+              <label *ngIf="submitted&&(!student.cin && !student.passport)" class="validation-error-label">
+                CIN ou Passport
+                sont
+                obligatoire.</label>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Passport</label>
+                <input type="text" class="form-control" placeholder="Passport" name="passport"
+                       [(ngModel)]="student.passport"
+                       #passport="ngModel" required>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Mobile(*)</label>
+                <input type="text" class="form-control" placeholder="Mobile(*)" name="mobile"
+                       [(ngModel)]="student.mobile"
+                       #mobile="ngModel" required>
+
+                <label *ngIf="submitted&&!student.mobile" class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Email(*)</label>
+                <input [disabled]="editAction" type="text" class="form-control" placeholder="Email(*)"
+                       name="email"
+                       [(ngModel)]="student.email"
+                       #mobile="ngModel" required>
+                <label *ngIf="submitted&&!student.email" class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Téléphone fixe</label>
+                <input type="text" class="form-control" placeholder="Téléphone fixe" name="phone"
+                       [(ngModel)]="student.phone"
+                       #mobile="ngModel" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <h6>Accés aux études médicales</h6>
+            <div class="form-group" style="margin-left: 10px">
+              <label class="radio-inline">
+                <input [(ngModel)]="student.oriented" value="1" type="radio" name="radio-inline-left"
+                       class="styled radioBox radioBox-oriented"
+                       checked="checked">
+                Orientation de premiére intention
+              </label>
+
+              <label class="radio-inline">
+                <input [(ngModel)]="student.oriented" value="2" type="radio" name="radio-inline-left"
+                       class="styled radioBox radioBox-oriented">
+                Réorientation
+              </label>
+              <label *ngIf="submitted&&!student.oriented" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+            <div class="form-group">
+              <label>Année universitaire</label>
+              <select name="country" class="select-university-year">
+                <option value="0" disabled>Choisir l'année universitaire</option>
+                <option *ngFor="let item of uni_years" value="{{item}}">
+                  {{item}}
+                </option>
+              </select>
+              <label *ngIf="submitted&&!student.study_access_year" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+
+          </div>
+
+
+          <div class="text-right">
+            <button *ngIf="!editAction" (click)="registerStudent()"
+                    class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+              class="icon-plus3"></i></b> Create account
+            </button>
+            <button *ngIf="editAction"
+                    class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+              class="icon-close2"></i></b> Annuler
+            </button>
+            <button *ngIf="editAction" (click)="registerStudent()"
+                    class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+              class="icon-pen"></i></b> Modifier
+            </button>
+          </div>
         </div>
-        <!-- /footer -->
-
       </div>
-      <!-- /content area -->
-
     </div>
-    <!-- /main content -->
-
   </div>
-  <!-- /page content -->
-
-</div>
-<!-- /page container -->
+</form>
+<!-- /registration form -->

@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Student} from "../../../shared/models/student";
 import {StorageService} from "../../../shared/services/storage.service";
 import {Utils} from "../../../shared/utils";
@@ -15,12 +15,14 @@ import {UserService} from "../../../shared/services/user.service";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
+  selector: 'app-student-fonction',
   templateUrl: 'fonction-student-file.component.html',
   styleUrls: [],
 
 })
 export class FonctionStudentFileComponent implements OnInit {
 
+  @Input()
   student: Student;
   submitted: boolean;
   busy: Subscription;
@@ -32,7 +34,6 @@ export class FonctionStudentFileComponent implements OnInit {
 
   ngOnInit() {
     const baseContext = this;
-    this.student = <Student>this.stoarageService.read("student");
     this.editAction = this.student.fonctions.length !== 0;
 
     if (!this.editAction) {
@@ -141,19 +142,16 @@ export class FonctionStudentFileComponent implements OnInit {
     if (!this.isChampFulled()) {
       return;
     }
-    this.busy = this.studentFileServie.editFonctionInformation(this.student.fonctions)
+    this.busy = this.studentFileServie.editFonctionInformation(this.student.id_student, this.student.fonctions)
       .subscribe(
         (data) => {
           this.student.fonctions = data;
-          this.stoarageService.write("student", this.student);
-
           swal({
             title: "Succès!",
             text: 'Fonctions ' + (baseContext.editAction ? 'Editée' : 'ajoutée') + ' avec succées',
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/student-file"]);
         },
         (error) => {
 

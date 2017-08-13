@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {UserService} from "../../../shared/services/user.service";
 import {Student} from "../../../shared/models/student";
 import {Subscription} from "rxjs/Subscription";
@@ -12,10 +12,12 @@ declare var jQuery;
 declare var swal;
 
 @Component({
+  selector: 'app-student-doctaurat',
   templateUrl: 'doctaurat-student-file.component.html'
 })
 export class DoctauratStudentFileComponent implements OnInit {
 
+  @Input()
   student: Student;
   busy: Subscription;
   mentions: Array<Mention>;
@@ -25,15 +27,13 @@ export class DoctauratStudentFileComponent implements OnInit {
 
   constructor(private userService: UserService, private studentFileServie: StudentFileService,
               private storageService: StorageService, private router: Router) {
+  }
 
+  ngOnInit(): void {
     this.isEditAction = this.student.doctaurat !== null;
     if (!this.isEditAction) {
       this.student.doctaurat = new Doctaurat();
     }
-    console.log(this.student.doctaurat.numero);
-  }
-
-  ngOnInit(): void {
     this.initUniversities();
     this.initMentions();
     this.initDatePicker();
@@ -82,19 +82,16 @@ export class DoctauratStudentFileComponent implements OnInit {
   submitdoctaurat() {
     this.submitted = true;
     const baseContext = this;
-    this.busy = this.studentFileServie.editDoctaurat(this.student.doctaurat)
+    this.busy = this.studentFileServie.editDoctaurat(this.student.id_student, this.student.doctaurat)
       .subscribe(
         (data) => {
-
-          this.storageService.write("student", this.student);
-
           swal({
             title: "Succès!",
             text: 'Partie Doctaurat ' + (baseContext.isEditAction ? 'Editée' : 'ajoutée') + ' avec succés',
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/student-file"]);
+
         },
         (error) => {
 

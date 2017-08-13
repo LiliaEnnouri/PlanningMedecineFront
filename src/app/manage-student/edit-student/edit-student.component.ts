@@ -15,15 +15,15 @@ export class EditStudentComponent implements OnInit {
   busy: Subscription;
 
   constructor(private  route: ActivatedRoute, private studentService: StudentService) {
-    this.student = new Student();
+
   }
 
   ngOnInit() {
     const baseContext = this;
     this.route.params.subscribe(
       params => {
-        this.student.id_student = +params["studentId"];
-        this.studentService.getStudentById(this.student.id_student).subscribe(data => {
+        const id_student = +params["studentId"];
+        this.busy = this.studentService.getStudentById(id_student).subscribe(data => {
           this.student = data;
         });
       });

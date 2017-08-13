@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Student} from "../../../shared/models/student";
 import {StorageService} from "../../../shared/services/storage.service";
 import {Utils} from "../../../shared/utils";
@@ -12,10 +12,12 @@ import {UserService} from "../../../shared/services/user.service";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
+  selector: 'app-student-bac-info',
   templateUrl: 'bac-info.component.html',
   styleUrls: [],
 })
 export class BacInfoComponent implements OnInit {
+  @Input()
   student: Student;
   submitted: boolean;
   years: number[] = [];
@@ -26,7 +28,6 @@ export class BacInfoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.student = <Student>this.stoarageService.read("student");
     this.editAction = this.student.bac != null;
     if (!this.editAction) {
       this.student.bac = new Bac();
@@ -57,20 +58,18 @@ export class BacInfoComponent implements OnInit {
     }
     bac.id_student = this.student.id_student;
     const baseContext = this;
-    this.busy = this.studentFileService.editBacInformation(bac)
+    this.busy = this.studentFileService.editBacInformation(this.student.id_student, bac)
       .subscribe(
         (data) => {
           data.id_student = this.student.id_student;
           this.student.bac = data;
-          this.stoarageService.write("student", this.student);
-
           swal({
             title: "Succès!",
             text: 'Bac ' + baseContext.editAction ? 'Editée' : 'ajoutée' + ' avec succées',
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/student-file"]);
+
         },
         (error) => {
 
