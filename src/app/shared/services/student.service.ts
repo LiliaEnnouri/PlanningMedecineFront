@@ -23,7 +23,6 @@ export class StudentService extends GenericService {
     const url = Config.baseUrl + '/admin/student/' + studentId + '/status';
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.post(url, {
-      status: 3,
       administration_review: administrationReview
     }, {
       headers: this.headers
@@ -33,7 +32,7 @@ export class StudentService extends GenericService {
   }
 
   deleteStudent(studentId: number) {
-    const url = Config.baseUrl + '/admin/student/' + studentId ;
+    const url = Config.baseUrl + '/admin/student/' + studentId;
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.delete(url, {
       headers: this.headers
@@ -42,17 +41,28 @@ export class StudentService extends GenericService {
       .catch(this.handleErrors);
   }
 
+
   sendMail(studentId:number , content: string) {
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    const url = Config.baseUrl + "/admin/mail/" + studentId  ;
+    const url = Config.baseUrl + "/admin/mail/" + studentId;
 
-    return this.http.post(url, {"content" : content},
+    return this.http.post(url, {"content": content},
       {
         headers: this.headers
       }
     )
       .catch(this.handleErrors);
 
+  }
+
+  getStudentById(studentId: number) {
+    const url = Config.baseUrl + '/admin/student/' + studentId;
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
 
   }
 }

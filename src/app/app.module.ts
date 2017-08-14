@@ -17,9 +17,11 @@ import {HttpModule} from "@angular/http";
 import {FullLayoutComponent} from "./layouts/full-layout.component";
 import {StudentService} from "./shared/services/student.service";
 import {ManageStudentModule} from "./manage-student/manage-student.module";
-import {BoiteReclamationComponent} from "./support/boite-reclamation/boite-reclamation.component";
 import {SupportModule} from "./support/support.module";
 import {ReclamationService} from "./shared/services/reclamation.service";
+import {StudentFileService} from "./shared/services/student-file.service";
+import {InscriptionService} from "./shared/services/inscription.service";
+import {AdminService} from "./shared/services/admin.service";
 
 @NgModule({
   declarations: [
@@ -45,8 +47,10 @@ import {ReclamationService} from "./shared/services/reclamation.service";
     StorageService,
     UserService,
     StudentService,
-    ReclamationService
-
+    ReclamationService,
+    StudentFileService,
+    InscriptionService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

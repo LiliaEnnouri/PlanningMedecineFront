@@ -1,0 +1,110 @@
+<!-- Registration form -->
+<form #registerForm="ngForm" class="form-validate" [ngBusy]="busy">
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+      <div class="panel registration-form">
+        <div class="panel-body">
+          <div class="text-center">
+            <h5 class="content-group-lg"> Baccalauréat
+            </h5>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Année du bac</label>
+                <select name="country" class="select-year">
+                  <option value="0">Année du bac</option>
+                  <option *ngFor="let year of years" value="{{year}}">
+                    {{year}}
+                  </option>
+                </select>
+              </div>
+              <label *ngIf="submitted&&!student.bac.year" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="form-group has-feedback
+{{avreage.errors && (avreage.dirty || avreage.touched) ? 'has-error' :''}}">
+                <label>Moyenne</label>
+                <input type="number" class="form-control" placeholder="Moyenne"
+                       [(ngModel)]="student.bac.average"
+                       #avreage="ngModel" name="average"
+                       required>
+              </div>
+              <label *ngIf="submitted&&!student.bac.average" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <div class="form-group has-feedback
+{{scbool.errors && (scbool.dirty || scbool.touched) ? 'has-error' :''}}">
+                <label>Lycée</label>
+                <input type="text" class="form-control" placeholder="Lycée"
+                       [(ngModel)]="student.bac.school"
+                       #scbool="ngModel" name="scbool"
+                       required>
+              </div>
+              <label *ngIf="submitted&&!student.bac.school" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <div class="form-group">
+                <label>Choisir la section</label>
+                <select name="country" class="select-type">
+                  <option value="0">Choisir la section</option>
+                  <option *ngFor="let type of types" value="{{type.id_type}}">
+                    {{type.label}}
+                  </option>
+                </select>
+              </div>
+              <label *ngIf="submitted&&!student.bac.id_type" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Choisir la mention</label>
+                <select name="country" class="select-mention">
+                  <option value="0">Choisir la mention</option>
+                  <option *ngFor="let mention of mentions" value="{{mention.id_mention}}">
+                    {{mention.label}}
+                  </option>
+                </select>
+              </div>
+              <label *ngIf="submitted&&!student.bac.id_mention" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+          </div>
+
+          <div class="text-right">
+            <button class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+              class="icon-close2"></i></b> Annuler
+            </button>
+            <button (click)="validationBac()"
+                    class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+              class="icon-pen"></i></b> Modifier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- /registration form -->

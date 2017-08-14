@@ -1,0 +1,187 @@
+<!-- Page container -->
+<div class="page-container">
+
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+
+      <!-- Content area -->
+      <div class="content" [ngBusy]="busy">
+
+        <!-- Registration form -->
+        <form #registerForm="ngForm" class="form-validate">
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+              <div class="panel registration-form">
+                <div class="panel-body">
+                  <div class="text-center">
+                    <h4 class="content-group-lg"> Fonction(s) après le diplôme
+                    </h4>
+                  </div>
+
+
+                  <div *ngFor="let fonction of student.fonctions;let i = index">
+                    <h4>Fonction°{{i+1}}</h4>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group has-feedback
+{{employer.errors && (employer.dirty || employer.touched) ? 'has-error' :''}}">
+                          <label>Employeur :</label>
+                          <input [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+                                 placeholder="Employeur"
+                                 [(ngModel)]="fonction.employer"
+                                 #employer="ngModel" name="first_name"
+                                 required>
+                        </div>
+                        <label *ngIf="submitted&&!fonction.employer" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group has-feedback
+{{nature.errors && (nature.dirty || nature.touched) ? 'has-error' :''}}">
+                          <label>Nature :</label>
+                          <input [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+                                 placeholder="Nature"
+                                 [(ngModel)]="fonction.nature"
+                                 #nature="ngModel" name="nature"
+                                 required>
+                        </div>
+                        <label *ngIf="submitted&&!fonction.nature" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Date de prise de fonction :</label>
+                        <div class="input-group">
+
+                          <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                          <input type="text" placeholder="Date de prise de fonction"
+                                 class="form-control  date-inaug_{{i}}">
+
+                        </div>
+                        <label *ngIf="submitted&&!fonction.date_of_inauguration" class="validation-error-label">Ce
+                          champs
+                          est
+                          obligatoire.</label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <h5>Adresse</h5>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Pays :</label>
+                          <select name="country" class="select-pays_{{i}}">
+                            <option value="0">Choisir le pays</option>
+                            <option *ngFor="let country of countries" value="{{country.Code}}">
+                              {{country.Name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Ville :</label>
+                          <select name="country" class="select-ville_{{i}}">
+                            <option value="0">Choisir la ville</option>
+                            <option *ngFor="let city of fonction.cities" value="{{city.id_City}}">
+                              {{city.Name}}
+                            </option>
+                          </select>
+                        </div>
+                        <label
+                          *ngIf="submitted&&((!fonction.address&&!fonction.address?.address_city)||(!fonction.address&& !fonction.address.city))"
+                          class="validation-error-label">Ce
+                          champs
+                          est
+                          obligatoire.</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Adresse :</label>
+                          <input [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+                                 placeholder="Adresse"
+                                 [(ngModel)]="fonction.address.label_address"
+                                 name="Adresse"
+                          >
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Code postal :</label>
+                          <input [ngModelOptions]="{standalone: true}" type="number" class="form-control"
+                                 [(ngModel)]="fonction.address.postal_code"
+                                 placeholder="Code postal"
+                                 name="postal"
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6  text-right" style="margin-bottom: 15px">
+                      <button (click)="removeStudy()"
+                              class="btn bg-danger btn-labeled btn-labeled-right ml-10"><b><i
+                        class="icon-cross2"></i></b> Supprimer
+                      </button>
+                    </div>
+                    <div class="col-md-6 text-right" style="margin-bottom: 15px">
+                      <button (click)="addStudy()"
+                              class="btn bg-blue btn-labeled btn-labeled-right ml-10"><b><i
+                        class="icon-plus3"></i></b> Ajouter
+                      </button>
+                    </div>
+
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-6  text-right" style="margin-bottom: 15px">
+                      <button
+                              class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+                        class="icon-close2"></i></b> Annuler
+                      </button>
+                    </div>
+                    <div class="col-md-6 text-right" style="margin-bottom: 15px">
+                      <button (click)="validationFonctions()"
+                              class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+                        class="icon-pen"></i></b> Modifier
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+        </form>
+        <!-- /registration form -->
+
+
+      </div>
+      <!-- /content area -->
+
+    </div>
+    <!-- /main content -->
+
+  </div>
+  <!-- /page content -->
+
+</div>
+<!-- /page container -->
