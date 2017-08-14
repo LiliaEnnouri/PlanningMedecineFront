@@ -12,9 +12,10 @@ declare let swal: any;
   styleUrls: ['./list-student.component.css']
 })
 export class ListStudentComponent implements OnInit {
-
+  selectedStudent:Student= new Student();
   students: Array<Student>;
   busy: Subscription;
+  emailToSend: string;
 
   constructor(private studentService: StudentService) {
   }
@@ -42,6 +43,11 @@ export class ListStudentComponent implements OnInit {
     });
   }
 
+  openModalEmail(index : number){
+    this.selectedStudent= this.students[index];
+    jQuery("#modal_form_vertical").modal();
+
+  }
   deleteStudent(index: number) {
     const baseContext = this;
     const student: Student = this.students[index];
@@ -80,4 +86,17 @@ export class ListStudentComponent implements OnInit {
       });
   }
 
+  sendMail(){
+    const baseContext = this;
+    this.busy = this.studentService.sendMail(baseContext.selectedStudent.id_student, baseContext.emailToSend).subscribe(data => {
+      swal({
+        title: "Succés!",
+        text: 'Message envoyé avec succès',
+        confirmButtonColor: "#66BB6A",
+        type: "success"
+      });
+    });
+    jQuery("#modal_form_vertical").modal("hide");
+
+  }
 }

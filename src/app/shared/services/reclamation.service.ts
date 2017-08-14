@@ -15,7 +15,7 @@ export class ReclamationService extends GenericService {
   }
 
   getAllReclamations() {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("token"));
+    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/reclamation";
 
     return this.http.get(url, {
@@ -25,20 +25,11 @@ export class ReclamationService extends GenericService {
       .catch(this.handleErrors);
   }
 
-  addReclamation(reclamation: Reclamation) {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("token"));
-    const url = Config.baseUrl + "/reclamation/add";
 
-    return this.http.post(url, JSON.stringify(reclamation), {
-      headers: this.headers
-    })
-      .map(res => res.json())
-      .catch(this.handleErrors);
-  }
 
   updateStatus(reclamationId:number , status: number){
 
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("token"));
+    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/reclamation/status/" + reclamationId  ;
 
     return this.http.put(url, {"status" : status,"template" : "emailReponseReclamationAuto"},
@@ -49,7 +40,7 @@ export class ReclamationService extends GenericService {
       .catch(this.handleErrors);
   }
   sendRepMail(reclamationId:number , content: string) {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("token"));
+    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/reclamation/mail/" + reclamationId  ;
 
     return this.http.post(url, {"content" : content},

@@ -25,7 +25,7 @@ export class BoiteReclamationComponent implements OnInit {
 
   updateStatus(index, reclamationId, status) {
 
-    this.reclamationService.updateStatus(reclamationId, status).subscribe(data => {
+    this.busy =this.reclamationService.updateStatus(reclamationId, status).subscribe(data => {
       swal({
         title: "Succés!",
         text: 'l\'etat de la réclamation est changé avec succès',

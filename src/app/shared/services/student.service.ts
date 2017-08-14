@@ -41,4 +41,18 @@ export class StudentService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  sendMail(studentId:number , content: string) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/mail/" + studentId  ;
+
+    return this.http.post(url, {"content" : content},
+      {
+        headers: this.headers
+      }
+    )
+      .catch(this.handleErrors);
+
+
+  }
 }
