@@ -9,6 +9,8 @@ import {Type} from "../../../shared/models/type";
 import {Subscription} from "rxjs/Subscription";
 import {Router} from "@angular/router";
 import {UserService} from "../../../shared/services/user.service";
+import {Country} from "../../../shared/models/country";
+import {City} from "../../../shared/models/city";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -26,6 +28,9 @@ export class BacInfoComponent implements OnInit {
   editAction: boolean;
   busy: Subscription;
 
+  countries: Country[] = [];
+  cities: City[] = [];
+
   ngOnInit() {
 
     this.editAction = this.student.bac != null;
@@ -36,8 +41,10 @@ export class BacInfoComponent implements OnInit {
     this.initializeYearSelect();
     this.initializeTypeSelect();
     this.initializeMentionSelect();
+    this.initializeCountrySelect();
     this.getAllTypes();
     this.getAllMentions();
+    this.getAllCountries();
 
   }
 
@@ -151,6 +158,60 @@ export class BacInfoComponent implements OnInit {
     selectMention.on("change", function () {
       baseContext.student.bac.id_mention = +jQuery(this).val();
     });
+  }
+
+  private getAllCountries() {
+    const baseContext = this;
+    const paysSelect = jQuery(".select-pays");
+    this.studentFileService.getAllCountries()
+      .subscribe(
+        (data) => {
+          this.countries = data;
+          if (this.editAction) {
+            setTimeout(function () {
+              paysSelect.val(baseContext.student.bac.city.country.Code).trigger("change");
+            }, 50);
+          }
+        },
+        (error) => {
+
+        }
+      )
+  }
+
+
+  public initializeCountrySelect() {
+    const baseContext = this;
+    const paysSelect = jQuery(".select-pays");
+    const villeSelect = jQuery(".select-ville");
+
+
+    paysSelect.select2();
+    villeSelect.select2();
+
+
+    villeSelect.on("change", function () {
+      baseContext.student.bac.id_city = +villeSelect.val();
+    });
+    paysSelect.on("change", function () {
+      baseContext.studentFileService.getCitiesByCountry(paysSelect.val())
+        .subscribe(
+          (data) => {
+            baseContext.cities = data;
+
+            if (baseContext.editAction) {
+              setTimeout(function () {
+                villeSelect.val(baseContext.student.bac.id_city).trigger("change");
+              }, 50);
+            }
+          },
+          (error) => {
+
+          }
+        )
+    })
+
+
   }
 }
 
