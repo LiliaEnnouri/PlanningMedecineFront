@@ -83,7 +83,7 @@
                 </li>
                 <li><a [routerLink]="'/student/'+student.id_student+'/edit'"><i class="icon-pencil"></i>Editer</a></li>
                 <li><a (click)="deleteStudent(i)"><i class="icon-close2"></i>Supprimer</a></li>
-                <li><a (click)="openModalEmail(i)"><i class="icon-close2"></i>Envoyer un email</a></li>
+                <li><a (click)="openModalEmail(i)"><i class="icon-mail5"></i>Envoyer un email</a></li>
               </ul>
             </li>
           </ul>
@@ -102,7 +102,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Ticket de réclamation</h5>
+        <h5 class="modal-title">Envoyer un email</h5>
       </div>
 
       <div class="modal-body">
