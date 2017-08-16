@@ -1,5 +1,5 @@
 <!-- Registration form -->
-<form #registerForm="ngForm" class="form-validate" [ngBusy]="busy">
+<form #registerForm="ngForm" class="form-validate">
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3">
       <div class="panel registration-form">
@@ -42,7 +42,7 @@
           </div>
           <div class="row">
 
-            <div class="col-md-12">
+            <div class="col-md-4">
 
               <div class="form-group has-feedback
 {{scbool.errors && (scbool.dirty || scbool.touched) ? 'has-error' :''}}">
@@ -53,6 +53,32 @@
                        required>
               </div>
               <label *ngIf="submitted&&!student.bac.school" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Pays :</label>
+                <select name="country" class="select-pays">
+                  <option value="0">Choisir le pays</option>
+                  <option *ngFor="let country of countries" value="{{country.Code}}">
+                    {{country.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Ville :</label>
+                <select name="country" class="select-ville">
+                  <option value="0">Choisir la ville</option>
+                  <option *ngFor="let city of cities" value="{{city.id_City}}">
+                    {{city.Name}}
+                  </option>
+                </select>
+              </div>
+              <label *ngIf="submitted&&!student.bac.id_mention" class="validation-error-label">Ce champs
                 est
                 obligatoire.</label>
             </div>
@@ -94,12 +120,13 @@
           </div>
 
           <div class="text-right">
-            <button class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+            <button [routerLink]="['/student-file']"
+                    class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
               class="icon-close2"></i></b> Annuler
             </button>
             <button (click)="validationBac()"
                     class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
-              class="icon-pen"></i></b> Modifier
+              class="icon-pen2"></i></b> Valider
             </button>
           </div>
         </div>

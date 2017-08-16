@@ -209,4 +209,22 @@ export class StudentFileService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+  getAllCountries() {
+    const url = Config.baseUrl + "/geo/countries";
+
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+  getCitiesByCountry(countryId: string) {
+    const url = Config.baseUrl + "/geo/countries/" + countryId + "/cities";
+
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }

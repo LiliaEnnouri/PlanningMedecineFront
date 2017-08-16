@@ -53,14 +53,20 @@ export class GeneralInfoComponent implements OnInit {
   initializeRadioBox() {
     // Default initialization
     const baseContext = this;
-    jQuery(".radioBox").uniform({
+    jQuery(".radioBox-sex").uniform({
       radioClass: 'choice'
     });
+    jQuery(".radioBox-oriented").uniform({
+      radioClass: 'choice'
+    });
+
     if (baseContext.student.sex) {
-      jQuery(".radioBox-sex").val(baseContext.student.sex).uniform("refresh");
+      jQuery('#' + baseContext.student.sex).prop('checked', true);
+      jQuery.uniform.update('#' + baseContext.student.sex);
     }
     if (baseContext.student.oriented) {
-      jQuery(".radioBox-oriented").val(baseContext.student.oriented).uniform("refresh");
+      jQuery('#' + baseContext.student.oriented).prop('checked', true);
+      jQuery.uniform.update('#' + baseContext.student.oriented);
     }
     jQuery(".radioBox-sex").on("change", function () {
       baseContext.student.sex = jQuery(this).val();

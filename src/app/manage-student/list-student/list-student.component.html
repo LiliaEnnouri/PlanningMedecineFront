@@ -55,7 +55,7 @@
               <a href="#"
                  class="label {{student.administration_review===0?'bg-grey':student.administration_review===-1?'bg-danger':student.administration_review===1?'bg-green':'bg-warning'}}  dropdown-toggle"
                  data-toggle="dropdown">{{student.administration_review===0?"En
-                attente":student.administration_review===-1?'Invalid':student.administration_review===-1?'Valid':'A
+                attente":student.administration_review===-1?'Invalid':student.administration_review===1?'Valid':'A
                 reviser'}}
                 <span class="caret"></span></a>
               <ul class="dropdown-menu dropdown-menu-right">
@@ -115,30 +115,34 @@
                 <div class="panel-body">
                   <div class="form-group">
                     <label>Destinataire:</label>
-                    <input type="text" [(ngModel)]="selectedStudent.first_name +' '+ selectedStudent.last_name" disabled="disabled"
-                           [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Entrez votre nom et prénom">
+                    <input type="text" [(ngModel)]="selectedStudent.first_name +' '+ selectedStudent.last_name"
+                           disabled="disabled"
+                           [ngModelOptions]="{standalone: true}" class="form-control"
+                           placeholder="Entrez votre nom et prénom">
                   </div>
 
                   <div class="form-group">
                     <label>Email:</label>
                     <input type="text" [(ngModel)]="selectedStudent.email" disabled="disabled"
-                           [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Entrez votre adresse email">
+                           [ngModelOptions]="{standalone: true}" class="form-control"
+                           placeholder="Entrez votre adresse email">
                   </div>
 
                   <div class="form-group">
                     <label>Votre Message:</label>
-                    <textarea  rows="5" cols="5" [(ngModel)]="emailToSend" name="fhizf" class="form-control" placeholder="Entrez votre texte ici"></textarea>
+                    <textarea rows="5" cols="5" [(ngModel)]="emailToSend" name="fhizf" class="form-control"
+                              placeholder="Entrez votre texte ici"></textarea>
                   </div>
 
                   <div class="text-right">
-                    <button type="submit" (click)="sendMail()" class="btn btn-primary">Envoyer<i class="icon-arrow-right14 position-right"></i></button>
+                    <button type="submit" (click)="sendMail()" class="btn btn-primary">Envoyer<i
+                      class="icon-arrow-right14 position-right"></i></button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </form>
-
 
 
       </div>
