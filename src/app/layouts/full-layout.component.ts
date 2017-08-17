@@ -39,7 +39,7 @@ export class FullLayoutComponent implements OnInit {
         icon: "icon-pencil3",
         childrens: [
           {
-            name: "Liste",
+            name: "Liste des dossiers",
             url: "/student/list"
           }]
       },

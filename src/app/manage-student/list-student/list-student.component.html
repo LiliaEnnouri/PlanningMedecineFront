@@ -9,7 +9,7 @@
         <div class=" checkbox-switchery reviewOn">
           <label>
             <input type="checkbox" class="switch" [checked]="isReviewingMode">
-            Reviewing Students
+           Entrain de traiter les dossiers
           </label>
         </div>
       </div>
@@ -23,9 +23,9 @@
         <th>Nom</th>
         <th>Prénom</th>
         <th>CIN</th>
-        <th>email</th>
-        <th>birthday</th>
-        <th>Status</th>
+        <th>E-mail</th>
+        <th>Date de création</th>
+        <th>Etat</th>
         <th class="text-center">Actions</th>
       </tr>
       </thead>
@@ -46,7 +46,7 @@
           {{student.email}}
         </td>
         <td>
-          {{student.birthday}}
+          {{student.created_at}}
         </td>
         <td>
           <ul class="list list-unstyled text-right">

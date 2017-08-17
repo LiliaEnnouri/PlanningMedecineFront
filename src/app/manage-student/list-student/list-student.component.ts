@@ -95,7 +95,7 @@ export class ListStudentComponent implements OnInit {
         } else {
           swal({
             title: "Annulé",
-            text: "Vous avez annuler cette action",
+            text: "Vous avez annulé cette action",
             confirmButtonColor: "#2196F3",
             type: "error"
           });
