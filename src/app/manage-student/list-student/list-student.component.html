@@ -6,17 +6,18 @@
     <div class="panel-heading">
       <h6 class="panel-title">Liste étudiant</h6>
       <div class="heading-elements">
-        <ul class="icons-list">
-          <li><a data-action="collapse"></a></li>
-        </ul>
+        <div class=" checkbox-switchery reviewOn">
+          <label>
+
+            <input type="checkbox" class="switch" [(ngModel)]="isReviewingMode">
+            Entrain de traiter les dossiers
+
+          </label>
+        </div>
       </div>
     </div>
-    <div class="checkbox checkbox-switchery">
-      <label>
-        <input type="checkbox" class="switch" [checked]="isReviewingMode">
-        Reviewing Students
-      </label>
-    </div>
+    <br>
+
     <table class="table datatable-basic" [ngBusy]="busy">
       <thead>
       <tr>
@@ -24,9 +25,9 @@
         <th>Nom</th>
         <th>Prénom</th>
         <th>CIN</th>
-        <th>email</th>
-        <th>birthday</th>
-        <th>Status</th>
+        <th>E-mail</th>
+        <th>Date de création</th>
+        <th>Etat</th>
         <th class="text-center">Actions</th>
       </tr>
       </thead>
@@ -47,7 +48,7 @@
           {{student.email}}
         </td>
         <td>
-          {{student.birthday}}
+          {{student.created_at}}
         </td>
         <td>
           <ul class="list list-unstyled text-right">

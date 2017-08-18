@@ -14,7 +14,7 @@ declare let swal: any;
   styleUrls: ['./list-student.component.css']
 })
 export class ListStudentComponent implements OnInit {
-  selectedStudent:Student= new Student();
+  selectedStudent: Student = new Student();
   students: Array<Student>;
   busy: Subscription;
   emailToSend: string;
@@ -42,7 +42,7 @@ export class ListStudentComponent implements OnInit {
           console.log('finishReviewingStudents');
         });
       }
-      baseContext.storageService.write('isReviewingMode', data);
+      baseContext.storageService.write('isReviewingMode', data.toString());
     });
 
   }
@@ -60,11 +60,12 @@ export class ListStudentComponent implements OnInit {
     });
   }
 
-  openModalEmail(index : number){
-    this.selectedStudent= this.students[index];
+  openModalEmail(index: number) {
+    this.selectedStudent = this.students[index];
     jQuery("#modal_form_vertical").modal();
 
   }
+
   deleteStudent(index: number) {
     const baseContext = this;
     const student: Student = this.students[index];
@@ -95,7 +96,7 @@ export class ListStudentComponent implements OnInit {
         } else {
           swal({
             title: "Annulé",
-            text: "Vous avez annuler cette action",
+            text: "Vous avez annulé cette action",
             confirmButtonColor: "#2196F3",
             type: "error"
           });
@@ -103,7 +104,7 @@ export class ListStudentComponent implements OnInit {
       });
   }
 
-  sendMail(){
+  sendMail() {
     const baseContext = this;
     this.busy = this.studentService.sendMail(baseContext.selectedStudent.id_student, baseContext.emailToSend).subscribe(data => {
       swal({

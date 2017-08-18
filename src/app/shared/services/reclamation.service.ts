@@ -52,4 +52,18 @@ export class ReclamationService extends GenericService {
 
 
   }
+
+
+  getNumberOfReclamations() {
+    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const url = Config.baseUrl + "/reclamation/number";
+
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+
 }

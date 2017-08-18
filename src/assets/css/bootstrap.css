@@ -19,6 +19,16 @@
  *
  * ---------------------------------------------------------------------------- */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+.reviewOn{
+  margin-top: 3px;
+}
+.imglogo{
+  margin-top: 4px;
+  height: 36px;
+  margin-left: -19px;
+  width: 222px;
+}
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
