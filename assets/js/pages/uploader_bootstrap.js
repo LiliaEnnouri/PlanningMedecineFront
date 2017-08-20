@@ -230,7 +230,7 @@ $(function () {
   //
 
   $(".file-input-ajax").fileinput({
-    uploadUrl: "http://137.74.165.25:8082", // server upload action
+    uploadUrl: "http://wsstudentfile.vayetek.com", // server upload action
     uploadAsync: true,
     maxFileCount: 5,
     initialPreview: [],
