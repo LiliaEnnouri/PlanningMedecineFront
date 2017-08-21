@@ -25,10 +25,10 @@ export class Student {
   public email: string;
   public oriented?: boolean | number;
   public password: string;
-  public dossier_status?: number;
-  public administration_review?: number;
+
   public qr_code: string;
   public img: StudentPhoto;
+  public imgs_cin: StudentCin[];
   public label_address?: string;
   public address_city: number;
   public postal_code?: number;
@@ -38,6 +38,9 @@ export class Student {
   public doctaurat: Doctaurat;
   public adress?: Adress;
 
+  public dossier_status?: number;
+  public administration_review?: number;
+
 
   public residanat: Residanat;
 
@@ -46,9 +49,34 @@ export class Student {
   public city_birth: City;
   public birthday_city: number;
   public id_origin_university: number;
+
+  public isNew: boolean;
+  extrait_naissance: StudentExtraitNaissance;
+  attestation_orientation: StudentAttestationOrientation;
 }
+
 export class StudentPhoto {
   id_Student_Photo: number;
+  id_Student: number;
+  path: string;
+  size: number;
+}
+export class StudentCin {
+  id_Student_Cin: number;
+  id_Student: number;
+  path: string;
+  size: number;
+}
+
+export class StudentExtraitNaissance {
+  id_Student_Extrait_Naissance: number;
+  id_Student: number;
+  path: string;
+  size: number;
+}
+
+export class StudentAttestationOrientation {
+  id_Student_Attestation_Orientation: number;
   id_Student: number;
   path: string;
   size: number;

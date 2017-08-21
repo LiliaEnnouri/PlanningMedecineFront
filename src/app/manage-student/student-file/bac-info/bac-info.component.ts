@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Student} from "../../../shared/models/student";
 import {StorageService} from "../../../shared/services/storage.service";
-import {Utils} from "../../../shared/utils";
+import {InitialPreviewConfig, Utils} from "../../../shared/utils";
 import {Bac} from "app/shared/models/bac";
 import {StudentFileService} from "../../../shared/services/student-file.service";
 import {Mention} from "../../../shared/models/mention";
@@ -11,8 +11,8 @@ import {Router} from "@angular/router";
 import {UserService} from "../../../shared/services/user.service";
 import {Country} from "../../../shared/models/country";
 import {City} from "../../../shared/models/city";
-import {SectionValidation} from "../../../shared/models/section-validation";
 import {AdminService} from "../../../shared/services/admin.service";
+import {Config} from "../../../shared/config";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -33,7 +33,6 @@ export class BacInfoComponent implements OnInit {
   countries: Country[] = [];
   cities: City[] = [];
 
-  statusSection: SectionValidation;
 
   ngOnInit() {
 
@@ -50,15 +49,45 @@ export class BacInfoComponent implements OnInit {
     this.getAllMentions();
     this.getAllCountries();
 
-    /* Admin special */
-    this.statusSection = {
-      id_section: 1,
-      id_student: 1,
-      status: 0,
-      id_section_validation: 1,
-      note: ""
+
+    if (!this.student.bac.medias) {
+      Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/bac/upload",
+        this.userService.getTokent(), ".file-input-student-bac-medias", 1);
+      this.student.bac.medias = [];
+    } else {
+      this.initStudentBacMedias();
     }
-    // Utils.getStatusSection(this.student.validations, 2);
+
+    const baseContext = this;
+    jQuery('.file-input-student-bac-medias').change(function () {
+      console.log('file input change');
+    }).on('fileuploaded', function (event, data, previewId, index) {
+      if (!baseContext.student.bac.medias) {
+        baseContext.student.bac.medias = [];
+      }
+      baseContext.student.bac.medias.push(data.response.media);
+      swal({
+        title: "Succés!",
+        text: 'Vous avez ajouté une photo de votre BAC',
+        confirmButtonColor: "#66BB6A",
+        type: "success"
+      });
+    }).on('filedeleted', function (event, key, jqXHR, data) {
+      const medias = [];
+      baseContext.student.bac.medias.forEach(function (media) {
+        medias.push(media.path);
+      });
+      const index = medias.indexOf(jqXHR.responseJSON.media, 0);
+      if (index > -1) {
+        baseContext.student.bac.medias.splice(index, 1);
+      }
+      swal({
+        title: "Succés!",
+        text: 'Vous avez supprimé une des photos de votre BAC',
+        confirmButtonColor: "#66BB6A",
+        type: "success"
+      });
+    });
 
   }
 
@@ -230,21 +259,23 @@ export class BacInfoComponent implements OnInit {
   }
 
 
-  /* Admin Special */
-  changeSectionStatus(status, note?: string) {
-    this.statusSection.status = status;
-    if (status === 2 && !note) {
-      return;
-    }
-    this.adminService.changeSectionStatus(this.statusSection.id_student, this.statusSection.id_section, status, note)
-      .subscribe(
-        (data) => {
-          console.log(data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
+  private initStudentBacMedias() {
+    const medias = [];
+    const inputMedias = [];
+    const initialPreviewConfig: InitialPreviewConfig[] = [];
+    this.student.bac.medias.forEach(function (media) {
+      medias.push(media.path);
+      inputMedias.push(Config.baseUrl + '/' + media.path);
+      initialPreviewConfig.push({
+        type: Utils.loadTypeFromExtension(media.path.substr(media.path.indexOf('.') + 1)),
+        filetype: Utils.loadFileTypeFromExtension(media.path.substr(media.path.indexOf('.') + 1)),
+        key: media.id_Bac_Media,
+        url: Config.baseUrl + '/' + media.path + '/delete',
+        size: media.size
+      });
+    });
+    Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/bac/upload",
+      this.userService.getTokent(), ".file-input-student-bac-medias", 2, inputMedias, initialPreviewConfig);
   }
 }
 

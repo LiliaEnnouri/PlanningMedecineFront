@@ -1,55 +1,66 @@
-<!-- Page container -->
-<div class="page-container">
+<form #registerForm="ngForm" class="form-horizontal">
 
-  <!-- Page content -->
-  <div class="page-content">
+  <div class="'col-lg-9 col-lg-offset-2'">
+    <div class="panel registration-form">
+      <div class="panel-body">
+        <!-- Student Profile Photo-->
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label class="control-label">Photo d'identité :</label>
+          </div>
+        </div>
+        <div class="form-group col-lg-12">
+          <div class="form-group">
+            <input type="file" class="file-input-student-photo" accept="image/*">
+          </div>
+        </div>
 
-    <!-- Main content -->
-    <div class="content-wrapper">
+        <!-- Student Cin -->
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label class="control-label">CIN (photo(s) Recto-verso) (ou page d'identification sur
+              le passeport) :</label>
+          </div>
+        </div>
+        <div class="form-group col-lg-12">
+          <div class="form-group">
+            <input type="file" class="file-input-student-cin" accept="image/*" multiple>
+          </div>
+        </div>
 
-      <!-- Content area -->
-      <div class="content" [ngBusy]="busy">
-
-        <!-- Registration form -->
-        <form #registerForm="ngForm" class="form-horizontal">
-
-          <div class="'col-lg-9 col-lg-offset-2'">
-            <div class="panel registration-form">
-              <div class="panel-body">
-
-                <!-- Banque media-->
-                <div class="row">
-                  <div class="form-group col-md-12">
-                    <label class="control-label">Ajouter Votre photo:</label>
-                  </div>
-                </div>
-                <div class="form-group col-lg-12">
-                  <div class="form-group">
-                    <input type="file" class="file-input-student-photo" accept="image/*">
-                    <span class="help-block">Votre photo</span>
-                  </div>
-                </div>
-                <button [routerLink]="['/student-file']"
-                        class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
-                  class="icon-close2"></i></b> Annuler
-                </button>
-              </div>
-
-            </div>
+        <!-- Student Extrait Naissance -->
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label class="control-label">Extrait de naissance :</label>
+          </div>
+        </div>
+        <div class="form-group col-lg-12">
+          <div class="form-group">
+            <input type="file" class="file-input-student-extrait-naissance" accept="image/*">
           </div>
 
-          <section-validation [sectionId]="4" [student]="student"></section-validation>
-        </form>
-        <!-- /registration form -->
 
+          <!-- /registration form -->
+
+
+          <!-- Student Attestation Orientation -->
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label class="control-label">Attestation d'orientation ou de réorientation :</label>
+            </div>
+          </div>
+          <div class="form-group col-lg-12">
+            <div class="form-group">
+              <input type="file" class="file-input-student-attestation-orientation" accept="image/*">
+            </div>
+          </div>
+          <button [routerLink]="['/student-file']"
+                  class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+            class="icon-close2"></i></b> Annuler
+          </button>
+        </div>
       </div>
-      <!-- /content area -->
-
+      <section-validation [sectionId]="4" [student]="student"></section-validation>
     </div>
-    <!-- /main content -->
-
   </div>
-  <!-- /page content -->
-
-</div>
-<!-- /page container -->
+</form>
