@@ -13,4 +13,12 @@ export class Bac {
   public id_city: number;
 
   public city?: City;
+  medias: BacMedia[];
+}
+
+export class BacMedia {
+  id_Bac_Media: number;
+  id_Bac: number;
+  path: string;
+  size: number;
 }
