@@ -1,3 +1,4 @@
+import {SectionValidation} from "./models/section-validation";
 /**
  * Created by Abbes on 30/06/2017.
  */
@@ -203,6 +204,23 @@ export class Utils {
     }
     const year = parseInt(study_access_year.substring(0, 4));
     return year === new Date().getFullYear();
+  }
+
+  static getStatusSection(validations: SectionValidation[], id_section: number) {
+
+    if (!validations) {
+      return null;
+    }
+    const result = jQuery.grep(validations, function (e) {
+      return e.id_section === id_section;
+    });
+
+
+    if (!result || result.length === 0) {
+      return null;
+    } else {
+      return result[0];
+    }
   }
 }
 

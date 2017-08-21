@@ -31,4 +31,19 @@ export class AdminService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  changeSectionStatus(id_student: number, id_section: number, status: number, note?: string) {
+    const url = Config.baseUrl + '/admin/update-status-section';
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post(url, {
+      id_student: id_student,
+      id_section: id_section,
+      status: status,
+      note: note
+    }, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }

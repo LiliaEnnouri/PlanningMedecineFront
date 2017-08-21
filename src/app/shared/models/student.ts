@@ -5,6 +5,7 @@ import {Doctaurat} from "app/shared/models/doctaurat";
 import {Adress} from "./adress";
 import {City} from "./city";
 import {Residanat} from "app/shared/models/residanat";
+import {SectionValidation} from "./section-validation";
 /**
  * Created by Abbes on 01/08/2017.
  */
@@ -39,6 +40,8 @@ export class Student {
 
 
   public residanat: Residanat;
+
+  public validations: SectionValidation[];
 
   public city_birth: City;
   public birthday_city: number;

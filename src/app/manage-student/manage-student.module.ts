@@ -11,6 +11,7 @@ import {FonctionStudentFileComponent} from "./student-file/fonction/fonction-stu
 import {PhotoComponent} from "./student-file/photo/photo.component";
 import {ResidanatStudentFileComponent} from "./student-file/residanat/residanat-student-file.component";
 import {StudiesStudentFileComponent} from "./student-file/studies/studies-student-file.component";
+import {SectionValidationComponent} from "./student-file/shared/section-validation/section-validation.component";
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {StudiesStudentFileComponent} from "./student-file/studies/studies-studen
     FonctionStudentFileComponent,
     PhotoComponent,
     ResidanatStudentFileComponent,
-    StudiesStudentFileComponent]
+    StudiesStudentFileComponent,
+    SectionValidationComponent]
 })
 export class ManageStudentModule {
 }

@@ -11,6 +11,8 @@ import {Router} from "@angular/router";
 import {UserService} from "../../../shared/services/user.service";
 import {Country} from "../../../shared/models/country";
 import {City} from "../../../shared/models/city";
+import {SectionValidation} from "../../../shared/models/section-validation";
+import {AdminService} from "../../../shared/services/admin.service";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -31,6 +33,8 @@ export class BacInfoComponent implements OnInit {
   countries: Country[] = [];
   cities: City[] = [];
 
+  statusSection: SectionValidation;
+
   ngOnInit() {
 
     this.editAction = this.student.bac != null;
@@ -46,12 +50,23 @@ export class BacInfoComponent implements OnInit {
     this.getAllMentions();
     this.getAllCountries();
 
+    /* Admin special */
+    this.statusSection = {
+      id_section: 1,
+      id_student: 1,
+      status: 0,
+      id_section_validation: 1,
+      note: ""
+    }
+    // Utils.getStatusSection(this.student.validations, 2);
+
   }
 
   constructor(private stoarageService: StorageService,
               private studentFileService: StudentFileService,
               private router: Router,
-              private userService: UserService) {
+              private userService: UserService,
+              private adminService: AdminService) {
 
   }
 
@@ -212,6 +227,24 @@ export class BacInfoComponent implements OnInit {
     })
 
 
+  }
+
+
+  /* Admin Special */
+  changeSectionStatus(status, note?: string) {
+    this.statusSection.status = status;
+    if (status === 2 && !note) {
+      return;
+    }
+    this.adminService.changeSectionStatus(this.statusSection.id_student, this.statusSection.id_section, status, note)
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
   }
 }
 

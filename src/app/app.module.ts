@@ -11,7 +11,7 @@ import {UserService} from "./shared/services/user.service";
 import {SharedModule} from "./shared/shared.module";
 import {LaddaModule} from "angular2-ladda";
 import {FormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
+import {CommonModule, HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpModule} from "@angular/http";
 import {FullLayoutComponent} from "./layouts/full-layout.component";
@@ -43,6 +43,10 @@ import {AdminService} from "./shared/services/admin.service";
     SupportModule
   ],
   providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
     AuthService,
     StorageService,
     UserService,
