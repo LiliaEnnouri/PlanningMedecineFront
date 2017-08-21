@@ -6,6 +6,7 @@ import {Adress} from "./adress";
 import {City} from "./city";
 import {Residanat} from "app/shared/models/residanat";
 import {SectionValidation} from "./section-validation";
+declare let jQuery: any;
 /**
  * Created by Abbes on 01/08/2017.
  */
@@ -38,6 +39,8 @@ export class Student {
   public doctaurat: Doctaurat;
   public adress?: Adress;
 
+  public numberStatusZero: number;
+
   public dossier_status?: number;
   public administration_review?: number;
 
@@ -53,6 +56,7 @@ export class Student {
   public isNew: boolean;
   extrait_naissance: StudentExtraitNaissance;
   attestation_orientation: StudentAttestationOrientation;
+
 }
 
 export class StudentPhoto {

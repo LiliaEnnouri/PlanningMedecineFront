@@ -222,6 +222,22 @@ export class Utils {
       return result[0];
     }
   }
+
+  static getNumberStatus(validations: SectionValidation[], status: number) {
+    if (!validations) {
+      return 0;
+    }
+    const result = jQuery.grep(validations, function (e) {
+      return e.status === status;
+    });
+
+
+    if (!result) {
+      return 0;
+    } else {
+      return result.length;
+    }
+  }
 }
 
 

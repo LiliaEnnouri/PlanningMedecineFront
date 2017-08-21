@@ -28,6 +28,11 @@ export class ListStudentComponent implements OnInit {
     const baseContext = this;
     this.busy = this.studentService.getAllStudents().subscribe(data => {
       this.students = data;
+      this.students.forEach(student => {
+        student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
+        console.log(student.validations);
+
+      });
       setTimeout(function () {
         Utils.initializeDataTables(700, 6);
       }, 100);
@@ -117,4 +122,10 @@ export class ListStudentComponent implements OnInit {
     jQuery("#modal_form_vertical").modal("hide");
 
   }
+
+  getNumberStatus(index: number) {
+    console.log(index);
+    return Utils.getNumberStatus(this.students[index].validations, 0);
+  }
+
 }
