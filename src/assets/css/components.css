@@ -211,6 +211,7 @@ a.badge,
   padding: 12px 20px;
   padding-right: 46px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 217px;
 }
 .category-title > span {
   display: block;
@@ -17441,7 +17442,7 @@ thead .htCollapseButton:after {
 *
 *  # Responsive extension
 *
-*  Optimise the table's layout for different screen sizes through the dynamic 
+*  Optimise the table's layout for different screen sizes through the dynamic
 *  insertion and removal of columns from the table
 *
 *  Version: 1.0
@@ -18720,7 +18721,7 @@ thead .htCollapseButton:after {
  * ---------------------------------------------------------------------------- */
 .chat-list,
 .chat-stacked {
-  max-height: 520px;
+  max-height: 350px;
   overflow: auto;
 }
 .chat-list .media-left {

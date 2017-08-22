@@ -1,0 +1,70 @@
+<div class="sidebar sidebar-secondary sidebar-default">
+  <div class="sidebar-content">
+
+
+
+
+    <!-- Actions -->
+    <div class="sidebar-category">
+      <div class="category-title">
+        <span>Actions</span>
+        <ul class="icons-list">
+          <li><a href="#" data-action="collapse"></a></li>
+        </ul>
+      </div>
+
+      <div class="category-content">
+        <a href="#" class="btn bg-pink-400 btn-rounded btn-block btn-xs">New message</a>
+        <a href="#" class="btn bg-teal-400 btn-rounded btn-block btn-xs">New conference</a>
+      </div>
+    </div>
+    <!-- /actions -->
+
+
+    <!-- Sub navigation -->
+    <div class="sidebar-category">
+      <div class="category-title">
+        <span>Navigation</span>
+        <ul class="icons-list">
+          <li><a href="#" data-action="collapse"></a></li>
+        </ul>
+      </div>
+
+      <div class="category-content no-padding">
+        <ul class="navigation navigation-alt navigation-accordion">
+          <li class="navigation-header">Actions</li>
+          <li><a href="#"><i class="icon-compose"></i> Compose message</a></li>
+          <li><a [routerLink]="'/support/messages/discussion'"><i class="icon-collaboration"></i> Message Example</a></li>
+          <li><a href="#"><i class="icon-user-plus"></i> Add users <span class="label label-success">32 online</span></a></li>
+          <li><a href="#"><i class="icon-users"></i> Create team</a></li>
+          <li class="navigation-divider"></li>
+          <li><a [routerLink]="'/support/messages/all'"><i class="icon-files-empty"></i> All messages <span class="badge badge-danger">99+</span></a></li>
+          <li><a [routerLink]="'/support/messages/active'"><i class="icon-file-plus"></i> Active discussions <span class="badge badge-default">32</span></a></li>
+          <li><a [routerLink]="'/support/messages/closed'"><i class="icon-file-locked"></i> Closed discussions</a></li>
+          <li class="navigation-header">Options</li>
+          <li><a href="#"><i class="icon-reading"></i> Message history</a></li>
+          <li><a href="#"><i class="icon-cog3"></i> Settings</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /sub navigation -->
+
+
+
+  </div>
+</div>
+<!-- /secondary sidebar -->
+
+
+<div class="content-wrapper">
+
+
+  <router-outlet></router-outlet>
+
+  <!-- Content area -->
+
+
+
+</div>
+
+

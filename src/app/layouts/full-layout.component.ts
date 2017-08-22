@@ -54,6 +54,11 @@ export class FullLayoutComponent implements OnInit {
 
         ]
       },
+      {
+        name: "Messages",
+        icon: "icon-comments",
+        url: "/support/messages"
+      },
     ];
     this.route.queryParams.subscribe(
       params => {
