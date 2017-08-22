@@ -5,6 +5,9 @@ import {Subscription} from "rxjs/Subscription";
 import {Utils} from "../../shared/utils";
 import {AdminService} from "../../shared/services/admin.service";
 import {StorageService} from "../../shared/services/storage.service";
+import {ConversationService} from "../../shared/services/conversation.service";
+import {UserService} from "../../shared/services/user.service";
+import {Router} from "@angular/router";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -18,9 +21,15 @@ export class ListStudentComponent implements OnInit {
   students: Array<Student>;
   busy: Subscription;
   emailToSend: string;
+  topicToSend: string;
   isReviewingMode = false;
 
-  constructor(private studentService: StudentService, private adminService: AdminService, private storageService: StorageService) {
+  constructor(private studentService: StudentService,
+              private adminService: AdminService,
+              private userService: UserService,
+              private router: Router,
+              private conversationservice: ConversationService,
+              private storageService: StorageService) {
     this.isReviewingMode = <boolean>this.storageService.read('isReviewingMode');
   }
 
@@ -30,8 +39,6 @@ export class ListStudentComponent implements OnInit {
       this.students = data;
       this.students.forEach(student => {
         student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
-        console.log(student.validations);
-
       });
       setTimeout(function () {
         Utils.initializeDataTables(700, 6);
@@ -111,16 +118,33 @@ export class ListStudentComponent implements OnInit {
 
   sendMail() {
     const baseContext = this;
-    this.busy = this.studentService.sendMail(baseContext.selectedStudent.id_student, baseContext.emailToSend).subscribe(data => {
-      swal({
-        title: "Succés!",
-        text: 'Message envoyé avec succès',
-        confirmButtonColor: "#66BB6A",
-        type: "success"
-      });
-    });
-    jQuery("#modal_form_vertical").modal("hide");
+    /*
+     this.studentService.sendMail(baseContext.selectedStudent.id_student, baseContext.emailToSend).subscribe(data => {
 
+     });
+     */
+    jQuery("#modal_form_vertical").modal("hide");
+    this.busy = this.conversationservice.startConversation(this.selectedStudent.id_student,
+      this.userService.loggedAdmin.id_admin, baseContext.emailToSend, baseContext.topicToSend).subscribe(data => {
+      swal({
+          title: "Succés!",
+          text: 'Message envoyé avec succès, voulez-vous ouvrir le conversation ?',
+          type: "success",
+          showCancelButton: true,
+          confirmButtonColor: "#66BB6A",
+          confirmButtonText: "Oui, ouvrir!",
+          cancelButtonText: "Non, merci!",
+          closeOnConfirm: true,
+          closeOnCancel: true
+        },
+        function (isConfirm) {
+          if (isConfirm) {
+            baseContext.router.navigateByUrl('/support/messages/' + data.conversation.id_Conversation + '/discussion')
+          }
+        });
+    });
+    this.emailToSend = '';
+    this.topicToSend = '';
   }
 
   getNumberStatus(index: number) {

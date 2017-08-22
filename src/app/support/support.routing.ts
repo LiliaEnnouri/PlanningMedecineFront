@@ -1,19 +1,12 @@
-/**
- * Created by AHMED on 03/08/2017.
- */
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {NgModule} from "@angular/core";
+import {RouterModule, Routes} from "@angular/router";
 
 import {BoiteReclamationComponent} from "./boite-reclamation/boite-reclamation.component";
-import {BoiteMessagesComponent} from "./boite-messages/boite-messages.component";
-
-
-
 
 export const routes: Routes = [
   {
     path: 'boitereclamation',
-    component : BoiteReclamationComponent
+    component: BoiteReclamationComponent
   },
   {
     path: 'messages',

@@ -42,7 +42,7 @@ export class StudentService extends GenericService {
   }
 
 
-  sendMail(studentId:number , content: string) {
+  sendMail(studentId: number, content: string) {
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     const url = Config.baseUrl + "/admin/mail/" + studentId;
 

@@ -7,9 +7,12 @@
 
     <div class="heading-elements">
       <div class="heading-btn-group">
-        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
-        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
-        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+        <a href="#" class="btn btn-link btn-float has-text"><i
+          class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i>
+          <span>Invoices</span></a>
+        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i>
+          <span>Schedule</span></a>
       </div>
     </div>
   </div>
@@ -47,7 +50,7 @@
 <div class="content">
 
   <!-- Invoice archive -->
-  <div class="panel panel-white" [ngBusy]="busy">
+  <div class="panel panel-white">
     <div class="panel-heading">
       <h6 class="panel-title">Liste des conversations</h6>
       <div class="heading-elements">
@@ -57,35 +60,30 @@
       </div>
     </div>
 
-    <table class="table datatable-basic datatable-html table-lg invoice-archive">
-      <thead>
-      <tr>
-        <th>Code</th>
-        <th>Utilisateur</th>
-        <th>Date de création</th>
-        <th>Sujet</th>
-        <th>Etat</th>
-        <th>Action</th>
-      </tr>
-      </thead>
+    <div class="panel-body">
+      <ul class="media-list content-group" [ngBusy]="busy">
 
-      <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td class="text-semibold"></td>
-        <td></td>
-        <td>
+        <li class="media" *ngFor="let conversation of conversations;let i=index">
+          <div class="media-left">
+            <img
+              src="{{conversation.student.img?baseUrl+conversation.student.img.path:'assets/images/placeholder.jpg'}}"
+              class="img-circle"
+              alt=""></div>
+          <div class="media-body">
+            <div class="media-heading">
+              <span
+                class="status-mark {{conversation.status===-1?'border-danger':'border-green'}} position-left"></span>
+              <a [routerLink]="'/support/messages/'+conversation.id_Conversation+'/discussion'" class="text-semibold">{{conversation.student?conversation.student.first_name+'
+                '+conversation.student.first_name:'Vous'}}</a>
+              <span class="media-annotation dotted">{{conversation.latest_message.updated_at|amTimeAgo}}</span>
+            </div>
+            {{conversation.latest_message.content}}
+          </div>
+        </li>
 
-        </td>
-        <td>
+      </ul>
 
-        </td>
-      </tr>
-
-
-      </tbody>
-    </table>
+    </div>
   </div>
 
 

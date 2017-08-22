@@ -1,8 +1,12 @@
-import {OnInit, Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 
 import {Subscription} from "rxjs";
-declare var swal;
-declare var jQuery;
+import {Conversation} from "../../../shared/models/Conversation";
+import {Config} from "../../../shared/config";
+import {ConversationService} from "../../../shared/services/conversation.service";
+import {ActivatedRoute} from "@angular/router";
+declare let swal;
+declare let jQuery;
 @Component({
   templateUrl: 'details-discussion.component.html',
   styleUrls: [],
@@ -10,38 +14,39 @@ declare var jQuery;
 })
 export class DetailsDiscussionComponent implements OnInit {
 
-  busy: Subscription;
 
+  busy: Subscription;
+  conversation: Conversation;
+  baseUrl = Config.baseUrl + '/';
+  messageContent: string;
+
+  constructor(private conversationServices: ConversationService, private  route: ActivatedRoute) {
+    this.conversation = new Conversation();
+  }
 
   ngOnInit() {
-
-
+    this.getConersation();
   }
 
-
-  constructor() {
-
+  private getConersation() {
+    this.route.params.subscribe(params => {
+      this.conversation.id_Conversation = +params["conversationId"];
+      this.busy = this.conversationServices.getConversationById(this.conversation.id_Conversation).subscribe(data => {
+        this.conversation = data;
+      })
+    });
   }
 
-  openModalReclamation() {
-    const baseContext = this;
-
-    jQuery("#modal_form_vertical").modal();
-  }
-
-  sendEmail() {
-    /*const baseContext = this;
-    this.busy = this.reclamationService.sendRepMail(baseContext.selectedReclamation.id_Reclamation, baseContext.reponseMail).subscribe(data => {
+  public sendMessage() {
+    this.busy = this.conversationServices.addConversationMessage(this.conversation, this.messageContent).subscribe(data => {
+      this.conversation = data;
+      this.messageContent = '';
       swal({
         title: "Succés!",
         text: 'Message envoyé avec succès',
         confirmButtonColor: "#66BB6A",
         type: "success"
       });
-    });
-    jQuery("#modal_form_vertical").modal("hide");*/
+    })
   }
-
-
-
 }

@@ -1,7 +1,6 @@
-import {OnInit, Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Reclamation} from "../../shared/models/reclamation";
 import {ReclamationService} from "../../shared/services/reclamation.service";
-import {Utils} from "../../shared/utils";
 import {Student} from "../../shared/models/student";
 import {Subscription} from "rxjs";
 declare var swal;
@@ -18,7 +17,6 @@ export class BoiteMessagesComponent implements OnInit {
 
   ngOnInit() {
 
-
   }
 
 
@@ -34,17 +32,16 @@ export class BoiteMessagesComponent implements OnInit {
 
   sendEmail() {
     /*const baseContext = this;
-    this.busy = this.reclamationService.sendRepMail(baseContext.selectedReclamation.id_Reclamation, baseContext.reponseMail).subscribe(data => {
-      swal({
-        title: "Succés!",
-        text: 'Message envoyé avec succès',
-        confirmButtonColor: "#66BB6A",
-        type: "success"
-      });
-    });
-    jQuery("#modal_form_vertical").modal("hide");*/
+     this.busy = this.reclamationService.sendRepMail(baseContext.selectedReclamation.id_Reclamation, baseContext.reponseMail).subscribe(data => {
+     swal({
+     title: "Succés!",
+     text: 'Message envoyé avec succès',
+     confirmButtonColor: "#66BB6A",
+     type: "success"
+     });
+     });
+     jQuery("#modal_form_vertical").modal("hide");*/
   }
-
 
 
 }

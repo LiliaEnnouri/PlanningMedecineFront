@@ -86,7 +86,7 @@
                 </li>
                 <li><a [routerLink]="'/student/'+student.id_student+'/edit'"><i class="icon-pencil"></i>Editer</a></li>
                 <li><a (click)="deleteStudent(i)"><i class="icon-close2"></i>Supprimer</a></li>
-                <li><a (click)="openModalEmail(i)"><i class="icon-mail5"></i>Envoyer un email</a></li>
+                <li><a (click)="openModalEmail(i)"><i class="icon-mail5"></i>Envoyer un message</a></li>
               </ul>
             </li>
           </ul>
@@ -105,7 +105,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Envoyer un email</h5>
+        <h5 class="modal-title">Envoyer un message</h5>
       </div>
 
       <div class="modal-body">
@@ -133,6 +133,10 @@
                   </div>
 
                   <div class="form-group">
+                    <label>Le sujet de Votre Message:</label>
+                    <input type="text" [(ngModel)]="topicToSend"
+                           [ngModelOptions]="{standalone: true}" class="form-control"
+                           placeholder="Entrez le sujet de l'email">
                     <label>Votre Message:</label>
                     <textarea rows="5" cols="5" [(ngModel)]="emailToSend" name="fhizf" class="form-control"
                               placeholder="Entrez votre texte ici"></textarea>

@@ -1,4 +1,4 @@
-import {OnInit, Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Reclamation} from "../../shared/models/reclamation";
 import {ReclamationService} from "../../shared/services/reclamation.service";
 import {Utils} from "../../shared/utils";
@@ -25,7 +25,7 @@ export class BoiteReclamationComponent implements OnInit {
 
   updateStatus(index, reclamationId, status) {
 
-    this.busy =this.reclamationService.updateStatus(reclamationId, status).subscribe(data => {
+    this.busy = this.reclamationService.updateStatus(reclamationId, status).subscribe(data => {
       swal({
         title: "Succés!",
         text: 'l\'etat de la réclamation est changé avec succès',
@@ -53,7 +53,8 @@ export class BoiteReclamationComponent implements OnInit {
 
   sendEmail() {
     const baseContext = this;
-    this.busy = this.reclamationService.sendRepMail(baseContext.selectedReclamation.id_Reclamation, baseContext.reponseMail).subscribe(data => {
+    this.busy = this.reclamationService.sendRepMail(baseContext.selectedReclamation.id_Reclamation,
+      baseContext.reponseMail).subscribe(data => {
       swal({
         title: "Succés!",
         text: 'Message envoyé avec succès',
@@ -62,11 +63,12 @@ export class BoiteReclamationComponent implements OnInit {
       });
     });
     jQuery("#modal_form_vertical").modal("hide");
+    this.reponseMail = '';
   }
 
   getAllReclamations() {
     const baseContext = this;
-   this.busy = this.reclamationService.getAllReclamations()
+    this.busy = this.reclamationService.getAllReclamations()
       .subscribe(
         (reclamations) => {
           baseContext.reclamations = reclamations;

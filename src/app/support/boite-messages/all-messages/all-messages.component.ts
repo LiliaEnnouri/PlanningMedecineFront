@@ -1,8 +1,11 @@
-import {OnInit, Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 
 import {Subscription} from "rxjs";
-declare var swal;
-declare var jQuery;
+import {ConversationService} from "../../../shared/services/conversation.service";
+import {Conversation} from "../../../shared/models/Conversation";
+import {Config} from "../../../shared/config";
+declare let swal;
+declare let jQuery;
 @Component({
   templateUrl: 'all-messages.component.html',
   styleUrls: [],
@@ -11,37 +14,20 @@ declare var jQuery;
 export class AllMessagesComponent implements OnInit {
 
   busy: Subscription;
+  conversations: Array<Conversation>;
+  baseUrl = Config.baseUrl + '/';
 
+  constructor(private conversationServices: ConversationService) {
+
+  }
 
   ngOnInit() {
-
-
+    this.getAllMessages();
   }
 
-
-  constructor() {
-
+  private getAllMessages() {
+    this.busy = this.conversationServices.getAllConversations().subscribe(data => {
+      this.conversations = data;
+    })
   }
-
-  openModalReclamation() {
-    const baseContext = this;
-
-    jQuery("#modal_form_vertical").modal();
-  }
-
-  sendEmail() {
-    /*const baseContext = this;
-    this.busy = this.reclamationService.sendRepMail(baseContext.selectedReclamation.id_Reclamation, baseContext.reponseMail).subscribe(data => {
-      swal({
-        title: "Succés!",
-        text: 'Message envoyé avec succès',
-        confirmButtonColor: "#66BB6A",
-        type: "success"
-      });
-    });
-    jQuery("#modal_form_vertical").modal("hide");*/
-  }
-
-
-
 }
