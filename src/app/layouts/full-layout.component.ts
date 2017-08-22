@@ -64,7 +64,7 @@ export class FullLayoutComponent implements OnInit {
       params => {
         console.log(params.reload);
         if (params.reload) {
-          window.location.href = "/#/";
+          window.location.href = "/";
         }
 
       }

@@ -26,8 +26,8 @@
         <th>Prénom</th>
         <th>CIN</th>
         <th>E-mail</th>
-        <th>Date de création</th>
         <th>Etat</th>
+        <th>Not Viewed</th>
         <th class="text-center">Actions</th>
       </tr>
       </thead>
@@ -46,9 +46,6 @@
         </td>
         <td>
           {{student.email}}
-        </td>
-        <td>
-          {{student.created_at}}
         </td>
         <td>
           <ul class="list list-unstyled text-right">
@@ -70,6 +67,11 @@
               </ul>
             </li>
           </ul>
+
+        </td>
+        <td>
+          <span *ngIf="student.numberStatusZero!=0" class="badge bg-warning-400">{{student.numberStatusZero}}</span>
+          <span *ngIf="student.numberStatusZero==0" class="badge bg-success">-</span>
 
         </td>
         <td class="text-center">

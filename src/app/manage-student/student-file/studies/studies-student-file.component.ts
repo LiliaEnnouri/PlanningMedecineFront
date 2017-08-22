@@ -13,6 +13,7 @@ import {UserService} from "../../../shared/services/user.service";
 import {Credit} from "../../../shared/models/credit";
 import {Config} from "../../../shared/config";
 import set = Reflect.set;
+import {SectionValidation} from "../../../shared/models/section-validation";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -32,6 +33,9 @@ export class StudiesStudentFileComponent implements OnInit {
   universities: University[] = [];
   editAction: boolean;
   credits: Credit[] = [];
+
+  statusSection: SectionValidation;
+
 
   ngOnInit() {
     const baseContext = this;
@@ -63,6 +67,17 @@ export class StudiesStudentFileComponent implements OnInit {
     this.getAllUniversities();
     this.getAllLevels();
     this.getAllCredits();
+
+
+    /* Admin special */
+    this.statusSection = {
+      id_section: 1,
+      id_student: 1,
+      status: 0,
+      id_section_validation: 1,
+      note: ""
+    }
+    // Utils.getStatusSection(this.student.validations, 2);
   }
 
   constructor(private stoarageService: StorageService,

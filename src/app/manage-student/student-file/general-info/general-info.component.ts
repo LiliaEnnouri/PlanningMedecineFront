@@ -10,6 +10,8 @@ import {Subscription} from "rxjs/Subscription";
 import {StorageService} from "../../../shared/services/storage.service";
 import {UserService} from "../../../shared/services/user.service";
 import {StudentFileService} from "../../../shared/services/student-file.service";
+import {SectionValidation} from "../../../shared/models/section-validation";
+import {AdminService} from "../../../shared/services/admin.service";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -30,6 +32,9 @@ export class GeneralInfoComponent implements OnInit {
   editAction: boolean;
   uni_years: string[] = [];
 
+  /* Admin special */
+  statusSection: SectionValidation;
+
   ngOnInit() {
     this.editAction = this.router.url.indexOf("edit") !== -1;
     this.uni_years = Utils.getUniversityYears(1990);
@@ -41,13 +46,16 @@ export class GeneralInfoComponent implements OnInit {
     this.initializeSelect2();
     this.getAllCountries();
     this.getAllUniversities();
+
+
   }
 
   constructor(private router: Router,
               private studentFileService: StudentFileService,
               private inscriptionService: InscriptionService,
               private stoarageService: StorageService,
-              private userService: UserService) {
+              private userService: UserService,
+              private adminService: AdminService) {
   }
 
   initializeRadioBox() {
@@ -257,6 +265,7 @@ export class GeneralInfoComponent implements OnInit {
   goStudentFile() {
     this.router.navigate(["/student/liste"]);
   }
+
 }
 
 
