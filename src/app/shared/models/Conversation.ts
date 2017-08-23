@@ -5,9 +5,10 @@ export class Conversation {
   id_Student: number;
   status: number;
   topic: string;
+  viewed: boolean;
   created_at: string;
   updated_at: string;
-  messages: Array<ConversationMessage>
+  messages: Array<ConversationMessage>;
   latest_message: ConversationMessage;
   student: Student;
 }
