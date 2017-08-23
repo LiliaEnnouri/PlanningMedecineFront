@@ -100,7 +100,8 @@
               src="{{conversation.student.img?baseUrl+conversation.student.img.path:'assets/images/placeholder.jpg'}}"
               class="img-circle"
               alt="">
-            <span class="badge bg-danger media-badge" *ngIf="!conversation.viewed">1</span>
+            <span class="badge bg-danger media-badge"
+                  *ngIf="!conversation.viewed&&!conversation.latest_message.id_Admin">1</span>
           </div>
           <div class="media-body">
             <div class="media-heading">

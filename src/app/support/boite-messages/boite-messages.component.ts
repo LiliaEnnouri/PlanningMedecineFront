@@ -16,9 +16,4 @@ export class BoiteMessagesComponent implements OnInit {
 
   }
 
-
-  constructor(private reclamationService: ReclamationService) {
-
-  }
-
 }
