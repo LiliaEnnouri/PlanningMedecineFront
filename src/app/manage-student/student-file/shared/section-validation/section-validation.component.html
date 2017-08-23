@@ -1,4 +1,4 @@
-<div *ngIf="statusSection">
+<div *ngIf="statusSection" [ngBusy]="busy">
   <ul class="list list-unstyled text-right">
     <li></li>
     <li class="dropdown">
@@ -12,9 +12,10 @@
         <li><a (click)="changeSectionStatus(1)"><i
           class="icon-checkmark3"></i>Valider</a></li>
         <li><a (click)="changeSectionStatus(2)"><i class="icon-warning"></i>A reviser</a>
-        <li class="divider"></li>
-        <li><a (click)="changeSectionStatus(-1)"><i class="icon-cross2"></i>Refuser</a>
-        </li>
+          <!--
+          <li class="divider"></li>
+          <li><a (click)="changeSectionStatus(-1)"><i class="icon-cross2"></i>Refuser</a>
+          </li> -->
       </ul>
     </li>
   </ul>

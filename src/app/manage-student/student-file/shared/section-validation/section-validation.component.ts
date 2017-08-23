@@ -8,6 +8,7 @@ import {AdminService} from "../../../../shared/services/admin.service";
 import {Utils} from "../../../../shared/utils";
 import {UserService} from "../../../../shared/services/user.service";
 import {Student} from "../../../../shared/models/student";
+import {Subscription} from "rxjs/Subscription";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -22,8 +23,7 @@ export class SectionValidationComponent implements OnInit {
   sectionId: number;
   @Input()
   student: Student;
-
-
+  busy: Subscription;
   statusSection: SectionValidation;
 
 
@@ -41,13 +41,26 @@ export class SectionValidationComponent implements OnInit {
     if (status === 2 && !note) {
       return;
     }
-    this.adminService.changeSectionStatus(this.statusSection.id_student, this.statusSection.id_section, status, note)
+
+    this.busy = this.adminService.changeSectionStatus(this.statusSection.id_student, this.statusSection.id_section, status, note)
       .subscribe(
         (data) => {
           console.log(data);
+
+          swal({
+            title: "Succés!",
+            text: 'La status à été changer avec succées',
+            confirmButtonColor: "#66BB6A",
+            type: "success"
+          });
         },
         (error) => {
           console.log(error);
+          swal({
+            title: "Erreur!",
+            text: 'Une erreur est survenu .... ',
+            type: "error"
+          });
         }
       )
   }

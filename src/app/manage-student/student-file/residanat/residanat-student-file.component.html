@@ -26,7 +26,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>Année universitaire :</label>
-                        <select name="year" class="select-year">
+                        <select name="year" class="select-year-residanat">
                           <option value="0" disabled>Choisir l'année</option>
                           <option *ngFor="let year of years" value="{{year}}">
                             {{year}}
@@ -247,6 +247,10 @@
                         class="icon-close2"></i></b> Annuler
                       </button>
                     </div>
+                    <button (click)="reinitialiseResidanat()"
+                            class="col-md-4 btn bg-danger-400 btn-danger btn-labeled-right ml-10"><b><i
+                      class="icon-close2"></i></b> Réinitialiser ce résidanat
+                    </button>
                     <div class="col-md-6 text-right" style="margin-bottom: 15px">
                       <button (click)="validationResidanat()"
                               class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i

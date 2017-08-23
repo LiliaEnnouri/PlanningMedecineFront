@@ -209,6 +209,7 @@ export class StudentFileService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
   getAllCountries() {
     const url = Config.baseUrl + "/geo/countries";
 
@@ -218,12 +219,37 @@ export class StudentFileService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
   getCitiesByCountry(countryId: string) {
     const url = Config.baseUrl + "/geo/countries/" + countryId + "/cities";
 
     return this.http.get(url, {
       headers: this.headers
     })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  removeDoctaurat(studentId: number) {
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/doctaurat/remove";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.delete(url,
+
+      {
+        headers: this.headers
+      })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  removeResidant(studentId: number) {
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/residanat/remove";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.delete(url,
+
+      {
+        headers: this.headers
+      })
       .map(res => res.json())
       .catch(this.handleErrors);
   }

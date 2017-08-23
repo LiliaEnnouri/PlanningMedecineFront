@@ -79,6 +79,7 @@ export class DoctauratStudentFileComponent implements OnInit {
       )
   }
 
+  /* Admin Special */
   submitdoctaurat() {
     this.submitted = true;
     const baseContext = this;
@@ -116,5 +117,50 @@ export class DoctauratStudentFileComponent implements OnInit {
     if (this.isEditAction) {
       jQuery(".date-doctaurat").val(baseContext.student.doctaurat.date_of_pitch);
     }
+  }
+
+  /* Admin Special */
+  reinitialiseDoctaurat() {
+    let baseContext = this;
+    swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#EF5350",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel pls!",
+        closeOnConfirm: true,
+        closeOnCancel: true
+      },
+      function (isConfirm) {
+
+        if (isConfirm) {
+          baseContext.busy = baseContext.studentFileServie.removeDoctaurat(baseContext.student.id_student)
+            .subscribe(
+              (data) => {
+                swal({
+                  title: "Succès!",
+                  text: 'La réinitialisation est éffectué avec succées',
+                  confirmButtonColor: "#66BB6A",
+                  type: "success"
+                });
+                baseContext.student.doctaurat = new Doctaurat();
+                baseContext.isEditAction = true;
+              },
+              (error) => {
+
+              }
+            )
+        }
+        else {
+          swal({
+            title: "Cancelled",
+            text: "Your imaginary file is safe :)",
+            confirmButtonColor: "#2196F3",
+            type: "error"
+          });
+        }
+      });
   }
 }

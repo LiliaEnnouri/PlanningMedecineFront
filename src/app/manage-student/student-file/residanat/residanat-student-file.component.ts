@@ -83,7 +83,7 @@ export class ResidanatStudentFileComponent implements OnInit {
   }
 
   private initYearSelect() {
-    const year = jQuery(".select-year");
+    const year = jQuery(".select-year-residanat");
     const baseContext = this;
     year.select2();
 
@@ -440,6 +440,50 @@ export class ResidanatStudentFileComponent implements OnInit {
     if (this.isEditAction) {
       dateExam.val(Utils.convertDate(baseContext.student.residanat.national_exam.date)).trigger("change");
     }
+  }
+
+  /* Admin Special */
+  reinitialiseResidanat() {
+    const baseContext = this;
+    swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#EF5350",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel pls!",
+        closeOnConfirm: true,
+        closeOnCancel: true
+      },
+      function (isConfirm) {
+        if (isConfirm) {
+          baseContext.busy = baseContext.studentFileService.removeResidant(baseContext.student.id_student)
+            .subscribe(
+              (data) => {
+                swal({
+                  title: "Succès!",
+                  text: 'La réinitialisation est éffectué avec succées',
+                  confirmButtonColor: "#66BB6A",
+                  type: "success"
+                });
+                baseContext.student.residanat = new Residanat();
+                baseContext.isEditAction = true;
+              },
+              (error) => {
+
+              }
+            )
+        }
+        else {
+          swal({
+            title: "Cancelled",
+            text: "Your imaginary file is safe :)",
+            confirmButtonColor: "#2196F3",
+            type: "error"
+          });
+        }
+      });
   }
 }
 
