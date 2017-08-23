@@ -7,14 +7,21 @@
         '+conversation.student.last_name}}</h4>
     </div>
 
-    <div class="heading-elements" *ngIf="false">
+    <div class="heading-elements">
       <div class="heading-btn-group">
-        <a href="#" class="btn btn-link btn-float has-text"><i
-          class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
-        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i>
-          <span>Invoices</span></a>
-        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i>
-          <span>Schedule</span></a>
+        <ul class="icons-list">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="icon-menu9"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a (click)="updateConversationStatus(1)" *ngIf="conversation.status===-1"><i
+                class="icon-folder-open"></i>Ouvrir cette discusion</a></li>
+              <li><a (click)="updateConversationStatus(-1)" *ngIf="conversation.status===1"><i class="icon-close2"></i>Fermer
+                cette discusion</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -51,6 +58,18 @@
 
 <!-- Basic layout -->
 <div class="panel panel-flat">
+
+  <div class="panel-heading">
+    <h6 class="panel-title"><span
+      class="status-mark {{conversation.status===-1?'border-danger':'border-green'}} position-left"></span>
+      {{conversation.status===-1?'Fermée':'Active'}} </h6>
+    <div class="heading-elements">
+      <ul class="icons-list">
+        <li>
+        </li>
+      </ul>
+    </div>
+  </div>
 
   <div class="panel-body">
     <ul class="media-list chat-list content-group" [ngBusy]="busy">

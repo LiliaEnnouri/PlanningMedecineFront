@@ -49,4 +49,16 @@ export class DetailsDiscussionComponent implements OnInit {
       });
     })
   }
+
+  public updateConversationStatus(status: number) {
+    this.busy = this.conversationServices.updateConversationStatus(this.conversation, status).subscribe(data => {
+      this.conversation.status = status;
+      swal({
+        title: "Succés!",
+        text: 'Message status est changé avec succès',
+        confirmButtonColor: "#66BB6A",
+        type: "success"
+      });
+    })
+  }
 }

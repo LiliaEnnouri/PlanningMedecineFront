@@ -7,6 +7,7 @@ import {AllMessagesActivesComponent} from "./all-messages-actives/all-messages-a
 import {AllMessagesClosedComponent} from "./all-messages-closed/all-messages-closed.component";
 import {DetailsDiscussionComponent} from "./detail-discussion/details-discussion.component";
 import {ConversationService} from "../../shared/services/conversation.service";
+import { ComposeMessageComponent } from './compose-message/compose-message.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,8 @@ import {ConversationService} from "../../shared/services/conversation.service";
     AllMessagesComponent,
     AllMessagesActivesComponent,
     AllMessagesClosedComponent,
-    DetailsDiscussionComponent
-
+    DetailsDiscussionComponent,
+    ComposeMessageComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

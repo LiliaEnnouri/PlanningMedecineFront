@@ -14,7 +14,7 @@ export class FullLayoutComponent implements OnInit {
 
   components: NavigationMain[] = [];
   admin: Admin;
-  nbr_reclamations:number;
+  nbr_reclamations: number;
 
   constructor(private storageService: StorageService,
               public router: Router, private userService: UserService,
@@ -42,22 +42,22 @@ export class FullLayoutComponent implements OnInit {
             name: "Liste des dossiers",
             url: "/student/list"
           }]
-      },
-      {
-        name: "Assistance",
-        icon: "icon-lifebuoy",
-        childrens: [
-          {
-            name: "Boite des réclamations",
-            url: "/support/boitereclamation",
-          },
+      }, /*
+       {
+       name: "Assistance",
+       icon: "icon-lifebuoy",
+       childrens: [
+       {
+       name: "Boite des réclamations",
+       url: "/support/boitereclamation",
+       },
 
-        ]
-      },
+       ]
+       },*/
       {
         name: "Messages",
         icon: "icon-comments",
-        url: "/support/messages"
+        url: "/support/messages/all"
       },
     ];
     this.route.queryParams.subscribe(
@@ -111,7 +111,7 @@ export class FullLayoutComponent implements OnInit {
     }
   }
 
-  getNumberReclamations(){
+  getNumberReclamations() {
     const baseContext = this;
     this.reclamationService.getNumberOfReclamations()
       .subscribe(

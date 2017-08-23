@@ -1,0 +1,52 @@
+<!-- Content area -->
+<div class="content">
+
+  <!-- Invoice archive -->
+  <div class="panel panel-white">
+    <form>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-flat">
+
+
+            <div class="panel-body">
+              <div class="form-group">
+                <label>Destinataire:</label>
+                <input type="text"
+                       disabled="disabled"
+                       class="form-control"
+                       placeholder="Entrez votre nom et prénom">
+              </div>
+
+              <div class="form-group">
+                <label>Email:</label>
+                <input type="text"  disabled="disabled"
+                        class="form-control"
+                       placeholder="Entrez votre adresse email">
+              </div>
+
+              <div class="form-group">
+                <label>Le sujet de Votre Message:</label>
+                <input type="text" [(ngModel)]="topicToSend"
+                       [ngModelOptions]="{standalone: true}" class="form-control"
+                       placeholder="Entrez le sujet de l'email">
+                <label>Votre Message:</label>
+                <textarea rows="5" cols="5" [(ngModel)]="emailToSend" name="fhizf" class="form-control"
+                          placeholder="Entrez votre texte ici"></textarea>
+              </div>
+
+              <div class="text-right">
+                <button type="submit" (click)="sendMail()" class="btn btn-primary">Envoyer<i
+                  class="icon-arrow-right14 position-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- /invoice archive -->
+
+</div>
+<!-- /content area -->
+

@@ -82,4 +82,16 @@ export class ConversationService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  updateConversationStatus(conversation: Conversation, status: number) {
+    const url = Config.baseUrl + '/conversation/' + conversation.id_Conversation + '/status/{status}';
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post(url, {
+      status: status
+    }, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
