@@ -284,7 +284,6 @@ export class GeneralInfoComponent implements OnInit {
     /* University Year */
     universityYear.select2();
     universityYear.on("change", function () {
-      console.log("zebbi " + jQuery(this).val());
       baseContext.student.study_access_year = jQuery(this).val();
     });
     if (this.editAction) {

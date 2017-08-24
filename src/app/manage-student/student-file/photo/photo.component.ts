@@ -30,10 +30,14 @@ export class PhotoComponent implements OnInit {
     } else {
       this.initStudentPhoto();
     }
-    if (!this.student.imgs_cin) {
+    if ((this.student.cin && !this.student.cin.imgs) && (this.student.passport && !this.student.passport.imgs)) {
       Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/cin/upload",
         this.userServices.getTokent(), ".file-input-student-cin", 2);
-      this.student.imgs_cin = [];
+      if (this.student.cin) {
+        this.student.cin.imgs = [];
+      } else if (this.student.passport) {
+        this.student.passport.imgs = [];
+      }
     } else {
       this.initStudentCin();
     }
@@ -126,9 +130,12 @@ export class PhotoComponent implements OnInit {
     jQuery('.file-input-student-cin').change(function () {
       console.log('file input change');
     }).on('fileuploaded', function (event, data, previewId, index) {
-      baseContext.student.imgs_cin.push(data.response.media);
-      baseContext.student.imgs_cin = baseContext.student.imgs_cin;
-      console.log("fileuploaded");
+      const imgs = [];
+      if (baseContext.student.cin) {
+        baseContext.student.cin.imgs.push(data.response.media);
+      } else if (baseContext.student.passport) {
+        baseContext.student.passport.imgs.push(data.response.media);
+      }
       baseContext.storageService.write("student", baseContext.student);
       swal({
         title: "Succés!",
@@ -136,17 +143,26 @@ export class PhotoComponent implements OnInit {
         confirmButtonColor: "#66BB6A",
         type: "success"
       });
-      baseContext.router.navigate(["/student-file"]);
     }).on('filedeleted', function (event, key, jqXHR, data) {
       const medias = [];
-      baseContext.student.imgs_cin.forEach(function (img_cin) {
+      let imgs = [];
+      if (baseContext.student.cin) {
+        imgs = baseContext.student.cin.imgs;
+      } else if (baseContext.student.passport) {
+        imgs = baseContext.student.passport.imgs;
+      }
+      imgs.forEach(function (img_cin) {
         medias.push(img_cin.path);
       });
       const index = medias.indexOf(jqXHR.responseJSON.media, 0);
       if (index > -1) {
-        baseContext.student.imgs_cin.splice(index, 1);
+        imgs.splice(index, 1);
       }
-      baseContext.student = baseContext.student;
+      if (baseContext.student.cin) {
+        baseContext.student.cin.imgs = imgs;
+      } else if (baseContext.student.passport) {
+        baseContext.student.passport.imgs = imgs;
+      }
       baseContext.storageService.write("student", baseContext.student);
       swal({
         title: "Succés!",
@@ -215,15 +231,21 @@ export class PhotoComponent implements OnInit {
     const medias = [];
     const inputMedias = [];
     const initialPreviewConfig: InitialPreviewConfig[] = [];
-    this.student.imgs_cin.forEach(function (img_cin) {
-      medias.push(img_cin.path);
-      inputMedias.push(Config.baseUrl + '/' + img_cin.path);
+    let imgs = [];
+    if (this.student.cin) {
+      imgs = this.student.cin.imgs;
+    } else if (this.student.passport) {
+      imgs = this.student.passport.imgs;
+    }
+    imgs.forEach(function (img) {
+      medias.push(img.path);
+      inputMedias.push(Config.baseUrl + '/' + img.path);
       initialPreviewConfig.push({
-        type: Utils.loadTypeFromExtension(img_cin.path.substr(img_cin.path.indexOf('.') + 1)),
-        filetype: Utils.loadFileTypeFromExtension(img_cin.path.substr(img_cin.path.indexOf('.') + 1)),
-        key: img_cin.id_Student_Cin,
-        url: Config.baseUrl + '/' + img_cin.path + '/delete',
-        size: img_cin.size
+        type: Utils.loadTypeFromExtension(img.path.substr(img.path.indexOf('.') + 1)),
+        filetype: Utils.loadFileTypeFromExtension(img.path.substr(img.path.indexOf('.') + 1)),
+        key: img.id_Student_Cin,
+        url: Config.baseUrl + '/' + img.path + '/delete',
+        size: img.size
       });
     });
     Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/cin/upload",
