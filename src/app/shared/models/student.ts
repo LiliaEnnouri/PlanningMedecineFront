@@ -6,6 +6,8 @@ import {Adress} from "./adress";
 import {City} from "./city";
 import {Residanat} from "app/shared/models/residanat";
 import {SectionValidation} from "./section-validation";
+import {PassportStudent} from "./Passport_Student";
+import {CinStudent} from "./cinStudent";
 declare let jQuery: any;
 /**
  * Created by Abbes on 01/08/2017.
@@ -17,8 +19,8 @@ export class Student {
   public second_name ?: string;
   public nom_de_famille?: string;
   public sex: string;
-  public cin?: string;
-  public passport?: string;
+  public passport?: PassportStudent = new PassportStudent();
+  public cin?: CinStudent = new CinStudent();
   public birthday: string;
   public phone?: string;
   public mobile: string;

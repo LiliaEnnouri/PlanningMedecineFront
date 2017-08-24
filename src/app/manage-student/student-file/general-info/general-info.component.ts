@@ -12,6 +12,8 @@ import {UserService} from "../../../shared/services/user.service";
 import {StudentFileService} from "../../../shared/services/student-file.service";
 import {SectionValidation} from "../../../shared/models/section-validation";
 import {AdminService} from "../../../shared/services/admin.service";
+import {PassportStudent} from "app/shared/models/Passport_Student";
+import {CinStudent} from "../../../shared/models/cinStudent";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -30,6 +32,8 @@ export class GeneralInfoComponent implements OnInit {
   submitted: boolean;
   universities: University[] = [];
   editAction: boolean;
+  citiesCIN: City[] = [];
+  citiesPassport: City[] = [];
   uni_years: string[] = [];
 
   /* Admin special */
@@ -41,7 +45,7 @@ export class GeneralInfoComponent implements OnInit {
     if (this.editAction) {
       this.settingInformation();
     }
-    this.initializeDateNaissance();
+    this.initializeDates();
     this.initializeRadioBox();
     this.initializeSelect2();
     this.getAllCountries();
@@ -86,6 +90,10 @@ export class GeneralInfoComponent implements OnInit {
 
   settingInformation() {
 
+    if (!this.student.cin)
+      this.student.cin = new CinStudent();
+    if (!this.student.passport)
+      this.student.passport = new PassportStudent();
     this.student.label_address = this.student.adress.label_address;
     this.student.address_city = this.student.adress.id_adress;
     this.student.postal_code = this.student.adress.postal_code;
@@ -93,11 +101,12 @@ export class GeneralInfoComponent implements OnInit {
     if (this.student.oriented) {
       jQuery(".checkbox").prop('checked', true).uniform('refresh');
     }
-    this.initializeDateNaissance();
+    this.initializeDates();
   }
 
-  initializeDateNaissance() {
+  initializeDates() {
     const baseContext = this;
+    /* Date de naissance */
     const dateNaissance = jQuery('.date_naissance');
     dateNaissance.daterangepicker({
       "singleDatePicker": true,
@@ -115,12 +124,51 @@ export class GeneralInfoComponent implements OnInit {
       const date = Utils.convertDate(this.student.birthday);
       dateNaissance.val(date).trigger("change");
     }
+
+    /* Manage Date CIN */
+    const dateCIN = jQuery('.date_emition_cin');
+
+    dateCIN.daterangepicker({
+      "singleDatePicker": true,
+      "showDropdowns": true,
+      "locale": {
+        "format": "DD/MM/YYYY"
+      }
+    });
+
+    dateCIN.on("change", function () {
+      baseContext.student.cin.date = Utils.convertDateServer(dateCIN.val());
+    });
+
+    if (this.editAction) {
+      dateCIN.val(Utils.convertDate(this.student.cin.date)).trigger("change");
+    }
+    /* Manage Date Passport */
+    const datePassport = jQuery('.date_emition_passport');
+    datePassport.daterangepicker({
+      "singleDatePicker": true,
+      "showDropdowns": true,
+      "locale": {
+        "format": "DD/MM/YYYY"
+      }
+    });
+
+    datePassport.on("change", function () {
+      baseContext.student.passport.date = Utils.convertDateServer(datePassport.val());
+    });
+
+    if (this.editAction) {
+      datePassport.val(Utils.convertDate(this.student.passport.date)).trigger("change");
+    }
   }
 
   getAllCountries() {
     const baseContext = this;
     const paysSelect = jQuery(".select-pays");
     const paysSelectNaissance = jQuery(".select-pays-naissance");
+
+    const paysCIN = jQuery(".select-pays-cin");
+    const paysPassport = jQuery(".select-pays-passport");
     this.inscriptionService.getAllCountries()
       .subscribe(
         (data) => {
@@ -132,6 +180,14 @@ export class GeneralInfoComponent implements OnInit {
             setTimeout(function () {
               paysSelectNaissance.val(baseContext.student.city_birth.CountryCode).trigger("change");
             }, 50);
+            if (baseContext.student.cin.city)
+              setTimeout(function () {
+                paysCIN.val(baseContext.student.cin.city.CountryCode).trigger("change");
+              }, 50);
+            if (baseContext.student.passport.city)
+              setTimeout(function () {
+                paysPassport.val(baseContext.student.passport.city.CountryCode).trigger("change");
+              }, 50);
           }
         }
       )
@@ -145,7 +201,9 @@ export class GeneralInfoComponent implements OnInit {
       || !this.student.birthday
       || !this.student.address_city
       || !this.student.birthday_city
-      || (!this.student.cin && !this.student.passport)
+      || (!this.student.cin.code && !this.student.passport.code)
+      || (this.student.cin.code && (!this.student.cin.id_city || !this.student.cin.date))
+      || (this.student.passport.code && (!this.student.passport.id_city || !this.student.passport.date))
       || !this.student.email || !this.student.mobile || !this.student.label_address
       || !this.student.oriented
       || !this.student.study_access_year) {
@@ -234,19 +292,60 @@ export class GeneralInfoComponent implements OnInit {
         universityYear.val(baseContext.student.study_access_year).trigger("change");
       }, 20);
     }
+    /* Manage CIN & Passport */
+    const paysCIN = jQuery(".select-pays-cin");
+    const paysPassport = jQuery(".select-pays-passport");
+    const villeCIN = jQuery(".select-ville-cin");
+    const villePassport = jQuery(".select-ville-passport");
+
+    paysCIN.select2();
+    paysPassport.select2();
+    villeCIN.select2();
+    villePassport.select2();
+
+    paysCIN.on("change", function () {
+      baseContext.inscriptionService.getCitiesByCountry(paysCIN.val())
+        .subscribe(
+          (data) => {
+            baseContext.citiesCIN = data;
+            if (baseContext.editAction) {
+              setTimeout(function () {
+                villeCIN.val(baseContext.student.cin.id_city).trigger("change");
+              }, 100);
+            }
+          },
+          (error) => {
+
+          }
+        )
+    });
+    villeCIN.on("change", function () {
+      baseContext.student.cin.id_city = +villeCIN.val();
+    });
+
+
+    paysPassport.on("change", function () {
+      baseContext.inscriptionService.getCitiesByCountry(paysPassport.val())
+        .subscribe(
+          (data) => {
+            baseContext.citiesPassport = data;
+            if (baseContext.editAction) {
+              setTimeout(function () {
+                villePassport.val(baseContext.student.passport.id_city).trigger("change");
+              }, 100);
+            }
+          },
+          (error) => {
+
+          }
+        )
+    });
+
+    villePassport.on("change", function () {
+      baseContext.student.passport.id_city = +villePassport.val();
+    });
   }
 
-  initializeUniversitySelect2() {
-    const baseContext = this;
-    setTimeout(function () {
-      const selectUniversity = jQuery(".select-university");
-      selectUniversity.select2();
-
-      selectUniversity.on("change", function () {
-        baseContext.student.id_origin_university = +selectUniversity.val();
-      });
-    }, 20);
-  }
 
   private getAllUniversities() {
     const selectUniversity = jQuery(".select-university");

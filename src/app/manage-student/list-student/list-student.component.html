@@ -42,31 +42,20 @@
           {{student.last_name}}
         </td>
         <td>
-          {{student.cin?student.cin:student.passport}}
+          <span *ngIf="student.cin">{{student.cin.code}}</span>
+          <span *ngIf="student.passport">{{student.passport.code}}</span>
         </td>
         <td>
           {{student.email}}
         </td>
         <td>
-          <ul class="list list-unstyled text-right">
-            <li></li>
-            <li class="dropdown">
-              <a href="#"
-                 class="label {{student.administration_review===0?'bg-grey':student.administration_review===-1?'bg-danger':student.administration_review===1?'bg-green':'bg-warning'}}  dropdown-toggle"
-                 data-toggle="dropdown">{{student.administration_review===0?"En
-                attente":student.administration_review===-1?'Invalid':student.administration_review===1?'Valid':'A
-                reviser'}}
-                <span class="caret"></span></a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li><a (click)="updateStudentStatusAfterReview(i,1)"><i
-                  class="icon-checkmark3"></i>Valider</a></li>
-                <li><a (click)="updateStudentStatusAfterReview(i,2)"><i class="icon-warning"></i>A reviser</a>
-                <li class="divider"></li>
-                <li><a (click)="updateStudentStatusAfterReview(i,-1)"><i class="icon-cross2"></i>Refuser</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+
+          <a href="#"
+             class="label {{student.administration_review===0?'bg-grey':student.administration_review===-1?'bg-danger':student.administration_review===1?'bg-green':'bg-warning'}}  dropdown-toggle"
+             data-toggle="dropdown">{{student.administration_review===0?"En
+            attente":student.administration_review===-1?'Invalid':student.administration_review===1?'Valid':'A
+            reviser'}}
+          </a>
 
         </td>
         <td>

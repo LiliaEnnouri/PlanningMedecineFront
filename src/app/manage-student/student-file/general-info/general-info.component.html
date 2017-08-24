@@ -183,24 +183,115 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
               <div class="form-group">
                 <label>CIN</label>
                 <input type="text" class="form-control" placeholder="CIN" name="cin"
-                       [(ngModel)]="student.cin"
+                       [(ngModel)]="student?.cin.code"
                        #cin="ngModel" required>
               </div>
-              <label *ngIf="submitted&&(!student.cin && !student.passport)" class="validation-error-label">
+              <label *ngIf="submitted&&(!student.cin.code && !student.passport.code)"
+                     class="validation-error-label">
                 CIN ou Passport
                 sont
                 obligatoire.</label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Date d'émition :</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                  <input type="text" placeholder="Date d'émition"
+                         class="form-control  date_emition_cin">
+
+                </div>
+                <label *ngIf="submitted&&(student.cin.code && !student.cin.date)"
+                       class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Choisir pays</label>
+                <select name="country" class="select-pays-cin">
+                  <option disabled value="0">Choisir pays</option>
+                  <option *ngFor="let item of countries" value="{{item.Code}}">
+                    {{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Choisir ville</label>
+                <select name="city" class="select-ville-cin">
+                  <option disabled value="0">Choisir ville</option>
+                  <option *ngFor="let item of citiesCIN" value="{{item.id_City}}">
+                    {{item.Name}}
+                  </option>
+                </select>
+                <label *ngIf="submitted&&(student.cin.code && !student.cin.id_city)"
+                       class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
               <div class="form-group">
                 <label>Passport</label>
                 <input type="text" class="form-control" placeholder="Passport" name="passport"
-                       [(ngModel)]="student.passport"
+                       [(ngModel)]="student?.passport.code"
                        #passport="ngModel" required>
+              </div>
+              <label *ngIf="submitted&&(!student.cin.code && !student.passport.code)"
+                     class="validation-error-label">
+                CIN ou Passport
+                sont
+                obligatoire.</label>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Date d'émition :</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                  <input type="text" placeholder="Date d'émition"
+                         class="form-control  date_emition_passport">
+
+                </div>
+                <label *ngIf="submitted&&(student.passport.code && !student.passport.date)"
+                       class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Choisir pays</label>
+                <select name="country" class="select-pays-passport">
+                  <option disabled value="0">Choisir pays</option>
+                  <option *ngFor="let item of countries" value="{{item.Code}}">
+                    {{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Choisir ville</label>
+                <select name="city" class="select-ville-passport">
+                  <option disabled value="0">Choisir ville</option>
+                  <option *ngFor="let item of citiesPassport" value="{{item.id_City}}">
+                    {{item.Name}}
+                  </option>
+                </select>
+                <label *ngIf="submitted&&(student.passport.code && !student.passport.id_city)"
+                       class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
               </div>
             </div>
           </div>

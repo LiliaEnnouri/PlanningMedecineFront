@@ -19,27 +19,7 @@ export class StudentFileService extends GenericService {
   editInformations(student: Student) {
     const url = Config.baseUrl + "/admin/student/" + student.id_student + "/edit";
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(url, {
-        "first_name": student.first_name,
-        "last_name": student.last_name,
-        "nom_de_famille": student.nom_de_famille,
-        "sex": student.sex,
-        "cin": student.cin,
-        "birthday": student.birthday,
-        "birthday_city": student.birthday_city,
-        "mobile": student.mobile,
-        "email": student.email,
-        "oriented": student.oriented,
-        "postal_code": student.postal_code,
-        "label_address": student.label_address,
-        "address_city": student.address_city,
-        "bac": student.bac,
-        "study_access_year": student.study_access_year,
-        "id_origin_university": student.oriented ? student.id_origin_university : null,
-        "studies": student.studies,
-        "doctaurat": student.doctaurat,
-        "fonction": student.fonctions
-      },
+    return this.http.put(url, student,
       {
         headers: this.headers
       })
