@@ -10,6 +10,7 @@
       <!-- Content area -->
       <div class="content" [ngBusy]="busy">
 
+
         <!-- Registration form -->
         <form #registerForm="ngForm" class="form-validate">
           <div class="row">
@@ -26,7 +27,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>Année universitaire :</label>
-                        <select name="year" class="select-year-residanat">
+                        <select name="year" class="select-year">
                           <option value="0" disabled>Choisir l'année</option>
                           <option *ngFor="let year of years" value="{{year}}">
                             {{year}}
@@ -53,8 +54,10 @@
                         est
                         obligatoire.</label>
                     </div>
+
                     <div *ngIf="student.residanat.id_result==2" class="col-md-4">
                       <div class="form-group">
+                        <label>Spécialité :</label>
                         <select name="specialite" class="select-specialite">
                           <option value="0" disabled>Choisir la spécialité</option>
                           <option *ngFor="let speciality of specialities" value="{{speciality.id_Specialite}}">
@@ -177,7 +180,7 @@
                          style="margin-bottom: 15px">
                       <button (click)="removeSemester()"
                               class="btn bg-danger btn-labeled btn-labeled-right ml-10"><b><i
-                        class="icon-cross2"></i></b> Supprimer
+                        class="icon-cross2"></i></b> Supprimer une semester
                       </button>
                     </div>
                     <div *ngIf="student.residanat.semesters.length!=10" class="col-md-6  text-right"
@@ -190,7 +193,40 @@
                   </div>
 
 
-                  <div class="row" *ngIf="!isNationalExam&&student.residanat.semesters.length>=6">
+                  <div class="row">
+                    <div class="col-md-3  text-right" style="margin-bottom: 15px">
+                      <button [routerLink]="['/student-file']"
+                              class="btn bg-grey-400"> Annuler
+                      </button>
+                    </div>
+                    <button (click)="reinitialiseResidanat()"
+                            class="col-md-4 btn bg-danger-400 btn-danger btn-labeled-right ml-10"><b><i
+                      class="icon-close2"></i></b> Réinitialiser mon résidanat
+                    </button>
+                    <div class="col-md-3 text-right" style="margin-bottom: 15px">
+                      <button (click)="validationResidanat()"
+                              class="btn bg-teal-400"> Valider
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- /registration form -->
+
+        <form #registerForm="ngForm" class="form-validate">
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+              <div class="panel registration-form">
+                <div class="panel-body">
+                  <div class="text-center">
+                    <h5 class="content-group-lg">Résultat Examen National
+                    </h5>
+                  </div>
+
+                  <div class="row" *ngIf="!isNationalExam">
                     <button (click)="addNationalExam()"
                             class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
                       class="icon-plus2"></i></b> Ajouter le resultat de l'examen national
@@ -232,41 +268,32 @@
                     </div>
 
                   </div>
-                  <div class="row" *ngIf="isNationalExam">
+                  <div class="row" *ngIf="isNationalExam" style="margin-bottom: 10px">
                     <button (click)="addNationalExam()"
                             class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
                       class="icon-close2"></i></b> Supprimer
                     </button>
                   </div>
-
-
-                  <div class="row">
-                    <div class="col-md-6  text-right" style="margin-bottom: 15px">
-                      <button
-                        class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
-                        class="icon-close2"></i></b> Annuler
+                  <div class="row" *ngIf="isNationalExam">
+                    <div class="col-md-3  text-right" style="margin-bottom: 15px">
+                      <button [routerLink]="['/student-file']"
+                              class="btn bg-grey-400"> Annuler
                       </button>
                     </div>
-                    <button (click)="reinitialiseResidanat()"
-                            class="col-md-4 btn bg-danger-400 btn-danger btn-labeled-right ml-10"><b><i
-                      class="icon-close2"></i></b> Réinitialiser ce résidanat
-                    </button>
-                    <div class="col-md-6 text-right" style="margin-bottom: 15px">
+                    <div class="col-md-3 text-right" style="margin-bottom: 15px">
                       <button (click)="validationResidanat()"
-                              class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
-                        class="icon-pen"></i></b> Modifier
+                              class="btn bg-teal-400"> Valider
                       </button>
                     </div>
                   </div>
-
-                  <section-validation [sectionId]="7" [student]="student"></section-validation>
                 </div>
               </div>
             </div>
           </div>
-        </form>
-        <!-- /registration form -->
 
+        </form>
+
+        <section-validation [sectionId]="7" [student]="student"></section-validation>
 
       </div>
       <!-- /content area -->
