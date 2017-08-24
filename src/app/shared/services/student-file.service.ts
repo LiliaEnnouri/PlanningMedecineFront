@@ -253,4 +253,14 @@ export class StudentFileService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  getAllFonctionTypes() {
+    const url = Config.baseUrl + "/fonction_types";
+
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }

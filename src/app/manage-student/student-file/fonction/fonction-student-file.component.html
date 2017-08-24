@@ -13,7 +13,7 @@
         <!-- Registration form -->
         <form #registerForm="ngForm" class="form-validate">
           <div class="row">
-            <div class="col-lg-6 col-lg-offset-3">
+            <div class="col-lg-8 col-lg-offset-2">
               <div class="panel registration-form">
                 <div class="panel-body">
                   <div class="text-center">
@@ -63,6 +63,24 @@
                           <span class="input-group-addon"><i class="icon-calendar22"></i></span>
                           <input type="text" placeholder="Date de prise de fonction"
                                  class="form-control  date-inaug_{{i}}">
+
+                        </div>
+                        <label *ngIf="submitted&&!fonction.date_of_inauguration" class="validation-error-label">Ce
+                          champs
+                          est
+                          obligatoire.</label>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Fonction Types :</label>
+                        <div class="form-group">
+                          <select name="fonction_type" class="select-fonction-type-{{i}} form-control">
+                            <option value="0">Choisir une fonction</option>
+                            <option></option>
+                            <option *ngFor="let fonction_type of fonction_types"
+                                    value="{{fonction_type.id_Fonction_Type}}">
+                              {{fonction_type.label}}
+                            </option>
+                          </select>
 
                         </div>
                         <label *ngIf="submitted&&!fonction.date_of_inauguration" class="validation-error-label">Ce
@@ -149,7 +167,7 @@
                   <div class="row">
                     <div class="col-md-6  text-right" style="margin-bottom: 15px">
                       <button
-                              class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+                        class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
                         class="icon-close2"></i></b> Annuler
                       </button>
                     </div>

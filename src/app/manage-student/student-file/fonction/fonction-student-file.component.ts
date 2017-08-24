@@ -12,6 +12,7 @@ import {Fonction} from "../../../shared/models/fonction";
 import {InscriptionService} from "../../../shared/services/inscription.service";
 import {Country} from "../../../shared/models/country";
 import {UserService} from "../../../shared/services/user.service";
+import {FonctionType} from "../../../shared/models/FonctionType";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -31,6 +32,7 @@ export class FonctionStudentFileComponent implements OnInit {
   universities: University[] = [];
   editAction: boolean;
   countries: Country[];
+  fonction_types: FonctionType[];
 
   ngOnInit() {
     const baseContext = this;
@@ -48,21 +50,56 @@ export class FonctionStudentFileComponent implements OnInit {
     }
 
     this.getAllCountries();
+    this.getAllFonctionTypes();
 
   }
 
-  constructor(private stoarageService: StorageService,
-              private studentFileServie: StudentFileService,
+  constructor(private storageService: StorageService,
+              private studentFileService: StudentFileService,
               private router: Router,
               private inscriptionService: InscriptionService,
               private userService: UserService) {
 
   }
 
+  private getAllFonctionTypes() {
+    const baseContext = this;
+    this.studentFileService.getAllFonctionTypes()
+      .subscribe(
+        (data) => {
+          this.fonction_types = data;
+          this.storageService.write('fonction_types', data);
+          if (this.editAction) {
+            setTimeout(function () {
+              for (let i = 0; i < baseContext.student.fonctions.length; i++) {
+                setTimeout(function () {
+                  const selectFonctionTypes = jQuery(".select-fonction-type-" + i);
+                  selectFonctionTypes.val(baseContext.student.fonctions[i].id_Fonction_Type).trigger("change");
+                }, 50);
+              }
+            }, 100);
+          }
+        }, error => {
+          if (!this.fonction_types) {
+            this.fonction_types = <Array<FonctionType>> this.storageService.read('fonction_types');
+            if (this.editAction) {
+              setTimeout(function () {
+                for (let i = 0; i < baseContext.student.fonctions.length; i++) {
+                  setTimeout(function () {
+                    const selectFonctionTypes = jQuery(".select-fonction-type-" + i);
+                    selectFonctionTypes.val(baseContext.student.fonctions[i].id_Fonction_Type).trigger("change");
+                  }, 50);
+                }
+              }, 100);
+            }
+          }
+        }
+      )
+  }
 
   private getAllResults() {
     const baseContext = this;
-    this.studentFileServie.getAllResults()
+    this.studentFileService.getAllResults()
       .subscribe(
         (data) => {
           this.results = data;
@@ -84,7 +121,7 @@ export class FonctionStudentFileComponent implements OnInit {
 
   private getAllUniversities() {
     const baseContext = this;
-    this.studentFileServie.getAllUniversities()
+    this.studentFileService.getAllUniversities()
       .subscribe(
         (data) => {
           this.universities = data;
@@ -142,7 +179,7 @@ export class FonctionStudentFileComponent implements OnInit {
     if (!this.isChampFulled()) {
       return;
     }
-    this.busy = this.studentFileServie.editFonctionInformation(this.student.id_student, this.student.fonctions)
+    this.busy = this.studentFileService.editFonctionInformation(this.student.id_student, this.student.fonctions)
       .subscribe(
         (data) => {
           this.student.fonctions = data;

@@ -1,8 +1,7 @@
 import {Adress} from "./adress";
 import {City} from "./city";
-/**
- * Created by Abbes on 04/08/2017.
- */
+import {FonctionType} from "./FonctionType";
+
 export class Fonction {
   public id_fonction: number;
   public nature: string;
@@ -12,4 +11,6 @@ export class Fonction {
 
   public cities: City[];
   public address: Adress = new Adress();
+  id_Fonction_Type: number;
+  type: FonctionType;
 }
