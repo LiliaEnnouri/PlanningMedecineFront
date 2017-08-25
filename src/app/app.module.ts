@@ -22,6 +22,7 @@ import {ReclamationService} from "./shared/services/reclamation.service";
 import {StudentFileService} from "./shared/services/student-file.service";
 import {InscriptionService} from "./shared/services/inscription.service";
 import {AdminService} from "./shared/services/admin.service";
+import {InscriptionsModule} from "./inscriptions/inscriptions.module";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import {AdminService} from "./shared/services/admin.service";
     LaddaModule,
     ManageStudentModule,
     SupportModule,
-
+    InscriptionsModule
   ],
   providers: [
     {

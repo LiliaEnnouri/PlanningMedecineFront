@@ -238,6 +238,11 @@ export class Utils {
       return result.length;
     }
   }
+
+  static getCurrentUniversityYear() {
+
+    return (new Date().getFullYear()) + "-" + (new Date().getFullYear() + 1)
+  }
 }
 
 

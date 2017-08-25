@@ -1,0 +1,80 @@
+<!-- Page container -->
+
+<div class="page-container">
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+
+      <!-- Content area -->
+      <div class="content" [ngBusy]="busy">
+
+        <!-- Registration form -->
+        <form #registerForm="ngForm" class="form-validate">
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+              <div class="panel registration-form">
+                <div class="panel-body">
+                  <div class="text-center">
+                    <h5 class="content-group-lg"> Inscription de l'année universitaire {{registrationYear.year_university}}
+                    </h5>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Date d'ouverture</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                          <input type="text" placeholder="Date d'émition"
+                                 class="form-control  date_open">
+
+                        </div>
+                      </div>
+                      <label *ngIf="submitted&&!registrationYear.start_date" class="validation-error-label">Ce champs
+                        est
+                        obligatoire.</label>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Date de fermeture</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                          <input type="text" placeholder="Date d'émition"
+                                 class="form-control  date_close">
+
+                        </div>
+                      </div>
+                      <label *ngIf="submitted&&!registrationYear.end_date" class="validation-error-label">Ce champs
+                        est
+                        obligatoire.</label>
+                    </div>
+
+                  </div>
+
+                  <div class="text-right">
+                    <button (click)="openInscription()"
+                            class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+                      class="icon-pen2"></i></b> Valider
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- /registration form -->
+
+
+      </div>
+      <!-- /content area -->
+
+    </div>
+    <!-- /main content -->
+
+  </div>
+  <!-- /page content -->
+
+</div>
+<!-- /page container -->

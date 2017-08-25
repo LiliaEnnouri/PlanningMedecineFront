@@ -15,6 +15,10 @@ export const routes: Routes = [
       {
         path: 'support',
         loadChildren: "./support/support.module#SupportModule"
+      },
+      {
+        path: 'inscriptions',
+        loadChildren: "./inscriptions/inscriptions.module#InscriptionsModule"
       }
     ],
   },
