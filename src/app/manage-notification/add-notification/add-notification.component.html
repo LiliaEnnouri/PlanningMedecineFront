@@ -36,7 +36,7 @@
                         <div class="form-group">
                           <label>Niveau (Optionel)</label>
                           <select name="level" class="select-level">
-                            <option value="0">Choisir un niveau</option>
+                            <option value="0">Tous les niveaux</option>
                             <option *ngFor="let level of levels" value="{{level.id_level}}">
                               {{level.label}}
                             </option>
@@ -48,7 +48,7 @@
                         <div class="form-group">
                           <label>Etudiant (Optionel) </label>
                           <select name="student" class="select-student">
-                            <option value="0">Choisir un étudiant</option>
+                            <option value="0">Tous les étudiants</option>
                             <option *ngFor="let student of students" value="{{student.id_student}}">
                               {{student.last_name+' '+student.first_name}}
                             </option>
