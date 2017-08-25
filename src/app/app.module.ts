@@ -23,6 +23,7 @@ import {StudentFileService} from "./shared/services/student-file.service";
 import {InscriptionService} from "./shared/services/inscription.service";
 import {AdminService} from "./shared/services/admin.service";
 import {NotificationService} from "./shared/services/notification.service";
+import {InscriptionsModule} from "./inscriptions/inscriptions.module";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import {NotificationService} from "./shared/services/notification.service";
     LaddaModule,
     ManageStudentModule,
     SupportModule,
-
+    InscriptionsModule
   ],
   providers: [
     {

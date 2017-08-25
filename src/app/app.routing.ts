@@ -19,6 +19,9 @@ export const routes: Routes = [
       {
         path: 'notification',
         loadChildren: "./manage-notification/manage-notification.module#ManageNotificationModule"
+      }, {
+        path: 'inscriptions',
+        loadChildren: "./inscriptions/inscriptions.module#InscriptionsModule"
       }
     ],
   },

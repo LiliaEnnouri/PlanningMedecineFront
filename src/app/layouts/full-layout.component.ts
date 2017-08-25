@@ -56,13 +56,23 @@ export class FullLayoutComponent implements OnInit {
             url: "/notification/add",
           }
         ]
-      },
-      {
+      }, {
+        name: "Inscriptions",
+        icon: "icon-pencil3",
+        childrens: [
+          {
+            name: "Année universitaire",
+            url: "/inscriptions/year-university"
+          }]
+      }, {
         name: "Messages",
         icon: "icon-comments",
         url: "/support/messages/all"
-      },
-    ];
+      }
+      ,
+    ]
+    ;
+
     this.route.queryParams.subscribe(
       params => {
         console.log(params.reload);
