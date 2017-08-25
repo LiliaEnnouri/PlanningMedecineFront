@@ -87,7 +87,12 @@
                 <!-- Components -->
                 <li class="{{component.active}}" *ngFor="let component of components">
                   <a (click)="goUrl(component.url)" *ngIf="!component.hidden">
-                    <i class="{{component.icon}}"></i><span>{{component.name}} <span *ngIf="component.name=='Assistance' && nbr_reclamations != 0" class="badge bg-warning-400">{{nbr_reclamations}}</span></span>
+                    <i class="{{component.icon}}"></i>
+                    <span>{{component.name}}
+                      <span *ngIf="component.name=='Assistance' && nbr_reclamations != 0" class="badge bg-warning-400">{{nbr_reclamations}}</span>
+                    </span>
+                    <span *ngIf="component.name=='Messages' && conversationCount != 0"
+                          class="badge bg-warning-400">{{conversationCount}}</span>
                   </a>
                   <ul>
                     <li *ngFor="let child of component.childrens"

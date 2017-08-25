@@ -17,6 +17,9 @@ export const routes: Routes = [
         loadChildren: "./support/support.module#SupportModule"
       },
       {
+        path: 'notification',
+        loadChildren: "./manage-notification/manage-notification.module#ManageNotificationModule"
+      }, {
         path: 'inscriptions',
         loadChildren: "./inscriptions/inscriptions.module#InscriptionsModule"
       }

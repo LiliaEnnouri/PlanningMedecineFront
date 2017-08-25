@@ -1,0 +1,82 @@
+<!-- Content area -->
+<div class="content">
+
+  <!-- Invoice archive -->
+  <div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">Liste des notifications</h6>
+      <div class="heading-elements">
+      </div>
+    </div>
+    <br>
+
+    <table class="table datatable-basic" [ngBusy]="busy">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Contenu</th>
+        <th>level</th>
+        <th>etudiant</th>
+        <th>créée le</th>
+        <th>Status</th>
+        <th class="text-center">Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let notification of notifications;let i=index;">
+        <td>{{notification.id_Notification}}</td>
+        <td>
+          {{notification.content}}
+        </td>
+        <td>
+          {{notification.level?notification.level.label:'tous les niveaux'}}
+        </td>
+        <td>
+          {{notification.student?notification.student.first_name+' '+notification.student.last_name:'tous les
+          étudiants'}}
+        </td>
+        <td>
+          {{notification.created_at|amTimeAgo}}
+        </td>
+        <td>
+          <ul class="list list-unstyled text-right">
+            <li></li>
+            <li class="dropdown">
+              <a href="#"
+                 class="label {{notification.status===0?'bg-grey':notification.status===-1?'bg-danger':notification.status===1?'bg-green':'bg-warning'}}  dropdown-toggle"
+                 data-toggle="dropdown">{{notification.status===0?'':notification.status===-1?'Invisbile':notification.status===1?'Visible':''}}
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a (click)="updateNotificationStatus(i,1)"><i
+                  class="icon-checkmark3"></i>
+                  {{'Visible'}}</a></li>
+                <li><a (click)="updateNotificationStatus(i,-1)"><i class="icon-alert"></i>
+                  Invisible</a></li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td class="text-center">
+          <ul class="icons-list">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-menu9"></i>
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a [routerLink]="'/notification/'+notification.id_Notification+'/edit'"><i class="icon-pencil"></i>Editer</a>
+                </li>
+                <li><a (click)="deleteNotification(i)"><i class="icon-close2"></i>Supprimer</a></li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- /invoice archive -->
+
+</div>
+<!-- /content area -->

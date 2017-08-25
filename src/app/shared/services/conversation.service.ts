@@ -3,7 +3,7 @@ import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
 import {Http} from "@angular/http";
 import {Config} from "../config";
-import {Conversation} from "../models/Conversation";
+import {Conversation} from "../models/conversation";
 import {UserService} from "./user.service";
 
 @Injectable()
@@ -94,4 +94,15 @@ export class ConversationService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  getConversationsCount() {
+    const url = Config.baseUrl + '/conversation/count';
+    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
+

@@ -2,8 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "../shared/services/storage.service";
 import {UserService} from "../shared/services/user.service";
-import {Admin} from "app/shared/models/Admin";
+import {Admin} from "app/shared/models/admin";
 import {ReclamationService} from "../shared/services/reclamation.service";
+import {ConversationService} from "../shared/services/conversation.service";
 declare let jQuery: any;
 @Component({
   selector: 'app-full-layout',
@@ -15,8 +16,9 @@ export class FullLayoutComponent implements OnInit {
   components: NavigationMain[] = [];
   admin: Admin;
   nbr_reclamations: number;
+  conversationCount: number;
 
-  constructor(private storageService: StorageService,
+  constructor(private storageService: StorageService, private conversationService: ConversationService,
               public router: Router, private userService: UserService,
               private route: ActivatedRoute, private reclamationService: ReclamationService) {
     this.admin = this.userService.loggedAdmin;
@@ -42,8 +44,7 @@ export class FullLayoutComponent implements OnInit {
             name: "Liste des dossiers",
             url: "/student/list"
           }]
-      },
-      {
+      }, {
         name: "Inscriptions",
         icon: "icon-pencil3",
         childrens: [
@@ -55,24 +56,26 @@ export class FullLayoutComponent implements OnInit {
             name: "Liste inscrit",
             url: "/inscriptions/list-inscrit"
           }]
-      }, /*
-       {
-       name: "Assistance",
-       icon: "icon-lifebuoy",
-       childrens: [
-       {
-       name: "Boite des réclamations",
-       url: "/support/boitereclamation",
-       },
-
-       ]
-       },*/
-      {
+      }, {
         name: "Messages",
         icon: "icon-comments",
         url: "/support/messages/all"
-      },
-    ];
+      }, {
+        name: "Notifications",
+        icon: "icon-bubble-notification",
+        childrens: [
+          {
+            name: "Liste des Notifications",
+            url: "/notification/list",
+          },
+          {
+            name: "Ajouter Notification",
+            url: "/notification/add",
+          }
+        ]
+      }
+    ]
+    ;
 
     this.route.queryParams.subscribe(
       params => {
@@ -90,7 +93,10 @@ export class FullLayoutComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
     this.getNumberReclamations();
-
+    this.conversationService.getConversationsCount().subscribe(data => {
+      this.conversationCount = data.count;
+      console.log(JSON.stringify(data));
+    });
   }
 
   changeActiveUrl(url: string) {

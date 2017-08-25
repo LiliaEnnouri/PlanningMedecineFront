@@ -19,7 +19,6 @@ export class EditStudentComponent implements OnInit {
   }
 
   ngOnInit() {
-    const baseContext = this;
     this.route.params.subscribe(
       params => {
         const id_student = +params["studentId"];

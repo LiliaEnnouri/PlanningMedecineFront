@@ -22,7 +22,10 @@ import {ReclamationService} from "./shared/services/reclamation.service";
 import {StudentFileService} from "./shared/services/student-file.service";
 import {InscriptionService} from "./shared/services/inscription.service";
 import {AdminService} from "./shared/services/admin.service";
+import {NotificationService} from "./shared/services/notification.service";
 import {InscriptionsModule} from "./inscriptions/inscriptions.module";
+import {ManageNotificationModule} from "./manage-notification/manage-notification.module";
+import {ConversationService} from "./shared/services/conversation.service";
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import {InscriptionsModule} from "./inscriptions/inscriptions.module";
     LaddaModule,
     ManageStudentModule,
     SupportModule,
-    InscriptionsModule
+    InscriptionsModule,
+    ManageNotificationModule
   ],
   providers: [
     {
@@ -56,7 +60,9 @@ import {InscriptionsModule} from "./inscriptions/inscriptions.module";
     ReclamationService,
     StudentFileService,
     InscriptionService,
-    AdminService
+    AdminService,
+    NotificationService,
+    ConversationService
   ],
   bootstrap: [AppComponent]
 })

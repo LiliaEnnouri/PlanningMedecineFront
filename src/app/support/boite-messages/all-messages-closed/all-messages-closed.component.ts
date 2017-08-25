@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 
 import {Subscription} from "rxjs";
-import {Conversation} from "app/shared/models/Conversation";
+import {Conversation} from "app/shared/models/conversation";
 import {Config} from "../../../shared/config";
 import {ConversationService} from "app/shared/services/conversation.service";
 declare let swal;

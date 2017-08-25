@@ -2,7 +2,7 @@ import {StorageService} from "app/shared/services/storage.service";
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
 import {Http} from "@angular/http";
-import {Admin} from "../models/Admin";
+import {Admin} from "../models/admin";
 import {Config} from "../config";
 
 @Injectable()
