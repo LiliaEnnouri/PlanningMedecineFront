@@ -10,6 +10,9 @@ export const routes: Routes = [
   }, {
     path: 'add',
     component: AddNotificationComponent
+  }, {
+    path: ':notificationId/edit',
+    component: AddNotificationComponent
   }
 ];
 

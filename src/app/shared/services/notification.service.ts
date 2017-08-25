@@ -65,4 +65,15 @@ export class NotificationService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  editNotification(notification: Notification) {
+    const url = Config.baseUrl + '/notification/' + notification.id_Notification;
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put(url, notification
+      , {
+        headers: this.headers
+      })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }

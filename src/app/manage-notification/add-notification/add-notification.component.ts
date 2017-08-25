@@ -6,7 +6,7 @@ import {Level} from "../../shared/models/level";
 import {StudentFileService} from "../../shared/services/student-file.service";
 import {Student} from "../../shared/models/student";
 import {StudentService} from "../../shared/services/student.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 declare let jQuery;
 declare let swal;
 @Component({
@@ -20,10 +20,12 @@ export class AddNotificationComponent implements OnInit {
   submitted: boolean;
   levels: Array<Level>;
   students: Array<Student>;
+  isEditMode: boolean;
 
-  constructor(private notificationService: NotificationService, private router: Router,
+  constructor(private notificationService: NotificationService, private router: Router, private route: ActivatedRoute,
               private studentFileService: StudentFileService, private studentService: StudentService,) {
     this.notification = new Notification();
+    this.isEditMode = router.url.indexOf('edit') > 0;
   }
 
   ngOnInit() {
@@ -31,6 +33,24 @@ export class AddNotificationComponent implements OnInit {
     this.initLevelsSelect();
     this.getAllStudents();
     this.initStudentsSelect();
+
+    if (this.isEditMode) {
+      const baseContext = this;
+      this.route.params.subscribe(
+        params => {
+          const idNotification = +params["notificationId"];
+          baseContext.busy = this.notificationService.getNotificationById(idNotification).subscribe(data => {
+            baseContext.notification = data;
+            const selectStudent = jQuery(".select-student");
+            const selectLevel = jQuery(".select-level");
+            setTimeout(function () {
+              selectStudent.val(baseContext.notification.id_Student).trigger('change');
+              selectLevel.val(baseContext.notification.id_Level).trigger('change');
+            }, 200);
+          });
+        });
+    }
+
   }
 
   private getAllLevels() {
@@ -39,6 +59,12 @@ export class AddNotificationComponent implements OnInit {
       .subscribe(
         (data) => {
           this.levels = data;
+          if (this.isEditMode) {
+            const selectLevel = jQuery(".select-level");
+            setTimeout(function () {
+              selectLevel.val(baseContext.notification.id_Level).trigger('change');
+            }, 200);
+          }
         }
       )
   }
@@ -58,28 +84,47 @@ export class AddNotificationComponent implements OnInit {
       .subscribe(
         (data) => {
           this.students = data;
+          if (this.isEditMode) {
+            const selectStudent = jQuery(".select-student");
+            setTimeout(function () {
+              selectStudent.val(baseContext.notification.id_Student).trigger('change');
+            }, 200);
+          }
         }
       )
   }
 
   private initStudentsSelect() {
     const baseContext = this;
-    const selectLevel = jQuery(".select-student");
-    selectLevel.select2();
-    selectLevel.on('change', function () {
+    const selectStudent = jQuery(".select-student");
+    selectStudent.select2();
+    selectStudent.on('change', function () {
       baseContext.notification.id_Student = +jQuery(this).val();
     });
   }
 
   addNotification() {
-    this.busy = this.notificationService.addNotification(this.notification).subscribe(data => {
-      swal({
-        title: "Ajoutée!",
-        text: "Cette notification est ajoutée.",
-        confirmButtonColor: "#66BB6A",
-        type: "success"
-      });
-      this.router.navigateByUrl('notification/list');
-    })
+    if (this.isEditMode) {
+      this.busy = this.notificationService.editNotification(this.notification).subscribe(data => {
+        swal({
+          title: "Modifié!",
+          text: "Cette notification est modifié.",
+          confirmButtonColor: "#66BB6A",
+          type: "success"
+        });
+        this.router.navigateByUrl('notification/list');
+      })
+    } else {
+      this.busy = this.notificationService.addNotification(this.notification).subscribe(data => {
+        swal({
+          title: "Ajoutée!",
+          text: "Cette notification est ajoutée.",
+          confirmButtonColor: "#66BB6A",
+          type: "success"
+        });
+        this.router.navigateByUrl('notification/list');
+      })
+    }
+
   }
 }

@@ -65,6 +65,8 @@
               </a>
 
               <ul class="dropdown-menu dropdown-menu-right">
+                <li><a [routerLink]="'/notification/'+notification.id_Notification+'/edit'"><i class="icon-pencil"></i>Editer</a>
+                </li>
                 <li><a (click)="deleteNotification(i)"><i class="icon-close2"></i>Supprimer</a></li>
               </ul>
             </li>
