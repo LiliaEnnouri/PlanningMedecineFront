@@ -42,20 +42,6 @@ export class FullLayoutComponent implements OnInit {
             name: "Liste des dossiers",
             url: "/student/list"
           }]
-      },
-      {
-        name: "Gestion des Notifications",
-        icon: "icon-bubble-notification",
-        childrens: [
-          {
-            name: "Liste des Notifications",
-            url: "/notification/list",
-          },
-          {
-            name: "Ajouter Notification",
-            url: "/notification/add",
-          }
-        ]
       }, {
         name: "Inscriptions",
         icon: "icon-pencil3",
@@ -68,8 +54,20 @@ export class FullLayoutComponent implements OnInit {
         name: "Messages",
         icon: "icon-comments",
         url: "/support/messages/all"
+      }, {
+        name: "Notifications",
+        icon: "icon-bubble-notification",
+        childrens: [
+          {
+            name: "Liste des Notifications",
+            url: "/notification/list",
+          },
+          {
+            name: "Ajouter Notification",
+            url: "/notification/add",
+          }
+        ]
       }
-      ,
     ]
     ;
 
