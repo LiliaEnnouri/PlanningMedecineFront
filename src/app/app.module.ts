@@ -25,6 +25,7 @@ import {AdminService} from "./shared/services/admin.service";
 import {NotificationService} from "./shared/services/notification.service";
 import {InscriptionsModule} from "./inscriptions/inscriptions.module";
 import {ManageNotificationModule} from "./manage-notification/manage-notification.module";
+import {ConversationService} from "./shared/services/conversation.service";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {ManageNotificationModule} from "./manage-notification/manage-notificatio
     StudentFileService,
     InscriptionService,
     AdminService,
-    NotificationService
+    NotificationService,
+    ConversationService
   ],
   bootstrap: [AppComponent]
 })

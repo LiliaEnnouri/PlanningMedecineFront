@@ -94,4 +94,15 @@ export class ConversationService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  getConversationsCount() {
+    const url = Config.baseUrl + '/conversation/count';
+    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
+

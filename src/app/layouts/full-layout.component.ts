@@ -4,6 +4,7 @@ import {StorageService} from "../shared/services/storage.service";
 import {UserService} from "../shared/services/user.service";
 import {Admin} from "app/shared/models/admin";
 import {ReclamationService} from "../shared/services/reclamation.service";
+import {ConversationService} from "../shared/services/conversation.service";
 declare let jQuery: any;
 @Component({
   selector: 'app-full-layout',
@@ -15,8 +16,9 @@ export class FullLayoutComponent implements OnInit {
   components: NavigationMain[] = [];
   admin: Admin;
   nbr_reclamations: number;
+  conversationCount: number;
 
-  constructor(private storageService: StorageService,
+  constructor(private storageService: StorageService, private conversationService: ConversationService,
               public router: Router, private userService: UserService,
               private route: ActivatedRoute, private reclamationService: ReclamationService) {
     this.admin = this.userService.loggedAdmin;
@@ -87,7 +89,10 @@ export class FullLayoutComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
     this.getNumberReclamations();
-
+    this.conversationService.getConversationsCount().subscribe(data => {
+      this.conversationCount = data.count;
+      console.log(JSON.stringify(data));
+    });
   }
 
   changeActiveUrl(url: string) {
