@@ -1,3 +1,91 @@
-<p>
-  add-notification works!
-</p>
+<!-- Page container -->
+<div class="page-container">
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+
+      <!-- Content area -->
+      <div class="content" [ngBusy]="busy">
+
+        <!-- Registration form -->
+        <form #registerForm="ngForm" class="form-validate">
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+              <div class="panel registration-form">
+                <div class="panel-body">
+
+                  <div>
+                    <h4>Ajouter Une Notification</h4>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Contenu de la notification :</label>
+                          <textarea [(ngModel)]="notification.content" type="text" class="form-control" name="content"
+                                    placeholder="Contenu" required></textarea>
+                        </div>
+                        <label *ngIf="submitted&&!notification.content" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Niveau (Optionel)</label>
+                          <select name="level" class="select-level">
+                            <option value="0">Choisir un niveau</option>
+                            <option *ngFor="let level of levels" value="{{level.id_level}}">
+                              {{level.label}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Etudiant (Optionel) </label>
+                          <select name="student" class="select-student">
+                            <option value="0">Choisir un étudiant</option>
+                            <option *ngFor="let student of students" value="{{student.id_student}}">
+                              {{student.last_name+' '+student.first_name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="text-right">
+                    <button [routerLink]="['/student-file']"
+                            class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+                      class="icon-close2"></i></b> Annuler
+                    </button>
+                    <button (click)="addNotification()"
+                            class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+                      class="icon-plus3"></i></b> Ajouter
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </form>
+        <!-- /registration form -->
+
+      </div>
+      <!-- /content area -->
+
+    </div>
+    <!-- /main content -->
+
+  </div>
+  <!-- /page content -->
+</div>
+<!-- /page container -->

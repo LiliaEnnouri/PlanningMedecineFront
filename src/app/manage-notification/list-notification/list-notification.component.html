@@ -33,17 +33,29 @@
           {{notification.level?notification.level.label:'tous les niveaux'}}
         </td>
         <td>
-          {{notification.student?notification.student.first_name+' '+notification.student.last_name:'tous les étudiants'}}
+          {{notification.student?notification.student.first_name+' '+notification.student.last_name:'tous les
+          étudiants'}}
         </td>
         <td>
           {{notification.created_at|amTimeAgo}}
         </td>
         <td>
-          <a href="#"
-             class="label {{notification.status===0?'bg-grey':notification.status===-1?'bg-danger':notification.status===1?'bg-green':'bg-warning'}}  dropdown-toggle"
-             data-toggle="dropdown">{{notification.status===0?'':notification.status===-1?'Invisbile':notification.status===1?'Visible':''}}
-          </a>
-
+          <ul class="list list-unstyled text-right">
+            <li></li>
+            <li class="dropdown">
+              <a href="#"
+                 class="label {{notification.status===0?'bg-grey':notification.status===-1?'bg-danger':notification.status===1?'bg-green':'bg-warning'}}  dropdown-toggle"
+                 data-toggle="dropdown">{{notification.status===0?'':notification.status===-1?'Invisbile':notification.status===1?'Visible':''}}
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a (click)="updateNotificationStatus(i,1)"><i
+                  class="icon-checkmark3"></i>
+                  {{'Visible'}}</a></li>
+                <li><a (click)="updateNotificationStatus(i,-1)"><i class="icon-alert"></i>
+                  Invisible</a></li>
+              </ul>
+            </li>
+          </ul>
         </td>
         <td class="text-center">
           <ul class="icons-list">

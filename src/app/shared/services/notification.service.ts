@@ -35,7 +35,7 @@ export class NotificationService extends GenericService {
   }
 
   addNotification(notifiation: Notification) {
-    const url = Config.baseUrl + '/notification/addd';
+    const url = Config.baseUrl + '/notification/add';
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.post(url, notifiation, {
       headers: this.headers

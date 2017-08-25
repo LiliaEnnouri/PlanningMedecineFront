@@ -67,4 +67,18 @@ export class ListNotificationComponent implements OnInit {
       });
   }
 
+
+  updateNotificationStatus(index: number, status: number) {
+    const notification: Notification = this.notifications[index];
+    this.busy = this.notificationService.updateNotificationStatus(notification, status).subscribe(data => {
+      notification.status = status;
+      swal({
+        title: "Modifié!",
+        text: "Cette notification est mise à jour.",
+        confirmButtonColor: "#66BB6A",
+        type: "success"
+      });
+    });
+  }
+
 }

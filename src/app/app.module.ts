@@ -24,6 +24,7 @@ import {InscriptionService} from "./shared/services/inscription.service";
 import {AdminService} from "./shared/services/admin.service";
 import {NotificationService} from "./shared/services/notification.service";
 import {InscriptionsModule} from "./inscriptions/inscriptions.module";
+import {ManageNotificationModule} from "./manage-notification/manage-notification.module";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {InscriptionsModule} from "./inscriptions/inscriptions.module";
     LaddaModule,
     ManageStudentModule,
     SupportModule,
-    InscriptionsModule
+    InscriptionsModule,
+    ManageNotificationModule
   ],
   providers: [
     {
