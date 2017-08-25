@@ -3,7 +3,7 @@ import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
 import {Http} from "@angular/http";
 import {Config} from "../config";
-import {Conversation} from "../models/Conversation";
+import {Conversation} from "../models/conversation";
 import {UserService} from "./user.service";
 
 @Injectable()

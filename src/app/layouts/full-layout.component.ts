@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "../shared/services/storage.service";
 import {UserService} from "../shared/services/user.service";
-import {Admin} from "app/shared/models/Admin";
+import {Admin} from "app/shared/models/admin";
 import {ReclamationService} from "../shared/services/reclamation.service";
 declare let jQuery: any;
 @Component({
@@ -42,18 +42,21 @@ export class FullLayoutComponent implements OnInit {
             name: "Liste des dossiers",
             url: "/student/list"
           }]
-      }, /*
-       {
-       name: "Assistance",
-       icon: "icon-lifebuoy",
-       childrens: [
-       {
-       name: "Boite des réclamations",
-       url: "/support/boitereclamation",
-       },
-
-       ]
-       },*/
+      },
+      {
+        name: "Gestion des Notifications",
+        icon: "icon-bubble-notification",
+        childrens: [
+          {
+            name: "Liste des Notifications",
+            url: "/notification/list",
+          },
+          {
+            name: "Ajouter Notification",
+            url: "/notification/add",
+          }
+        ]
+      },
       {
         name: "Messages",
         icon: "icon-comments",

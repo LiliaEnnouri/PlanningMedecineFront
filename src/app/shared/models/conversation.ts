@@ -1,4 +1,4 @@
-import {ConversationMessage} from "./Conversation_Message";
+import {ConversationMessage} from "./conversation_message";
 import {Student} from "./student";
 export class Conversation {
   id_Conversation: number;

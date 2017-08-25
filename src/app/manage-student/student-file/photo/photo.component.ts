@@ -25,13 +25,13 @@ export class PhotoComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.student.img) {
-      Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/photo/upload",
+      Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
         this.userServices.getTokent(), ".file-input-student-photo", 1);
     } else {
       this.initStudentPhoto();
     }
     if ((this.student.cin && !this.student.cin.imgs) && (this.student.passport && !this.student.passport.imgs)) {
-      Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/cin/upload",
+      Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/cin/upload",
         this.userServices.getTokent(), ".file-input-student-cin", 2);
       if (this.student.cin) {
         this.student.cin.imgs = [];
@@ -42,14 +42,14 @@ export class PhotoComponent implements OnInit {
       this.initStudentCin();
     }
     if (!this.student.extrait_naissance) {
-      Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/extrait-naissance/upload",
+      Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/extrait-naissance/upload",
         this.userServices.getTokent(), ".file-input-student-extrait-naissance", 1);
     } else {
       this.initStudentExtraitNaissance();
     }
 
     if (!this.student.attestation_orientation) {
-      Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/attestation-orientation/upload",
+      Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/attestation-orientation/upload",
         this.userServices.getTokent(), ".file-input-student-attestation-orientation", 1);
     } else {
       this.initStudentAttestationOrientation();
@@ -68,7 +68,6 @@ export class PhotoComponent implements OnInit {
         confirmButtonColor: "#66BB6A",
         type: "success"
       });
-      baseContext.router.navigate(["/student-file"]);
     }).on('filedeleted', function (event, key, jqXHR, data) {
       baseContext.student.img = baseContext.student.img = null;
       baseContext.storageService.write("student", baseContext.student);
@@ -92,7 +91,6 @@ export class PhotoComponent implements OnInit {
         confirmButtonColor: "#66BB6A",
         type: "success"
       });
-      baseContext.router.navigate(["/student-file"]);
     }).on('filedeleted', function (event, key, jqXHR, data) {
       baseContext.student.extrait_naissance = baseContext.student.extrait_naissance = null;
       baseContext.storageService.write("student", baseContext.student);
@@ -115,7 +113,6 @@ export class PhotoComponent implements OnInit {
         confirmButtonColor: "#66BB6A",
         type: "success"
       });
-      baseContext.router.navigate(["/student-file"]);
     }).on('filedeleted', function (event, key, jqXHR, data) {
       baseContext.student.attestation_orientation = baseContext.student.attestation_orientation = null;
       baseContext.storageService.write("student", baseContext.student);
@@ -187,7 +184,7 @@ export class PhotoComponent implements OnInit {
       url: Config.baseUrl + '/' + studentImg.path + '/delete',
       size: studentImg.size
     });
-    Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/photo/upload",
+    Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
       this.userServices.getTokent(), ".file-input-student-photo", 1, inputMedias, initialPreviewConfig);
   }
 
@@ -205,7 +202,7 @@ export class PhotoComponent implements OnInit {
       url: Config.baseUrl + '/' + studentImg.path + '/delete',
       size: studentImg.size
     });
-    Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/photo/upload",
+    Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
       this.userServices.getTokent(), ".file-input-student-extrait-naissance", 1, inputMedias, initialPreviewConfig);
   }
 
@@ -223,7 +220,7 @@ export class PhotoComponent implements OnInit {
       url: Config.baseUrl + '/' + studentImg.path + '/delete',
       size: studentImg.size
     });
-    Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/photo/upload",
+    Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
       this.userServices.getTokent(), ".file-input-student-attestation-orientation", 1, inputMedias, initialPreviewConfig);
   }
 
@@ -248,7 +245,7 @@ export class PhotoComponent implements OnInit {
         size: img.size
       });
     });
-    Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/cin/upload",
+    Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/cin/upload",
       this.userServices.getTokent(), ".file-input-student-cin", 2, inputMedias, initialPreviewConfig);
   }
 
