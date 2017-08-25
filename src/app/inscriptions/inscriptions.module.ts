@@ -5,6 +5,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import {SharedModule} from "../shared/shared.module";
 import {InscriptionsModuleRouting} from "./inscriptions.routing";
 import {InscriptionYearUniversityComponent} from "./inscription-year-university/inscription-year-university.component";
+import {ListInscritComponent} from "./list-inscrit/list-inscrit.component";
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import {InscriptionYearUniversityComponent} from "./inscription-year-university/
     SharedModule,
   ],
   declarations: [
-    InscriptionYearUniversityComponent
+    InscriptionYearUniversityComponent,
+    ListInscritComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: []

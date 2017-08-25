@@ -1,0 +1,56 @@
+<!-- Content area -->
+<div class="content">
+
+  <!-- Invoice archive -->
+  <div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">Liste étudiant</h6>
+    </div>
+    <br>
+
+    <table class="table datatable-basic" [ngBusy]="busy">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>CIN</th>
+        <th>Passport</th>
+        <th>E-mail</th>
+        <th>Niveau</th>
+        <th>Année universitaire</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let item of registrationsUniversityStudents;let i=index;">
+        <td>{{item.student.id_student}}</td>
+        <td>
+          {{item.student.first_name}}
+        </td>
+        <td>
+          {{item.student.last_name}}
+        </td>
+        <td>
+          <span *ngIf="item.student.cin">{{item.student.cin.code}}</span>
+        </td>
+        <td>
+          <span *ngIf="item.student.passport">{{item.student.passport.code}}</span>
+        </td>
+        <td>
+          {{item.student.email}}
+        </td>
+        <td>
+          {{item.level.label}}
+        </td>
+        <td>
+          {{item.registration_university.year_university}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- /invoice archive -->
+
+</div>
+

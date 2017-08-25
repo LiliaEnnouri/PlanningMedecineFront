@@ -50,6 +50,10 @@ export class FullLayoutComponent implements OnInit {
           {
             name: "Année universitaire",
             url: "/inscriptions/year-university"
+          },
+          {
+            name: "Liste inscrit",
+            url: "/inscriptions/list-inscrit"
           }]
       }, /*
        {

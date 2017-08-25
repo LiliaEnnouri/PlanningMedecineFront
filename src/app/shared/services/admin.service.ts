@@ -46,4 +46,14 @@ export class AdminService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  getListInscritStudents() {
+    const url = Config.baseUrl + '/admin/registration/university-year/list-student';
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
