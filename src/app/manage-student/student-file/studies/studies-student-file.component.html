@@ -11,7 +11,7 @@
       <div class="content" [ngBusy]="busy">
 
         <!-- Registration form -->
-        <form #registerForm="ngForm" class="form-validate">
+        <form #registerForm="ngForm" id="formStudies" class="form-validate">
           <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
               <div class="panel registration-form">
@@ -128,7 +128,7 @@
                   </div>
 
 
-                  <div class="row">
+                  <div *ngIf="isAdmin" class="row">
                     <div class="col-md-6  text-right" style="margin-bottom: 15px">
                       <button
                         class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i

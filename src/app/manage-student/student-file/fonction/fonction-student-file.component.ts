@@ -25,6 +25,9 @@ export class FonctionStudentFileComponent implements OnInit {
 
   @Input()
   student: Student;
+  @Input()
+  isAdmin: boolean;
+
   submitted: boolean;
   busy: Subscription;
   results: Result[] = [];
@@ -36,6 +39,8 @@ export class FonctionStudentFileComponent implements OnInit {
 
   ngOnInit() {
     const baseContext = this;
+
+
     this.editAction = this.student.fonctions.length !== 0;
 
     if (!this.editAction) {
@@ -51,6 +56,12 @@ export class FonctionStudentFileComponent implements OnInit {
 
     this.getAllCountries();
     this.getAllFonctionTypes();
+
+    if (!this.isAdmin) {
+      setTimeout(function () {
+        jQuery('#formFonctions').find('input, textarea, button, select').attr('disabled', 'disabled');
+      }, 50);
+    }
 
   }
 

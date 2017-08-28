@@ -19,6 +19,9 @@ export class DoctauratStudentFileComponent implements OnInit {
 
   @Input()
   student: Student;
+  @Input()
+  isAdmin: boolean;
+
   busy: Subscription;
   mentions: Array<Mention>;
   universities: Array<University>;
@@ -30,6 +33,8 @@ export class DoctauratStudentFileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
     this.isEditAction = this.student.doctaurat !== null;
     if (!this.isEditAction) {
       this.student.doctaurat = new Doctaurat();
@@ -37,6 +42,10 @@ export class DoctauratStudentFileComponent implements OnInit {
     this.initUniversities();
     this.initMentions();
     this.initDatePicker();
+
+    if (!this.isAdmin) {
+      jQuery('#formDoctauratStudent').find('input, textarea, button, select').attr('disabled', 'disabled');
+    }
   }
 
   private initUniversities() {

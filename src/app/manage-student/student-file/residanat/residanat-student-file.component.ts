@@ -25,6 +25,9 @@ export class ResidanatStudentFileComponent implements OnInit {
 
   @Input()
   student: Student;
+  @Input()
+  isAdmin: boolean;
+
   busy: Subscription;
   submitted: boolean;
   years: number[] = [];
@@ -41,7 +44,10 @@ export class ResidanatStudentFileComponent implements OnInit {
 
     this.years = Utils.getYears(1990);
 
-
+    if (!this.isAdmin) {
+      jQuery('#formResidant').find('input, textarea, button, select').attr('disabled', 'disabled');
+      jQuery('#formExam').find('input, textarea, button, select').attr('disabled', 'disabled');
+    }
     this.isEditAction = this.student.residanat !== null;
     if (!this.isEditAction) {
       this.student.residanat = new Residanat();

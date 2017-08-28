@@ -12,31 +12,31 @@
 
 
         <!-- General Info -->
-        <app-student-general-info *ngIf="student" [student]="student"></app-student-general-info>
+        <app-student-general-info *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-general-info>
         <!-- /General Info -->
 
         <!-- Photos -->
-        <app-student-photos *ngIf="student" [student]="student"></app-student-photos>
+        <app-student-photos *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-photos>
         <!-- /Photos -->
 
         <!-- Bac Info -->
-        <app-student-bac-info *ngIf="student" [student]="student"></app-student-bac-info>
+        <app-student-bac-info *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-bac-info>
         <!-- /Bac Info -->
 
         <!-- Student Studies Info -->
-        <app-student-studies *ngIf="student" [student]="student"></app-student-studies>
+        <app-student-studies *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-studies>
         <!-- /Student Studies Info -->
 
         <!-- Student Residanat Info -->
-        <app-student-residnat *ngIf="student" [student]="student"></app-student-residnat>
+        <app-student-residnat *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-residnat>
         <!-- /Student Residanat Info -->
 
         <!-- Student Doctaurat Info -->
-        <app-student-doctaurat *ngIf="student" [student]="student"></app-student-doctaurat>
+        <app-student-doctaurat *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-doctaurat>
         <!-- /Student Doctaurat Info -->
 
         <!-- Student Fonctions Info -->
-        <app-student-fonction *ngIf="student" [student]="student"></app-student-fonction>
+        <app-student-fonction *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-fonction>
         <!-- /Student Fonctions Info -->
 
       </div>

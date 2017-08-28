@@ -12,7 +12,7 @@
 
 
         <!-- Registration form -->
-        <form #registerForm="ngForm" class="form-validate">
+        <form #registerForm="ngForm" id="formResidant" class="form-validate">
           <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
               <div class="panel registration-form">
@@ -175,38 +175,40 @@
 
                     </div>
                   </div>
-                  <div *ngIf="student.residanat.id_result==2" class="row">
-                    <div *ngIf="student.residanat.semesters.length" class="col-md-6  text-right"
-                         style="margin-bottom: 15px">
-                      <button (click)="removeSemester()"
-                              class="btn bg-danger btn-labeled btn-labeled-right ml-10"><b><i
-                        class="icon-cross2"></i></b> Supprimer une semester
-                      </button>
+                  <div *ngIf="isAdmin">
+                    <div *ngIf="student.residanat.id_result==2" class="row">
+                      <div *ngIf="student.residanat.semesters.length" class="col-md-6  text-right"
+                           style="margin-bottom: 15px">
+                        <button (click)="removeSemester()"
+                                class="btn bg-danger btn-labeled btn-labeled-right ml-10"><b><i
+                          class="icon-cross2"></i></b> Supprimer une semester
+                        </button>
+                      </div>
+                      <div *ngIf="student.residanat.semesters.length!=10" class="col-md-6  text-right"
+                           style="margin-bottom: 15px">
+                        <button (click)="addSemester()"
+                                class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
+                          class="icon-plus2"></i></b> Ajouter une semester
+                        </button>
+                      </div>
                     </div>
-                    <div *ngIf="student.residanat.semesters.length!=10" class="col-md-6  text-right"
-                         style="margin-bottom: 15px">
-                      <button (click)="addSemester()"
-                              class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
-                        class="icon-plus2"></i></b> Ajouter une semester
-                      </button>
-                    </div>
-                  </div>
 
 
-                  <div class="row">
-                    <div class="col-md-3  text-right" style="margin-bottom: 15px">
-                      <button [routerLink]="['/student-file']"
-                              class="btn bg-grey-400"> Annuler
+                    <div class="row">
+                      <div class="col-md-3  text-right" style="margin-bottom: 15px">
+                        <button [routerLink]="['/student-file']"
+                                class="btn bg-grey-400"> Annuler
+                        </button>
+                      </div>
+                      <button (click)="reinitialiseResidanat()"
+                              class="col-md-4 btn bg-danger-400 btn-danger btn-labeled-right ml-10"><b><i
+                        class="icon-close2"></i></b> Réinitialiser mon résidanat
                       </button>
-                    </div>
-                    <button (click)="reinitialiseResidanat()"
-                            class="col-md-4 btn bg-danger-400 btn-danger btn-labeled-right ml-10"><b><i
-                      class="icon-close2"></i></b> Réinitialiser mon résidanat
-                    </button>
-                    <div class="col-md-3 text-right" style="margin-bottom: 15px">
-                      <button (click)="validationResidanat()"
-                              class="btn bg-teal-400"> Valider
-                      </button>
+                      <div class="col-md-3 text-right" style="margin-bottom: 15px">
+                        <button (click)="validationResidanat()"
+                                class="btn bg-teal-400"> Valider
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -216,7 +218,7 @@
         </form>
         <!-- /registration form -->
 
-        <form #registerForm="ngForm" class="form-validate">
+        <form #registerForm="ngForm" id="formExam" class="form-validate">
           <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
               <div class="panel registration-form">
@@ -226,7 +228,7 @@
                     </h5>
                   </div>
 
-                  <div class="row" *ngIf="!isNationalExam">
+                  <div class="row" *ngIf="!isNationalExam && isAdmin">
                     <button (click)="addNationalExam()"
                             class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
                       class="icon-plus2"></i></b> Ajouter le resultat de l'examen national
@@ -268,19 +270,19 @@
                     </div>
 
                   </div>
-                  <div class="row" *ngIf="isNationalExam" style="margin-bottom: 10px">
+                  <div class="row" *ngIf="isNationalExam && isAdmin" style="margin-bottom: 10px">
                     <button (click)="addNationalExam()"
                             class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
                       class="icon-close2"></i></b> Supprimer
                     </button>
                   </div>
-                  <div class="row" *ngIf="isNationalExam">
+                  <div class="row" *ngIf="isNationalExam && isAdmin">
                     <div class="col-md-3  text-right" style="margin-bottom: 15px">
                       <button [routerLink]="['/student-file']"
                               class="btn bg-grey-400"> Annuler
                       </button>
                     </div>
-                    <div class="col-md-3 text-right" style="margin-bottom: 15px">
+                    <div class="col-md-3 text-right" *ngIf="isNationalExam && isAdmin" style="margin-bottom: 15px">
                       <button (click)="validationResidanat()"
                               class="btn bg-teal-400"> Valider
                       </button>
