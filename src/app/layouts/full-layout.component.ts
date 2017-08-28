@@ -42,10 +42,10 @@ export class FullLayoutComponent implements OnInit {
         childrens: [
           {
             name: "Dossiers validés",
-            url: "/student/list/valid"
+            url: "/student/list-valid"
           }, {
             name: "Dossiers en cours",
-            url: "/student/list/current"
+            url: "/student/list-current"
           }]
       }, {
         name: "Inscriptions",
