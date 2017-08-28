@@ -37,9 +37,13 @@
         <div class=" checkbox-switchery reviewOn">
           <label>
 
+            <button *ngIf="requestedStatus==0" (click)="downloadStudentsExcel()" type="button"
+                    class="btn btn-info btn-labeled btn-labeled-right">
+              <b><i class="icon-file-excel"></i></b>
+              Générer Excel des étudiants
+            </button>
             <input type="checkbox" class="switch" [(ngModel)]="isReviewingMode">
             Entrain de traiter les dossiers
-
           </label>
         </div>
       </div>

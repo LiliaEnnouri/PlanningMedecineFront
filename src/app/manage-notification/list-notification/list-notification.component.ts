@@ -6,6 +6,7 @@ import {Subscription} from "rxjs/Subscription";
 import {Utils} from "../../shared/utils";
 import {Router} from "@angular/router";
 declare let swal;
+declare let jQuery;
 @Component({
   selector: 'app-list-notification',
   templateUrl: './list-notification.component.html',

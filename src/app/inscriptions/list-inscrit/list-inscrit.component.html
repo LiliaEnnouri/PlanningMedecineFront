@@ -1,4 +1,4 @@
-<div class="sidebar sidebar-secondary sidebar-default">
+<div class="sidebar sidebar-secondary sidebar-default" *ngIf="false">
   <div class="sidebar-content">
 
 
@@ -51,12 +51,19 @@
 
 
 <!-- Content area -->
-<div class="content-wrapper">
+<div class="content">
 
   <!-- Invoice archive -->
   <div class="panel panel-white">
     <div class="panel-heading">
       <h6 class="panel-title">Liste étudiant</h6>
+      <br>
+      <select class="select-level">
+        <option disabled value="0">Tous les Niveaux</option>
+        <option *ngFor="let level of levels" value="{{level.id_level}}">
+          {{level.label}}
+        </option>
+      </select>
     </div>
     <br>
 

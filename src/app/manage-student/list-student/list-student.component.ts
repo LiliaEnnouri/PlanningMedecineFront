@@ -217,4 +217,17 @@ export class ListStudentComponent implements OnInit {
       Utils.reInitializeDataTables(50, 6);
     });
   }
+
+  downloadStudentsExcel() {
+    this.busy = this.adminService.generateStudentsExcel()
+      .subscribe(
+        (data) => {
+          FileSaver.saveAs(data, 'Liste Etudiants.xls');
+        },
+        (error) => {
+
+        }
+      );
+
+  }
 }
