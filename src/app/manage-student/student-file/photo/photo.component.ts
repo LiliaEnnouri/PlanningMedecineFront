@@ -17,6 +17,8 @@ export class PhotoComponent implements OnInit {
 
   @Input()
   student: Student;
+  @Input()
+  isAdmin: boolean;
 
   constructor(private storageService: StorageService, private userServices: UserService,
               private router: Router) {
@@ -24,6 +26,11 @@ export class PhotoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+    if (!this.isAdmin) {
+      jQuery('#formPhotos').find('input, textarea, button, select').attr('disabled', 'disabled');
+    }
     if (!this.student.img) {
       Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
         this.userServices.getTokent(), ".file-input-student-photo", 1);

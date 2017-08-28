@@ -25,6 +25,10 @@ export class GeneralInfoComponent implements OnInit {
 
   @Input()
   student: Student;
+
+  @Input()
+  isAdmin: boolean;
+
   busy: Subscription;
   countries: Country[] = [];
   cities: City[] = [];
@@ -35,6 +39,7 @@ export class GeneralInfoComponent implements OnInit {
   citiesCIN: City[] = [];
   citiesPassport: City[] = [];
   uni_years: string[] = [];
+
 
   /* Admin special */
   statusSection: SectionValidation;
@@ -50,6 +55,9 @@ export class GeneralInfoComponent implements OnInit {
     this.initializeSelect2();
     this.getAllCountries();
     this.getAllUniversities();
+    if (!this.isAdmin) {
+      jQuery('#formGeneralInfo').find('input, textarea, button, select').attr('disabled', 'disabled');
+    }
 
 
   }

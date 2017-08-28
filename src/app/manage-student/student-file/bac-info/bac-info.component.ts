@@ -23,6 +23,8 @@ declare var swal: any;
 export class BacInfoComponent implements OnInit {
   @Input()
   student: Student;
+  @Input()
+  isAdmin: boolean;
   submitted: boolean;
   years: number[] = [];
   mentions: Mention[] = [];
@@ -35,6 +37,7 @@ export class BacInfoComponent implements OnInit {
 
 
   ngOnInit() {
+
 
     this.editAction = this.student.bac != null;
     if (!this.editAction) {
@@ -89,6 +92,9 @@ export class BacInfoComponent implements OnInit {
       });
     });
 
+    if (!this.isAdmin) {
+      jQuery('#formBacInfo').find('input, textarea, button, select').attr('disabled', 'disabled');
+    }
   }
 
   constructor(private stoarageService: StorageService,

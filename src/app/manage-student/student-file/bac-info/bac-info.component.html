@@ -1,4 +1,4 @@
-<form #registerForm="ngForm" class="form-validate">
+<form #registerForm="ngForm" id="formBacInfo" class="form-validate">
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3">
       <div class="panel registration-form">
@@ -131,7 +131,7 @@
 
           </div>
 
-          <div class="text-right">
+          <div *ngIf="isAdmin" class="text-right">
             <button [routerLink]="['/student-file']"
                     class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
               class="icon-close2"></i></b> Annuler

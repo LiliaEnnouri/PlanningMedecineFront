@@ -25,6 +25,8 @@ export class StudiesStudentFileComponent implements OnInit {
 
   @Input()
   student: Student;
+  @Input()
+  isAdmin: boolean;
   years: string[] = [];
   submitted: boolean;
   busy: Subscription;
@@ -43,6 +45,12 @@ export class StudiesStudentFileComponent implements OnInit {
 
     this.editAction = this.student.studies.length !== 0;
 
+    if (!this.isAdmin) {
+      setTimeout(function () {
+        jQuery('#formStudies').find('input, textarea, button, select').attr('disabled', 'disabled');
+      }, 50);
+
+    }
     if (!this.editAction) {
       console.log("new");
       const study = new Study();

@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {Student} from "../../shared/models/student";
 import {StudentService} from "../../shared/services/student.service";
+import {UserService} from "../../shared/services/user.service";
 
 @Component({
   selector: 'app-edit-student',
@@ -13,12 +14,17 @@ export class EditStudentComponent implements OnInit {
 
   student: Student;
   busy: Subscription;
+  isAdmin: boolean;
 
-  constructor(private  route: ActivatedRoute, private studentService: StudentService) {
+  constructor(private  route: ActivatedRoute,
+              private userService: UserService,
+              private studentService: StudentService) {
 
   }
 
   ngOnInit() {
+
+    this.isAdmin = this.userService.checkIfAdminHasRole(1);
     this.route.params.subscribe(
       params => {
         const id_student = +params["studentId"];
