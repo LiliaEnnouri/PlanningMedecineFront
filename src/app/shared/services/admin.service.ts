@@ -3,7 +3,6 @@ import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
 import {Http, ResponseContentType} from "@angular/http";
 import {Config} from "../config";
-import {Admin} from "../models/admin";
 
 @Injectable()
 export class AdminService extends GenericService {
@@ -83,4 +82,14 @@ export class AdminService extends GenericService {
   }
 
 
+  generateStudentsExcel() {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/excel";
+    return this.http.get(url, {
+      headers: this.headers,
+      responseType: ResponseContentType.Blob
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }

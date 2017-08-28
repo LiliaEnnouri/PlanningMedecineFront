@@ -2,11 +2,12 @@
  * Created by Abbes on 25/08/2017.
  */
 import {Component, OnInit} from "@angular/core";
-import {StudentService} from "../../shared/services/student.service";
 import {AdminService} from "../../shared/services/admin.service";
 import {Subscription} from "rxjs/Subscription";
 import {RegistrationYearUniversityStudent} from "../../shared/models/RegistrationYearUniversityStudent";
 import {Utils} from "../../shared/utils";
+import {StudentFileService} from "../../shared/services/student-file.service";
+import {Level} from "../../shared/models/level";
 
 
 declare let jQuery: any;
@@ -21,10 +22,10 @@ export class ListInscritComponent implements OnInit {
 
   busy: Subscription;
   registrationsUniversityStudents: RegistrationYearUniversityStudent[] = [];
-  dataTableInitialised = false;
   selectedLevel: number;
+  levels: Array<Level>;
 
-  constructor(private studentService: StudentService,
+  constructor(private studentFileServie: StudentFileService,
               private adminService: AdminService) {
     this.selectedLevel = 0;
   }
@@ -36,6 +37,26 @@ export class ListInscritComponent implements OnInit {
         (data) => {
           this.registrationsUniversityStudents = data;
           Utils.initializeDataTables(300, 7);
+        }
+      );
+    this.getAllLevels();
+    this.initLevelSelect();
+  }
+
+  private initLevelSelect() {
+    const selectLevel = jQuery(".select-level");
+    selectLevel.select2();
+    const baseContext = this;
+    selectLevel.on("change", function () {
+      baseContext.selectLevel(+jQuery(this).val());
+    });
+  }
+
+  private getAllLevels() {
+    this.studentFileServie.getAllLevels()
+      .subscribe(
+        (data) => {
+          this.levels = data;
         }
       )
   }

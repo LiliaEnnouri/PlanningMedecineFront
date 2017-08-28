@@ -179,4 +179,15 @@ export class ListStudentComponent implements OnInit {
     return Utils.getNumberStatus(this.students[index].validations, 0);
   }
 
+  downloadStudentsExcel() {
+    this.busy = this.adminService.generateStudentsExcel()
+      .subscribe(
+        (data) => {
+          FileSaver.saveAs(data, 'Liste Etudiants.xls');
+        },
+        (error) => {
+
+        }
+      )
+  }
 }

@@ -31,7 +31,6 @@ export class UserService extends GenericService {
 
   checkIfAdminHasRole(roleId: number) {
     let hasRole = false;
-    console.log(this.loggedAdmin);
     if (!this.loggedAdmin) {
       return false;
     }
