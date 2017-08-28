@@ -48,23 +48,4 @@ export class UserService extends GenericService {
     });
     return hasRole;
   }
-
-  checkIfUserHasRole(roleId: number) {
-    let hasRole = false;
-    if (!this.loggedAdmin) {
-      return false;
-    }
-    if (!this.loggedAdmin.privileges) {
-      return false;
-    }
-    this.loggedAdmin.privileges.forEach(function (privilege) {
-      if (privilege.id_Privilege === 1) {
-        hasRole = true;
-      }
-      if (privilege.id_Privilege === roleId) {
-        hasRole = true;
-      }
-    });
-    return hasRole;
-  }
 }

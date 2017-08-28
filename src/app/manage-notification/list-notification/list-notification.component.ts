@@ -4,6 +4,7 @@ import {Notification} from "../../shared/models/notification";
 import {UserService} from "../../shared/services/user.service";
 import {Subscription} from "rxjs/Subscription";
 import {Utils} from "../../shared/utils";
+import {Router} from "@angular/router";
 declare let swal;
 @Component({
   selector: 'app-list-notification',
@@ -15,10 +16,14 @@ export class ListNotificationComponent implements OnInit {
   notifications: Array<Notification>;
   busy: Subscription;
 
-  constructor(private notificationService: NotificationService, private userService: UserService) {
+  constructor(private notificationService: NotificationService, private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
+    if (!this.userService.checkIfAdminHasRole(1)) {
+      this.router.navigateByUrl('/error/not-authorized');
+      return;
+    }
     this.getAllNotifications();
   }
 

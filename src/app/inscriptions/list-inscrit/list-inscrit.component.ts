@@ -22,9 +22,11 @@ export class ListInscritComponent implements OnInit {
   busy: Subscription;
   registrationsUniversityStudents: RegistrationYearUniversityStudent[] = [];
   dataTableInitialised = false;
+  selectedLevel: number;
 
   constructor(private studentService: StudentService,
               private adminService: AdminService) {
+    this.selectedLevel = 0;
   }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class ListInscritComponent implements OnInit {
 
 
   selectLevel(levelId: number) {
+    this.selectedLevel = levelId;
     const baseContext = this;
     if (levelId === 0) {
       this.busy = this.adminService.getListInscritStudents()
