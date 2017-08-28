@@ -28,4 +28,23 @@ export class UserService extends GenericService {
   getTokent() {
     return <string>this.storageService.read("admin-token")
   }
+  checkIfAdminHasRole(roleId: number) {
+    let hasRole = false;
+    console.log(this.loggedAdmin);
+    if (!this.loggedAdmin) {
+      return false;
+    }
+    if (!this.loggedAdmin.privileges) {
+      return false;
+    }
+    this.loggedAdmin.privileges.forEach(function (privilege) {
+      if (privilege.id_Privilege === 1) {
+        hasRole = true;
+      }
+      if (privilege.id_Privilege === roleId) {
+        hasRole = true;
+      }
+    });
+    return hasRole;
+  }
 }

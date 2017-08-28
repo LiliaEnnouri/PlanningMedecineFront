@@ -75,7 +75,8 @@
                 <li><a (click)="generatePDF(i)"><i class="icon-file-eye"></i>Voir détails</a>
                 </li>
                 <li><a [routerLink]="'/student/'+student.id_student+'/edit'"><i class="icon-pencil"></i>Editer</a></li>
-                <li><a (click)="deleteStudent(i)"><i class="icon-close2"></i>Supprimer</a></li>
+                <li *ngIf="isSuperAdmin"><a (click)="deleteStudent(i)"><i
+                  class="icon-close2"></i>Supprimer</a></li>
                 <li><a (click)="openModalEmail(i)"><i class="icon-mail5"></i>Envoyer un message</a></li>
               </ul>
             </li>
