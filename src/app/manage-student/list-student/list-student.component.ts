@@ -9,6 +9,7 @@ import {ConversationService} from "../../shared/services/conversation.service";
 import {UserService} from "../../shared/services/user.service";
 import {Router} from "@angular/router";
 import * as FileSaver from "file-saver";
+import {Admin} from "../../shared/models/admin";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -27,6 +28,9 @@ export class ListStudentComponent implements OnInit {
   isSuperAdmin: boolean;
 
   requestedStatus = 0;
+  evaluateurs: Admin[] = [];
+  fixStudents: Student[] = [];
+  isAdmin: boolean;
 
   constructor(private studentService: StudentService,
               private adminService: AdminService,
@@ -46,6 +50,7 @@ export class ListStudentComponent implements OnInit {
     const baseContext = this;
     this.busy = this.studentService.getAllStudentsByStatus(this.requestedStatus).subscribe(data => {
       this.students = data;
+      this.fixStudents = data;
       this.students.forEach(student => {
         student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
       });
@@ -66,6 +71,20 @@ export class ListStudentComponent implements OnInit {
 
     this.isSuperAdmin = this.checkIfAdminHasRole(1);
     console.log(this.isSuperAdmin);
+
+
+    this.initializeSelectAdmin();
+    this.adminService.getAdminByPrivileges(2)
+      .subscribe(
+        (data) => {
+          this.evaluateurs = data;
+        },
+        (error) => {
+
+        }
+      )
+
+    this.isAdmin = this.userService.checkIfAdminHasRole(1);
 
   }
 
@@ -179,4 +198,23 @@ export class ListStudentComponent implements OnInit {
     return Utils.getNumberStatus(this.students[index].validations, 0);
   }
 
+  private initializeSelectAdmin() {
+    const selectAdmin = jQuery(".select-evaluateur");
+    const baseContext = this;
+    selectAdmin.select2();
+
+    selectAdmin.on("change", function () {
+      baseContext.students = [];
+      if (+jQuery(this).val() == 0) {
+        baseContext.students = baseContext.fixStudents;
+      } else {
+        baseContext.fixStudents.forEach(student => {
+          if (student.id_evaluateur === +jQuery(this).val()) {
+            baseContext.students.push(student);
+          }
+        });
+      }
+      Utils.reInitializeDataTables(50, 6);
+    });
+  }
 }

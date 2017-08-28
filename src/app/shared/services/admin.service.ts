@@ -83,4 +83,14 @@ export class AdminService extends GenericService {
   }
 
 
+  getAdminByPrivileges(privilege_id: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/privilege/" + privilege_id;
+
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }

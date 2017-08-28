@@ -8,6 +8,7 @@ import {Residanat} from "app/shared/models/residanat";
 import {SectionValidation} from "./section-validation";
 import {PassportStudent} from "./Passport_Student";
 import {CinStudent} from "./cinStudent";
+import {Admin} from "./admin";
 declare let jQuery: any;
 /**
  * Created by Abbes on 01/08/2017.
@@ -28,6 +29,8 @@ export class Student {
   public email: string;
   public oriented?: number | boolean;
   public password: string;
+
+  public evaluateur: Admin;
 
   public qr_code: string;
   public img: StudentPhoto;
@@ -60,6 +63,7 @@ export class Student {
   extrait_naissance: StudentExtraitNaissance;
   attestation_orientation: StudentAttestationOrientation;
 
+  id_evaluateur: number;
 }
 
 export class StudentPhoto {
