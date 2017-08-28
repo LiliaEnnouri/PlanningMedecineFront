@@ -54,7 +54,7 @@ export class ListStudentComponent implements OnInit {
       this.students.forEach(student => {
         student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
       });
-      Utils.initializeDataTables(700, 6);
+      Utils.initializeDataTables(500, 8);
     });
     jQuery(".switch").bootstrapSwitch().on('switchChange.bootstrapSwitch', function (e, data) {
       if (data) {

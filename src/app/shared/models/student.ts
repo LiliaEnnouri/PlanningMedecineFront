@@ -64,6 +64,8 @@ export class Student {
   attestation_orientation: StudentAttestationOrientation;
 
   id_evaluateur: number;
+  updated_at: string;
+  created_at: string;
 }
 
 export class StudentPhoto {

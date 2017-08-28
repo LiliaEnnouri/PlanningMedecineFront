@@ -89,7 +89,7 @@
             </div>
             <div class="sub-field">
               <div class="sub-title">Autorité :</div>
-              <div *ngIf="student.cin.city" class="sub-value">{{student.cin==null?
+              <div *ngIf="student.cin" class="sub-value">{{!student.cin.city?
                 '-':student.cin.city.Name+','+student.cin.city.country.Name}}
               </div>
             </div>

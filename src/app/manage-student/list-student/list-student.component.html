@@ -54,10 +54,10 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>Nom</th>
-        <th>Prénom</th>
+        <th>Nom & Prénom</th>
         <th>CIN/Passport</th>
         <th>E-mail</th>
+        <th>modifié le</th>
         <th>Etat</th>
         <th>Not Viewed</th>
 
@@ -69,10 +69,7 @@
       <tr *ngFor="let student of students;let i=index;">
         <td>{{student.id_student}}</td>
         <td>
-          {{student.first_name}}
-        </td>
-        <td>
-          {{student.last_name}}
+          {{student.last_name}} {{student.first_name}}
         </td>
         <td>
           <span *ngIf="student.cin">{{student.cin.code}}</span>
@@ -81,6 +78,9 @@
         </td>
         <td>
           {{student.email}}
+        </td>
+        <td>
+          {{student.updated_at.substr(0,10)}}
         </td>
         <td>
 
@@ -109,7 +109,8 @@
                 <!-- "-->
                 <li><a [routerLink]="'/student/'+student.id_student+'/detail'"><i class="icon-file-eye"></i>Voir détails</a>
                 </li>
-                <li><a [routerLink]="'/student/'+student.id_student+'/edit'"><i class="icon-pencil"></i>Editer</a></li>
+                <li><a [routerLink]="'/student/'+student.id_student+'/edit'"><i
+                  class="icon-pencil"></i>Evaluer/Editer</a></li>
                 <li *ngIf="isSuperAdmin"><a (click)="deleteStudent(i)"><i
                   class="icon-close2"></i>Supprimer</a></li>
                 <li><a (click)="openModalEmail(i)"><i class="icon-mail5"></i>Envoyer un message</a></li>
