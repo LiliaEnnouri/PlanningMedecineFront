@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
               private stoarageService: StorageService,
               private router: Router) {
 
-
   }
 
   loginSubmit() {

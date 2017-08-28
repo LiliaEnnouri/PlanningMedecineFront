@@ -41,8 +41,11 @@ export class FullLayoutComponent implements OnInit {
         icon: "icon-pencil3",
         childrens: [
           {
-            name: "Liste des dossiers",
-            url: "/student/list"
+            name: "Dossiers validés",
+            url: "/student/list/valid"
+          }, {
+            name: "Dossiers en cours",
+            url: "/student/list/current"
           }]
       }, {
         name: "Inscriptions",
@@ -95,7 +98,6 @@ export class FullLayoutComponent implements OnInit {
     this.getNumberReclamations();
     this.conversationService.getConversationsCount().subscribe(data => {
       this.conversationCount = data.count;
-      console.log(JSON.stringify(data));
     });
   }
 
@@ -142,7 +144,13 @@ export class FullLayoutComponent implements OnInit {
 
         }
       )
+  }
 
+  getUserImg() {
+    if (this.userService.checkIfUserHasRole(2)) {
+      return 'assets/images/avatar/scholarite.png';
+    }
+    return 'assets/images/placeholder.jpg';
   }
 }
 export class NavigationMain {

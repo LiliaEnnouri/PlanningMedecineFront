@@ -19,6 +19,17 @@ export class StudentService extends GenericService {
       .catch(this.handleErrors);
   }
 
+  getAllStudentsByStatus(requestedStatus: number) {
+    const url = Config.baseUrl + '/admin/student/status/' + requestedStatus;
+    console.log(url);
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
   updateStudentStatusAfterReview(studentId: number, administrationReview: number) {
     const url = Config.baseUrl + '/admin/student/' + studentId + '/status';
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
@@ -65,4 +76,5 @@ export class StudentService extends GenericService {
       .catch(this.handleErrors);
 
   }
+
 }
