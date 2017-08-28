@@ -46,10 +46,7 @@ export class ListInscritComponent implements OnInit {
         .subscribe(
           (data) => {
             this.registrationsUniversityStudents = data;
-            if (!this.dataTableInitialised) {
-              this.dataTableInitialised = true;
-              Utils.initializeDataTables(200, 7);
-            }
+            Utils.reInitializeDataTables(300, 7);
           }
         )
     } else {
@@ -57,6 +54,7 @@ export class ListInscritComponent implements OnInit {
         .subscribe(
           (data) => {
             this.registrationsUniversityStudents = data;
+            Utils.reInitializeDataTables(300, 7);
           }
         )
     }
