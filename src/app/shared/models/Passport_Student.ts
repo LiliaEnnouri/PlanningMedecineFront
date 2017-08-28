@@ -8,6 +8,6 @@ export class PassportStudent {
   public code: string;
   public date: string;
   public id_city: number;
-  public city: City;
+  public city: City ;
   imgs: Array<StudentCinPhoto>;
 }

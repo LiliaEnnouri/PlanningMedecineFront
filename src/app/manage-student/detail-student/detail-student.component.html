@@ -1,3 +1,183 @@
-<p>
-  detail-student works!
-</p>
+<!-- Content area -->
+<div class="content">
+
+  <!-- Invoice archive -->
+  <div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">Détail étudiant</h6>
+      <div class="heading-elements">
+
+      </div>
+
+      <div class="panel-body">
+        <div class="info-block">
+          <div class="field">
+            <div class="title">Nom/Last name :</div>
+            <div class="value">{{student.last_name}}</div>
+          </div>
+          <div class="field">
+            <div class="title">Nom de famille / Birth name :</div>
+            <div class="value">{{student.nom_de_famille}}</div>
+          </div>
+          <div class="field">
+            <div class="title">Prénom / First name :</div>
+            <div class="value">{{student.first_name}}</div>
+          </div>
+          <div class="field">
+            <div class="title">Deuxième prénom / Second first name :</div>
+            <div class="value">{{student.second_name==null ? '-' : student.second_name }}</div>
+          </div>
+          <div class="field">
+            <div class="title">Date de naissance / Birth day :</div>
+            <div class="value">{{student.birthday}}</div>
+          </div>
+          <div class="multiple">
+            <div class="title">Lieu de naissance / Birth place :</div>
+            <div class="group-field">
+              <div class="sub-field">
+                <div class="sub-title">Ville :</div>
+                <div *ngIf="student.city_birth" class="sub-value">{{student.city_birth.Name}}</div>
+              </div>
+              <div class="sub-field">
+                <div class="sub-title">Pays :</div>
+                <div *ngIf="student.city_birth" class="sub-value">{{student.city_birth.country.Name}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="title">Genre/Gender :</div>
+            <div class="value">{{student.sex}}</div>
+          </div>
+        </div>
+        <div *ngIf="student.profile" class="image-block">
+          <img class="image" src="{{baseUrl+'/'+student.profile.path}}">
+        </div>
+        <div class="multiple">
+          <div class="title">Adresse postale / Postal adress :</div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Adresse / Adress :</div>
+              <div *ngIf="student.adress" class="sub-value">{{student.adress.label_address}}</div>
+            </div>
+          </div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Code postal / Postal code :</div>
+              <div *ngIf="student.adress" class="sub-value">{{student.adress.postal_code}}</div>
+            </div>
+            <div class="sub-field">
+              <div class="sub-title">Ville / City :</div>
+              <div *ngIf="student.adress" class="sub-value">{{student.adress.city.Name}}</div>
+            </div>
+            <div class="sub-field">
+              <div class="sub-title">Pays / Country :</div>
+              <div *ngIf="student.adress" class="sub-value">{{student.adress.city.country.Name}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="multiple">
+          <div class="title">CIN / ID Card :</div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Num :</div>
+
+              <div class="sub-value">{{student.cin==null? '-':student.cin.code}}</div>
+            </div>
+            <div class="sub-field">
+              <div class="sub-title">Date :</div>
+              <div class="sub-value">{{student.cin==null? '-':student.cin.date}}</div>
+            </div>
+            <div class="sub-field">
+              <div class="sub-title">Autorité :</div>
+              <div *ngIf="student.cin.city" class="sub-value">{{student.cin==null?
+                '-':student.cin.city.Name+','+student.cin.city.country.Name}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="multiple">
+          <div class="title">Passeport / Passport :</div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Identifiant :</div>
+              <div class="sub-value">{{student.passport==null? '-':student.passport.code}}</div>
+            </div>
+            <div class="sub-field">
+              <div class="sub-title">Date :</div>
+              <div class="sub-value">{{student.passport==null? '-':student.passport.date}}</div>
+            </div>
+            <div class="sub-field">
+              <div class="sub-title">Autorité :</div>
+              <!--<div *ngIf="student.passport" class="sub-value">{{student.passport==null?
+                '-':student.passport.city.Name+','+student.passport.city.country.Name}}
+              </div>-->
+            </div>
+          </div>
+        </div>
+
+        <div class="multiple">
+          <div class="title">Baccalauréat :</div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Lycée :</div>
+              <div *ngIf="student.bac" class="sub-value">{{student.bac.school}}</div>
+            </div>
+          </div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Ville :</div>
+              <div *ngIf="student.bac" class="sub-value">{{student.bac.city.Name}}</div>
+            </div>
+            <div class="sub-field">
+              <div class="sub-title">Pays :</div>
+              <div *ngIf="student.bac" class="sub-value">{{student.bac.city.country.Name}}</div>
+            </div>
+          </div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Section :</div>
+              <div *ngIf="student.bac" class="sub-value">{{student.bac.type.label}}</div>
+            </div>
+          </div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Année :</div>
+              <div *ngIf="student.bac" class="sub-value">{{student.bac.year}}</div>
+            </div>
+          </div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Mention :</div>
+              <div *ngIf="student.bac" class="sub-value">{{student.bac.mention.label}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="multiple">
+          <div class="title">Accès aux études médicales :</div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">{{student.oriented==1?'Orientation de première intention' : 'Réorientation'}}
+              </div>
+            </div>
+          </div>
+          <div class="group-field">
+            <div class="sub-field">
+              <div class="sub-title">Année d’entrée à la faculté de médecine de Sfax :</div>
+              <div class="sub-value">{{student.study_access_year}}</div>
+            </div>
+          </div>
+        </div>
+        <button
+          (click)="generatePDF(student.id_student)"
+          class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+          class="icon-printer"></i></b> Export PDF
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- /invoice archive -->
+
+</div>

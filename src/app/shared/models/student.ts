@@ -26,11 +26,12 @@ export class Student {
   public mobile: string;
   public study_access_year: string;
   public email: string;
-  public oriented?: boolean | number;
+  public oriented?: number | boolean;
   public password: string;
 
   public qr_code: string;
   public img: StudentPhoto;
+  public profile: StudentPhoto;
   public imgs_cin: StudentCin[];
   public label_address?: string;
   public address_city: number;

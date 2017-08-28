@@ -72,7 +72,8 @@
               </a>
 
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a (click)="generatePDF(i)"><i class="icon-file-eye"></i>Voir détails</a>
+                <!-- "-->
+                <li><a [routerLink]="'/student/'+student.id_student+'/detail'"><i class="icon-file-eye"></i>Voir détails</a>
                 </li>
                 <li><a [routerLink]="'/student/'+student.id_student+'/edit'"><i class="icon-pencil"></i>Editer</a></li>
                 <li *ngIf="isSuperAdmin"><a (click)="deleteStudent(i)"><i
