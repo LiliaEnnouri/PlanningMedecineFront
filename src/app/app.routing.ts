@@ -23,6 +23,9 @@ export const routes: Routes = [
       }, {
         path: 'inscriptions',
         loadChildren: "./inscriptions/inscriptions.module#InscriptionsModule"
+      }, {
+        path: 'error',
+        loadChildren: "./error/error.module#ErrorModule"
       }
     ],
   },
