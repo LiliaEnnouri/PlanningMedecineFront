@@ -6,7 +6,10 @@ import {EditStudentComponent} from "./edit-student/edit-student.component";
 
 export const routes: Routes = [
   {
-    path: 'list',
+    path: 'list-valid',
+    component: ListStudentComponent,
+  }, {
+    path: 'list-current',
     component: ListStudentComponent,
   }, {
     path: ':studentId/detail',

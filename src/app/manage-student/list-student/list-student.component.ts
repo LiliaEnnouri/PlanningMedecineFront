@@ -26,6 +26,8 @@ export class ListStudentComponent implements OnInit {
   isReviewingMode = false;
   isSuperAdmin: boolean;
 
+  requestedStatus = 0;
+
   constructor(private studentService: StudentService,
               private adminService: AdminService,
               private userService: UserService,
@@ -33,11 +35,16 @@ export class ListStudentComponent implements OnInit {
               private conversationservice: ConversationService,
               private storageService: StorageService) {
     this.isReviewingMode = <boolean>this.storageService.read('isReviewingMode');
+    if (router.url.indexOf('valid') > -1) {
+      this.requestedStatus = 1;
+    } else if (router.url.indexOf('current') > -1) {
+      this.requestedStatus = 0;
+    }
   }
 
   ngOnInit() {
     const baseContext = this;
-    this.busy = this.studentService.getAllStudents().subscribe(data => {
+    this.busy = this.studentService.getAllStudentsByStatus(this.requestedStatus).subscribe(data => {
       this.students = data;
       this.students.forEach(student => {
         student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);

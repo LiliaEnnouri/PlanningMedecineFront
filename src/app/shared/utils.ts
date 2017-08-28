@@ -60,6 +60,19 @@ export class Utils {
     }, timout);
   }
 
+  static reInitializeDataTables(timout: number, columnNumber: number) {
+    // Basic datatable
+    const tableListStation = jQuery('.datatable-basic');
+    tableListStation.dataTable().fnDestroy();
+    setTimeout(function () {
+      tableListStation.DataTable({
+        columnDefs: [{
+          targets: [columnNumber - 1]
+        }]
+      });
+    }, timout);
+  }
+
   static convertDate(date: string) {
     if (date) {
       return date.substring(8, 10) + "/" + date.substring(5, 7) + "/" + date.substring(0, 4);
