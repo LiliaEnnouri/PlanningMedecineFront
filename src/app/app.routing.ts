@@ -2,6 +2,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {LoginComponent} from "./login/login.component";
 import {FullLayoutComponent} from "./layouts/full-layout.component";
+import {NotFoundComponent} from "./error/not-found/not-found.component";
 
 export const routes: Routes = [
   {
@@ -22,6 +23,9 @@ export const routes: Routes = [
       }, {
         path: 'inscriptions',
         loadChildren: "./inscriptions/inscriptions.module#InscriptionsModule"
+      }, {
+        path: 'error',
+        loadChildren: "./error/error.module#ErrorModule"
       }
     ],
   },
@@ -29,7 +33,7 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-
+  {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

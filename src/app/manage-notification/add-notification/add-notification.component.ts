@@ -7,6 +7,7 @@ import {StudentFileService} from "../../shared/services/student-file.service";
 import {Student} from "../../shared/models/student";
 import {StudentService} from "../../shared/services/student.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserService} from "../../shared/services/user.service";
 declare let jQuery;
 declare let swal;
 @Component({
@@ -23,12 +24,16 @@ export class AddNotificationComponent implements OnInit {
   isEditMode: boolean;
 
   constructor(private notificationService: NotificationService, private router: Router, private route: ActivatedRoute,
-              private studentFileService: StudentFileService, private studentService: StudentService,) {
+              private studentFileService: StudentFileService, private studentService: StudentService, private userService: UserService) {
     this.notification = new Notification();
     this.isEditMode = router.url.indexOf('edit') > 0;
   }
 
   ngOnInit() {
+    if (!this.userService.checkIfAdminHasRole(1)) {
+      this.router.navigateByUrl('/error/not-authorized');
+      return;
+    }
     this.getAllLevels();
     this.initLevelsSelect();
     this.getAllStudents();

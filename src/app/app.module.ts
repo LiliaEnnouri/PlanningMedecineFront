@@ -2,7 +2,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 
 import {AppComponent} from "./app.component";
-import {NotFoundComponent} from "./error/not-found.component";
 import {LoginComponent} from "./login/login.component";
 import {AppRoutingModule} from "./app.routing";
 import {AuthService} from "./shared/services/auth.service";
@@ -26,11 +25,11 @@ import {NotificationService} from "./shared/services/notification.service";
 import {InscriptionsModule} from "./inscriptions/inscriptions.module";
 import {ManageNotificationModule} from "./manage-notification/manage-notification.module";
 import {ConversationService} from "./shared/services/conversation.service";
+import {ErrorModule} from "./error/error.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent,
     LoginComponent,
     FullLayoutComponent
   ],
@@ -46,7 +45,8 @@ import {ConversationService} from "./shared/services/conversation.service";
     ManageStudentModule,
     SupportModule,
     InscriptionsModule,
-    ManageNotificationModule
+    ManageNotificationModule,
+    ErrorModule
   ],
   providers: [
     {

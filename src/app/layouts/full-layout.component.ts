@@ -38,7 +38,7 @@ export class FullLayoutComponent implements OnInit {
     this.components = [
       {
         name: "Gestion des Etudiants",
-        icon: "icon-pencil3",
+        icon: "icon-address-book",
         childrens: [
           {
             name: "Dossiers validés",
@@ -49,7 +49,7 @@ export class FullLayoutComponent implements OnInit {
           }]
       }, {
         name: "Inscriptions",
-        icon: "icon-pencil3",
+        icon: "icon-folder3",
         childrens: [
           {
             name: "Année universitaire",
@@ -65,6 +65,7 @@ export class FullLayoutComponent implements OnInit {
         url: "/support/messages/all"
       }, {
         name: "Notifications",
+        hidden: !this.checkIfAdminHasRole(1),
         icon: "icon-bubble-notification",
         childrens: [
           {
@@ -147,10 +148,14 @@ export class FullLayoutComponent implements OnInit {
   }
 
   getUserImg() {
-    if (this.userService.checkIfUserHasRole(2)) {
+    if (this.userService.checkIfAdminHasRole(2)) {
       return 'assets/images/avatar/scholarite.png';
     }
     return 'assets/images/placeholder.jpg';
+  }
+
+  private checkIfAdminHasRole(number: number) {
+    return this.userService.checkIfAdminHasRole(number);
   }
 }
 export class NavigationMain {
