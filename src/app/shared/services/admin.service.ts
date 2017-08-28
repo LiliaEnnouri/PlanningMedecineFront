@@ -57,6 +57,16 @@ export class AdminService extends GenericService {
       .catch(this.handleErrors);
   }
 
+  getListInscritStudentsByLevel(levelId) {
+    const url = Config.baseUrl + '/admin/registration/university-year/list-student/level/' + levelId;
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
   generatePDFStudent(studentId: number) {
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     const url = Config.baseUrl + "/admin/student/" + studentId + "/generateDetailPDF";

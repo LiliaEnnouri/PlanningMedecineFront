@@ -20,8 +20,8 @@ declare let swal: any;
 export class ListInscritComponent implements OnInit {
 
   busy: Subscription;
-
   registrationsUniversityStudents: RegistrationYearUniversityStudent[] = [];
+  dataTableInitialised = false;
 
   constructor(private studentService: StudentService,
               private adminService: AdminService) {
@@ -34,13 +34,32 @@ export class ListInscritComponent implements OnInit {
         (data) => {
           this.registrationsUniversityStudents = data;
           Utils.initializeDataTables(300, 7);
-        },
-        (error) => {
-
         }
       )
+  }
 
 
+  selectLevel(levelId: number) {
+    const baseContext = this;
+    if (levelId === 0) {
+      this.busy = this.adminService.getListInscritStudents()
+        .subscribe(
+          (data) => {
+            this.registrationsUniversityStudents = data;
+            if (!this.dataTableInitialised) {
+              this.dataTableInitialised = true;
+              Utils.initializeDataTables(200, 7);
+            }
+          }
+        )
+    } else {
+      this.busy = this.adminService.getListInscritStudentsByLevel(levelId)
+        .subscribe(
+          (data) => {
+            this.registrationsUniversityStudents = data;
+          }
+        )
+    }
   }
 
 
