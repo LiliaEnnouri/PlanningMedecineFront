@@ -24,7 +24,7 @@
         <th>#</th>
         <th>Nom</th>
         <th>Prénom</th>
-        <th>CIN</th>
+        <th>CIN/Passport</th>
         <th>E-mail</th>
         <th>Etat</th>
         <th>Not Viewed</th>
@@ -43,6 +43,7 @@
         </td>
         <td>
           <span *ngIf="student.cin">{{student.cin.code}}</span>
+          <span *ngIf="student.cin && student.passport">/</span>
           <span *ngIf="student.passport">{{student.passport.code}}</span>
         </td>
         <td>
@@ -71,7 +72,7 @@
               </a>
 
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a [routerLink]="'/student/'+student.id_student+'/detail'"><i class="icon-file-eye"></i>Voir détails</a>
+                <li><a (click)="generatePDF(i)"><i class="icon-file-eye"></i>Voir détails</a>
                 </li>
                 <li><a [routerLink]="'/student/'+student.id_student+'/edit'"><i class="icon-pencil"></i>Editer</a></li>
                 <li><a (click)="deleteStudent(i)"><i class="icon-close2"></i>Supprimer</a></li>

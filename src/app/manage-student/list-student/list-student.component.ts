@@ -8,6 +8,7 @@ import {StorageService} from "../../shared/services/storage.service";
 import {ConversationService} from "../../shared/services/conversation.service";
 import {UserService} from "../../shared/services/user.service";
 import {Router} from "@angular/router";
+import * as FileSaver from "file-saver";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -112,6 +113,18 @@ export class ListStudentComponent implements OnInit {
           });
         }
       });
+  }
+
+  generatePDF(index: number) {
+    this.adminService.generatePDFStudent(this.students[index].id_student)
+      .subscribe(
+        (data) => {
+          FileSaver.saveAs(data, this.students[index].first_name + " " + this.students[index].last_name + "_Dossier.pdf");
+        },
+        (error) => {
+
+        }
+      )
   }
 
   sendMail() {

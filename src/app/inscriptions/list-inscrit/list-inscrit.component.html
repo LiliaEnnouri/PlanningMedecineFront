@@ -14,8 +14,7 @@
         <th>#</th>
         <th>Nom</th>
         <th>Prénom</th>
-        <th>CIN</th>
-        <th>Passport</th>
+        <th>CIN/Passport</th>
         <th>E-mail</th>
         <th>Niveau</th>
         <th>Année universitaire</th>
@@ -33,8 +32,7 @@
         </td>
         <td>
           <span *ngIf="item.student.cin">{{item.student.cin.code}}</span>
-        </td>
-        <td>
+          <span *ngIf="item.student.cin && item.student.passport">/</span>
           <span *ngIf="item.student.passport">{{item.student.passport.code}}</span>
         </td>
         <td>

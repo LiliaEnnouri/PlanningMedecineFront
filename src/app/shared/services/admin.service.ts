@@ -1,7 +1,7 @@
 import {StorageService} from "app/shared/services/storage.service";
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {Http} from "@angular/http";
+import {Http, ResponseContentType} from "@angular/http";
 import {Config} from "../config";
 
 @Injectable()
@@ -52,6 +52,18 @@ export class AdminService extends GenericService {
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.get(url, {
       headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  generatePDFStudent(studentId: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/generateDetailPDF";
+
+    return this.http.get(url, {
+      headers: this.headers,
+      responseType: ResponseContentType.Blob
     })
       .map(res => res.json())
       .catch(this.handleErrors);
