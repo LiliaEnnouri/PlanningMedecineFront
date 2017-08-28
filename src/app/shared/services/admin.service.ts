@@ -3,12 +3,15 @@ import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
 import {Http, ResponseContentType} from "@angular/http";
 import {Config} from "../config";
+import {Admin} from "../models/admin";
 
 @Injectable()
 export class AdminService extends GenericService {
 
+
   constructor(private http: Http, private storageService: StorageService) {
     super();
+
   }
 
 
@@ -68,4 +71,6 @@ export class AdminService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+
 }

@@ -24,6 +24,7 @@ export class ListStudentComponent implements OnInit {
   emailToSend: string;
   topicToSend: string;
   isReviewingMode = false;
+  isSuperAdmin: boolean;
 
   constructor(private studentService: StudentService,
               private adminService: AdminService,
@@ -55,6 +56,9 @@ export class ListStudentComponent implements OnInit {
       }
       baseContext.storageService.write('isReviewingMode', data.toString());
     });
+
+    this.isSuperAdmin = this.checkIfAdminHasRole(1);
+    console.log(this.isSuperAdmin);
 
   }
 
@@ -113,6 +117,11 @@ export class ListStudentComponent implements OnInit {
           });
         }
       });
+  }
+
+  checkIfAdminHasRole(roleId: number) {
+
+    return this.userService.checkIfAdminHasRole(roleId);
   }
 
   generatePDF(index: number) {
