@@ -33,7 +33,7 @@ export class DetailsDiscussionComponent implements OnInit {
       this.conversation.id_Conversation = +params["conversationId"];
       this.busy = this.conversationServices.getConversationById(this.conversation.id_Conversation).subscribe(data => {
         this.conversation = data;
-        if (this.conversation.latest_message.id_Student) {
+        if (!this.conversation.latest_message.id_Admin) {
           this.conversationServices.setConversationViewed(this.conversation).subscribe();
         }
       })

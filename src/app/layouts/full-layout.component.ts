@@ -148,6 +148,9 @@ export class FullLayoutComponent implements OnInit {
   }
 
   getUserImg() {
+    if (this.userService.checkIfAdminHasRole(1)) {
+      return 'assets/images/avatar/admin.png';
+    }
     if (this.userService.checkIfAdminHasRole(2)) {
       return 'assets/images/avatar/scholarite.png';
     }
