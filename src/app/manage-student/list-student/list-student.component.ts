@@ -110,6 +110,21 @@ export class ListStudentComponent implements OnInit {
 
   }
 
+  openModalScholar(index: number) {
+    const baseContext = this;
+    this.selectedStudent = this.students[index];
+    jQuery("#modal_scholarite").modal();
+
+    setTimeout(function () {
+      baseContext.initializeScholarSelect();
+    }, 20);
+  }
+
+  initializeScholarSelect() {
+    const selectScholar = jQuery(".select-scholoarite");
+    selectScholar.select2();
+  }
+
   deleteStudent(index: number) {
     const baseContext = this;
     const student: Student = this.students[index];
@@ -163,6 +178,42 @@ export class ListStudentComponent implements OnInit {
 
         }
       )
+  }
+
+  affectScholar() {
+    const baseContext = this;
+    const selectScholar = jQuery(".select-scholoarite");
+
+    jQuery("#modal_scholarite").modal("hide");
+    if (+selectScholar.val() !== 0) {
+      this.busy = this.adminService.affectScholarToStudent(this.selectedStudent.id_student,
+        +selectScholar.val())
+        .subscribe(
+          (data) => {
+            swal({
+              title: "Succées!",
+              text: "L'affectation est réalisée avec succées.",
+              confirmButtonColor: "#66BB6A",
+              type: "success"
+            });
+          },
+          (error) => {
+            swal({
+              title: "Erreur!",
+              text: "Erreur d'affectation",
+              confirmButtonColor: "#66BB6A",
+              type: "error"
+            });
+          }
+        )
+    } else {
+      swal({
+        title: "Erreur!",
+        text: "Pas d'affectation",
+        confirmButtonColor: "#66BB6A",
+        type: "error"
+      });
+    }
   }
 
   sendMail() {
