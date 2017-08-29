@@ -33,6 +33,9 @@ export class DetailsDiscussionComponent implements OnInit {
       this.conversation.id_Conversation = +params["conversationId"];
       this.busy = this.conversationServices.getConversationById(this.conversation.id_Conversation).subscribe(data => {
         this.conversation = data;
+        if (this.conversation.latest_message.id_Student) {
+          this.conversationServices.setConversationViewed(this.conversation).subscribe();
+        }
       })
     });
   }
