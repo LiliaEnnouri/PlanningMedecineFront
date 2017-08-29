@@ -104,4 +104,14 @@ export class AdminService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  affectScholarToStudent(studentId: number, adminId: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/affectScholar/" + adminId;
+    return this.http.post(url, {}, {
+      headers: this.headers,
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
