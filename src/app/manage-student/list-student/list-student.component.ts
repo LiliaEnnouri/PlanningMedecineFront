@@ -73,7 +73,10 @@ export class ListStudentComponent implements OnInit {
     console.log(this.isSuperAdmin);
 
 
-    this.initializeSelectAdmin();
+    setTimeout(function () {
+      baseContext.initializeSelectAdmin();
+    }, 20);
+
     this.adminService.getAdminByPrivileges(2)
       .subscribe(
         (data) => {
