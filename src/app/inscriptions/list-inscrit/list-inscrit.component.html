@@ -1,52 +1,48 @@
-<div class="sidebar sidebar-secondary sidebar-default" *ngIf="false">
+<!--<div class="sidebar sidebar-secondary sidebar-default">
   <div class="sidebar-content">
 
 
-    <!-- Actions -->
-    <div class="sidebar-category" *ngIf="false">
-      <div class="category-title">
-        <span>Actions</span>
-        <ul class="icons-list">
-          <li><a href="#" data-action="collapse"></a></li>
-        </ul>
-      </div>
 
-      <div class="category-content">
-        <a href="#" class="btn bg-pink-400 btn-rounded btn-block btn-xs">New message</a>
-        <a href="#" class="btn bg-teal-400 btn-rounded btn-block btn-xs" *ngIf="false">New conference</a>
-      </div>
-    </div>
-    <!-- /actions -->
+<div class="sidebar-category" *ngIf="false">
+  <div class="category-title">
+    <span>Actions</span>
+    <ul class="icons-list">
+      <li><a href="#" data-action="collapse"></a></li>
+    </ul>
+  </div>
 
-
-    <!-- Sub navigation -->
-    <div class="sidebar-default">
-
-      <div class="category-content no-padding">
-        <ul class="navigation navigation-alt navigation-accordion">
-          <li class="navigation-header">Niveaux</li>
-          <li class="navigation-divider"></li>
-          <li class="{{selectedLevel==0?'active':''}}"><a (click)="selectLevel(0)">Tous </a></li>
-          <li class="{{selectedLevel==1?'active':''}}"><a (click)="selectLevel(1)"> PCEM1 </a></li>
-          <li class="{{selectedLevel==2?'active':''}}"><a (click)="selectLevel(2)"> PCEM2 </a></li>
-          <li class="{{selectedLevel==3?'active':''}}"><a (click)="selectLevel(3)"> DCEM1 </a></li>
-          <li class="{{selectedLevel==4?'active':''}}"><a (click)="selectLevel(4)"> DCEM2 </a></li>
-          <li class="{{selectedLevel==5?'active':''}}"><a (click)="selectLevel(5)"> DCEM3 </a></li>
-          <li class="{{selectedLevel==6?'active':''}}"><a (click)="selectLevel(6)"> Internat </a></li>
-          <li class="{{selectedLevel==7?'active':''}}"><a (click)="selectLevel(7)"> Internat(AR) </a></li>
-          <li class="{{selectedLevel==8?'active':''}}"><a (click)="selectLevel(8)"> TCEM1</a></li>
-          <li class="{{selectedLevel==9?'active':''}}"><a (click)="selectLevel(9)"> TCEM2 </a></li>
-          <li class="{{selectedLevel==10?'active':''}}"><a (click)="selectLevel(10)"> TCEM3 </a></li>
-          <li class="{{selectedLevel==11?'active':''}}"><a (click)="selectLevel(11)"> TCEM4 </a></li>
-          <li class="{{selectedLevel==12?'active':''}}"><a (click)="selectLevel(12)"> TCEM5 </a></li>
-        </ul>
-      </div>
-    </div>
-    <!-- /sub navigation -->
-
-
+  <div class="category-content">
+    <a href="#" class="btn bg-pink-400 btn-rounded btn-block btn-xs">New message</a>
+    <a href="#" class="btn bg-teal-400 btn-rounded btn-block btn-xs" *ngIf="false">New conference</a>
   </div>
 </div>
+<div class="sidebar-default">
+
+  <div class="category-content no-padding">
+    <ul class="navigation navigation-alt navigation-accordion">
+      <li class="navigation-header">Niveaux</li>
+      <li class="navigation-divider"></li>
+      <li class="{{selectedLevel==0?'active':''}}"><a (click)="selectLevel(0)">Tous </a></li>
+      <li class="{{selectedLevel==1?'active':''}}"><a (click)="selectLevel(1)"> PCEM1 </a></li>
+      <li class="{{selectedLevel==2?'active':''}}"><a (click)="selectLevel(2)"> PCEM2 </a></li>
+      <li class="{{selectedLevel==3?'active':''}}"><a (click)="selectLevel(3)"> DCEM1 </a></li>
+      <li class="{{selectedLevel==4?'active':''}}"><a (click)="selectLevel(4)"> DCEM2 </a></li>
+      <li class="{{selectedLevel==5?'active':''}}"><a (click)="selectLevel(5)"> DCEM3 </a></li>
+      <li class="{{selectedLevel==6?'active':''}}"><a (click)="selectLevel(6)"> Internat </a></li>
+      <li class="{{selectedLevel==7?'active':''}}"><a (click)="selectLevel(7)"> Internat(AR) </a></li>
+      <li class="{{selectedLevel==8?'active':''}}"><a (click)="selectLevel(8)"> TCEM1</a></li>
+      <li class="{{selectedLevel==9?'active':''}}"><a (click)="selectLevel(9)"> TCEM2 </a></li>
+      <li class="{{selectedLevel==10?'active':''}}"><a (click)="selectLevel(10)"> TCEM3 </a></li>
+      <li class="{{selectedLevel==11?'active':''}}"><a (click)="selectLevel(11)"> TCEM4 </a></li>
+      <li class="{{selectedLevel==12?'active':''}}"><a (click)="selectLevel(12)"> TCEM5 </a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+</div>
+</div>-->
 <!-- /secondary sidebar -->
 
 
@@ -77,6 +73,7 @@
         <th>E-mail</th>
         <th>Niveau</th>
         <th>Année universitaire</th>
+        <th>Actions</th>
       </tr>
       </thead>
 
@@ -102,6 +99,21 @@
         </td>
         <td>
           {{item.registration_university.year_university}}
+        </td>
+        <td>
+          <ul class="icons-list">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-menu9"></i>
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-right">
+
+                <li><a (click)="generationAttestationFr(i)"><i class="icon-database-export"></i>Attestation d'inscription</a></li>
+
+              </ul>
+            </li>
+          </ul>
         </td>
       </tr>
       </tbody>

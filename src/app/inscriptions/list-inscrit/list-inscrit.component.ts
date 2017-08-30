@@ -9,7 +9,7 @@ import {Utils} from "../../shared/utils";
 import {StudentFileService} from "../../shared/services/student-file.service";
 import {Level} from "../../shared/models/level";
 
-
+import * as FileSaver from "file-saver";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -82,6 +82,21 @@ export class ListInscritComponent implements OnInit {
           }
         )
     }
+  }
+
+  generationAttestationFr(index: number) {
+    this.busy=this.studentFileServie.generationAttestationFr(this.registrationsUniversityStudents[index].id_student, this.registrationsUniversityStudents[index].registration_university.year_university, this.registrationsUniversityStudents[index].id_level)
+      .subscribe(
+        (data) => {
+          FileSaver.saveAs(data, this.registrationsUniversityStudents[index].student.first_name
+            + " " + this.registrationsUniversityStudents[index].student.last_name
+            + "_Attestation_" + this.registrationsUniversityStudents[index].registration_university.year_university
+            + ".pdf");
+        },
+        (error) => {
+
+        }
+      )
   }
 
 

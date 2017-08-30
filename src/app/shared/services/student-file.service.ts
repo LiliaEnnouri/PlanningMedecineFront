@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {Http} from "@angular/http";
+import {Http, ResponseContentType} from "@angular/http";
 import {Config} from "../config";
 import {Student} from "../models/student";
 import {StorageService} from "./storage.service";
@@ -239,6 +239,21 @@ export class StudentFileService extends GenericService {
 
     return this.http.get(url, {
       headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  generationAttestationFr(studentId: number, year: string, levelId: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/attestation-inscription/fr";
+
+    return this.http.post(url, {
+      id_level: levelId,
+      year: year
+    }, {
+      headers: this.headers,
+      responseType: ResponseContentType.Blob
     })
       .map(res => res.json())
       .catch(this.handleErrors);
