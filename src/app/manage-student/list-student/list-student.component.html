@@ -30,7 +30,7 @@
   </div>
   <!-- Invoice archive -->
   <div class="panel panel-white">
-    <div class="panel-heading">
+    <div class="panel-heading" [ngBusy]="busy">
       <h6 class="panel-title">Liste étudiant</h6>
       <div class="heading-elements">
         <div class=" checkbox-switchery reviewOn">
@@ -49,7 +49,7 @@
     </div>
     <br>
 
-    <table class="table datatable-basic" [ngBusy]="busy">
+    <table class="table datatable-basic">
       <thead>
       <tr>
         <th>#</th>
@@ -66,7 +66,9 @@
 
       <tbody>
       <tr *ngFor="let student of students;let i=index;">
-        <td>{{student.id_student}}</td>
+        <td>
+          {{student.id_student<10?'000'+student.id_student:student.id_student<100?'00'+student.id_student:student.id_student<1000?'0'+student.id_student:student.id_student}}
+        </td>
         <td>
           {{student.last_name}} {{student.first_name}}
         </td>

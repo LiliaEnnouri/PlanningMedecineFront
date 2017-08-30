@@ -110,7 +110,7 @@
               <a [routerLink]="'/support/messages/'+conversation.id_Conversation+'/discussion'" class="text-semibold">{{conversation.student?conversation.student.first_name+'
                 '+conversation.student.last_name:'Vous'}}</a>
               <span class="media-annotation dotted" *ngIf="conversation.topic">{{conversation.topic}}</span>
-              <span class="media-annotation dotted">{{conversation.latest_message.updated_at|amTimeAgo}}</span>
+              <span class="media-annotation dotted">{{conversation.updated_at|amTimeAgo}}</span>
             </div>
             {{conversation.latest_message.content}}
           </div>
