@@ -26,6 +26,7 @@ import {InscriptionsModule} from "./inscriptions/inscriptions.module";
 import {ManageNotificationModule} from "./manage-notification/manage-notification.module";
 import {ConversationService} from "./shared/services/conversation.service";
 import {ErrorModule} from "./error/error.module";
+import {ImpressionService} from "./shared/services/impression.service";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {ErrorModule} from "./error/error.module";
     InscriptionService,
     AdminService,
     NotificationService,
-    ConversationService
+    ConversationService,
+    ImpressionService
   ],
   bootstrap: [AppComponent]
 })

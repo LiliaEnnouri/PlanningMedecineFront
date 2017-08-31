@@ -59,6 +59,15 @@ export class FullLayoutComponent implements OnInit {
             name: "Liste inscrit",
             url: "/inscriptions/list-inscrit"
           }]
+      },
+      {
+        name: "Impressions",
+        icon: "icon-printer",
+        childrens: [
+          {
+            name: "Attestation d'inscription",
+            url: "/impressions/inscription"
+          }]
       }, {
         name: "Messages",
         icon: "icon-comments",
@@ -101,6 +110,7 @@ export class FullLayoutComponent implements OnInit {
       this.conversationCount = data.count;
     });
   }
+
 
   changeActiveUrl(url: string) {
     this.components.forEach(

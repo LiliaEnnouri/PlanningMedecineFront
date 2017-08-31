@@ -97,7 +97,7 @@
                   <ul>
                     <li *ngFor="let child of component.childrens"
                         class="{{child.active}}">
-                      <a href *ngIf="!child.hidden"
+                      <a href *ngIf="!child.hidden && child.url"
                          [routerLink]="[child.url]">{{child.name}}</a>
                     </li>
                   </ul>
