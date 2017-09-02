@@ -66,6 +66,15 @@ export class Student {
   id_evaluateur: number;
   updated_at: string;
   created_at: string;
+
+  civil_status: number;
+
+
+  /* Info Arabe */
+  first_name_arabe: string;
+  last_name_arabe: string;
+  nom_de_famille_arabe: string;
+  second_name_arabe: string;
 }
 
 export class StudentPhoto {

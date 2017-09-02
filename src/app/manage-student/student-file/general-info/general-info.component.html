@@ -14,39 +14,15 @@
           </div>
 
 
-          <div class="row">
+          <div class="row first-ligne">
             <div class="col-md-3">
               <div class="form-group has-feedback
-{{firstName.errors && (firstName.dirty || firstName.touched) ? 'has-error' :''}}">
+{{lastName.errors && (lastName.dirty || lastName.touched) ? 'has-error' :''}}">
                 <label>Nom</label>
                 <input type="text" class="form-control" placeholder="Nom"
-                       [(ngModel)]="student.first_name"
-                       #firstName="ngModel" name="first_name"
-                       required>
-                <div class="form-control-feedback">
-                  <i class="icon-user-check text-muted"></i>
-                </div>
-              </div>
-              <label *ngIf="submitted&&!student.first_name" class="validation-error-label">Ce champs
-                est
-                obligatoire.</label>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>Nom de famille</label>
-                <input type="text" class="form-control" placeholder="Nom de famille"
-                       [(ngModel)]="student.nom_de_famille"
-                       #nameFamille="ngModel" name="nom_de_famille"
-                >
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group has-feedback
-                {{lastName.errors && (lastName.dirty || lastName.touched) ? 'has-error' :''}}">
-                <label>Prénom</label>
-                <input type="text" class="form-control" placeholder="Prénom" name="last_name"
                        [(ngModel)]="student.last_name"
-                       #lastName="ngModel" required>
+                       #lastName="ngModel" name="lastName"
+                       required>
                 <div class="form-control-feedback">
                   <i class="icon-user-check text-muted"></i>
                 </div>
@@ -57,9 +33,79 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
+                <label>Nom de famille</label>
+                <input type="text" class="form-control" placeholder="Nom de famille (pour les femmes mariées)"
+                       [(ngModel)]="student.nom_de_famille"
+                       #nameFamille="ngModel" name="nom_de_famille"
+                >
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group has-feedback
+                {{firstName.errors && (firstName.dirty || firstName.touched) ? 'has-error' :''}}">
+                <label>Prénom</label>
+                <input type="text" class="form-control" placeholder="Prénom" name="first name"
+                       [(ngModel)]="student.first_name"
+                       #firstName="ngModel" required>
+                <div class="form-control-feedback">
+                  <i class="icon-user-check text-muted"></i>
+                </div>
+              </div>
+              <label *ngIf="submitted&&!student.first_name" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
                 <label>Deuxiéme prénom</label>
                 <input type="text" class="form-control" placeholder="Deuxiéme prénom"
                        [(ngModel)]="student.second_name"
+                       #secondName="ngModel" name="second_name"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>اللقب</label>
+                <input type="text" class="form-control" placeholder="اللقب"
+                       [(ngModel)]="student.last_name_arabe"
+                       #lastNameArabe="ngModel" name="lastNameArabe"
+                >
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group has-feedback">
+                <label>( اللقب عند الولادة (المتزوجات </label>
+                <input type="text" class="form-control" placeholder="( اللقب عند الولادة (المتزوجات "
+                       name="nom_de_famille_arabe"
+                       [(ngModel)]="student.nom_de_famille_arabe"
+                >
+                <div class="form-control-feedback">
+                  <i class="icon-user-check text-muted"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group has-feedback">
+                <label>الإسم</label>
+                <input type="text" class="form-control" placeholder="الإسم"
+                       [(ngModel)]="student.first_name_arabe"
+                       name="firstNameArabe"
+                >
+                <div class="form-control-feedback">
+                  <i class="icon-user-check text-muted"></i>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>( إسم ثاني (إن وجد </label>
+                <input type="text" class="form-control" placeholder="( إسم ثاني (إن وجد "
+                       [(ngModel)]="student.second_name_arabe"
                        #secondName="ngModel" name="second_name"
                 >
               </div>
@@ -82,6 +128,34 @@
               <label *ngIf="submitted&&!student.sex" class="validation-error-label">Ce champs
                 est
                 obligatoire.</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <h6>Etat civil :</h6>
+            <div class="form-group" style="margin-left: 10px">
+              <label class="radio-inline">
+                <input value="1" type="radio" name="radio-inline-left"
+                       class="styled radioBox radioBox-civil"
+                >
+                Célibataire
+              </label>
+
+              <label class="radio-inline">
+                <input value="2" type="radio" name="radio-inline-left"
+                       class="styled radioBox radioBox-civil">
+                Marié(e)
+              </label>
+              <label class="radio-inline">
+                <input value="3" type="radio" name="radio-inline-left"
+                       class="styled radioBox radioBox-civil">
+                Divorcé(e)
+              </label>
+              <label class="radio-inline">
+                <input value="4" type="radio" name="radio-inline-left"
+                       class="styled radioBox radioBox-civil">
+                Veuf(ve)
+              </label>
             </div>
           </div>
 

@@ -19,7 +19,7 @@ declare var swal: any;
 @Component({
   selector: 'app-student-general-info',
   templateUrl: './general-info.component.html',
-  styleUrls: [],
+  styleUrls: ['./general-info.component.css'],
 })
 export class GeneralInfoComponent implements OnInit {
 
@@ -79,6 +79,9 @@ export class GeneralInfoComponent implements OnInit {
     jQuery(".radioBox-oriented").uniform({
       radioClass: 'choice'
     });
+    jQuery(".radioBox-civil").uniform({
+      radioClass: 'choice'
+    });
 
     if (baseContext.student.sex) {
       jQuery('#' + baseContext.student.sex).prop('checked', true);
@@ -88,11 +91,20 @@ export class GeneralInfoComponent implements OnInit {
       jQuery('#' + baseContext.student.oriented).prop('checked', true);
       jQuery.uniform.update('#' + baseContext.student.oriented);
     }
+    if (baseContext.student.civil_status) {
+      console.log("Etat civil");
+      console.log(baseContext.student.civil_status);
+      jQuery('.radioBox-civil[value=' + baseContext.student.civil_status + ']').prop('checked', true);
+      jQuery.uniform.update('.radioBox-civil[value=' + baseContext.student.civil_status + ']');
+    }
     jQuery(".radioBox-sex").on("change", function () {
       baseContext.student.sex = jQuery(this).val();
     });
     jQuery(".radioBox-oriented").on("change", function () {
       baseContext.student.oriented = jQuery(this).val();
+    });
+    jQuery(".radioBox-civil").on("change", function () {
+      baseContext.student.civil_status = +jQuery(this).val();
     });
   }
 
