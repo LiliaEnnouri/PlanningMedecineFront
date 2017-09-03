@@ -55,7 +55,7 @@
       <h6 class="panel-title">Liste étudiant</h6>
       <br>
       <select class="select-level">
-        <option disabled value="0">Tous les Niveaux</option>
+        <option value="0">Tous les Niveaux</option>
         <option *ngFor="let level of levels" value="{{level.id_level}}">
           {{level.label}}
         </option>
@@ -109,7 +109,8 @@
 
               <ul class="dropdown-menu dropdown-menu-right">
 
-                <li><a (click)="generationAttestationFr(i)"><i class="icon-database-export"></i>Attestation d'inscription</a></li>
+                <li><a (click)="generationAttestationFr(i)"><i class="icon-database-export"></i>Attestation
+                  d'inscription</a></li>
 
               </ul>
             </li>
