@@ -137,11 +137,19 @@ export class Utils {
     };
   }
 
-  static initializeUploadFile(url: string, token: string, className: string, maxFileCount?: number, initialData?: any[],
+  static initializeUploadFile(url: string, token: string, className: string,
+                              showRemove: boolean,
+                              showUpload: boolean,
+                              maxFileCount?: number,
+                              initialData?: any[],
                               initialPreviewConfig?: InitialPreviewConfig[]) {
+    console.log('showRemove ' + showRemove);
+    console.log('showUpload ' + showUpload);
     jQuery(className).fileinput({
       uploadUrl: url, // server upload action
       uploadAsync: true,
+      showRemove: showRemove,
+      showUpload: showUpload,
       maxFileCount: maxFileCount,
       initialPreview: initialData,
       initialPreviewConfig: initialPreviewConfig,

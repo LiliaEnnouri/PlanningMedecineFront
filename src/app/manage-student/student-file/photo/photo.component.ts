@@ -28,18 +28,20 @@ export class PhotoComponent implements OnInit {
   ngOnInit(): void {
 
 
-    if (!this.isAdmin) {
-      jQuery('#formPhotos').find('input, textarea, button, select').attr('disabled', 'disabled');
-    }
+    /*
+     if (!this.isAdmin) {
+     jQuery('#formPhotos').find('input, textarea, button, select').attr('disabled', 'disabled');
+     }
+     */
     if (!this.student.img) {
       Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
-        this.userServices.getTokent(), ".file-input-student-photo", 1);
+        this.userServices.getTokent(), ".file-input-student-photo", this.isAdmin, this.isAdmin, 1);
     } else {
       this.initStudentPhoto();
     }
     if ((this.student.cin && !this.student.cin.imgs) && (this.student.passport && !this.student.passport.imgs)) {
       Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/cin/upload",
-        this.userServices.getTokent(), ".file-input-student-cin", 2);
+        this.userServices.getTokent(), ".file-input-student-cin", this.isAdmin, this.isAdmin, 2);
       if (this.student.cin) {
         this.student.cin.imgs = [];
       } else if (this.student.passport) {
@@ -50,14 +52,14 @@ export class PhotoComponent implements OnInit {
     }
     if (!this.student.extrait_naissance) {
       Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/extrait-naissance/upload",
-        this.userServices.getTokent(), ".file-input-student-extrait-naissance", 1);
+        this.userServices.getTokent(), ".file-input-student-extrait-naissance", this.isAdmin, this.isAdmin, 1);
     } else {
       this.initStudentExtraitNaissance();
     }
 
     if (!this.student.attestation_orientation) {
       Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/attestation-orientation/upload",
-        this.userServices.getTokent(), ".file-input-student-attestation-orientation", 1);
+        this.userServices.getTokent(), ".file-input-student-attestation-orientation", this.isAdmin, this.isAdmin, 1);
     } else {
       this.initStudentAttestationOrientation();
     }
@@ -192,7 +194,7 @@ export class PhotoComponent implements OnInit {
       size: studentImg.size
     });
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
-      this.userServices.getTokent(), ".file-input-student-photo", 1, inputMedias, initialPreviewConfig);
+      this.userServices.getTokent(), ".file-input-student-photo", this.isAdmin, this.isAdmin, 1, inputMedias, initialPreviewConfig);
   }
 
   private initStudentExtraitNaissance() {
@@ -210,7 +212,7 @@ export class PhotoComponent implements OnInit {
       size: studentImg.size
     });
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
-      this.userServices.getTokent(), ".file-input-student-extrait-naissance", 1, inputMedias, initialPreviewConfig);
+      this.userServices.getTokent(), ".file-input-student-extrait-naissance", this.isAdmin, this.isAdmin, 1, inputMedias, initialPreviewConfig);
   }
 
   private initStudentAttestationOrientation() {
@@ -228,7 +230,7 @@ export class PhotoComponent implements OnInit {
       size: studentImg.size
     });
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
-      this.userServices.getTokent(), ".file-input-student-attestation-orientation", 1, inputMedias, initialPreviewConfig);
+      this.userServices.getTokent(), ".file-input-student-attestation-orientation", this.isAdmin, this.isAdmin, 1, inputMedias, initialPreviewConfig);
   }
 
   private initStudentCin() {
@@ -253,7 +255,7 @@ export class PhotoComponent implements OnInit {
       });
     });
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/cin/upload",
-      this.userServices.getTokent(), ".file-input-student-cin", 2, inputMedias, initialPreviewConfig);
+      this.userServices.getTokent(), ".file-input-student-cin", this.isAdmin, this.isAdmin, 2, inputMedias, initialPreviewConfig);
   }
 
 }

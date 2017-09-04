@@ -12,8 +12,8 @@ import {Router} from "@angular/router";
 import {UserService} from "../../../shared/services/user.service";
 import {Credit} from "../../../shared/models/credit";
 import {Config} from "../../../shared/config";
-import set = Reflect.set;
 import {SectionValidation} from "../../../shared/models/section-validation";
+import set = Reflect.set;
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -328,12 +328,12 @@ export class StudiesStudentFileComponent implements OnInit {
       this.student.studies[index].medias = medias;
       setTimeout(function () {
         Utils.initializeUploadFile(Config.baseUrl + "/student/me/studies/upload",
-          token, ".file-input-study-" + index, 5, inputMedias, initialPreviewConfig);
+          token, ".file-input-study-" + index, this.isAdmin, baseContext.isAdmin, 5, inputMedias, initialPreviewConfig);
       }, 100);
     } else {
       setTimeout(function () {
         Utils.initializeUploadFile(Config.baseUrl + "/student/me/studies/upload",
-          token, ".file-input-study-" + index, 5);
+          token, ".file-input-study-" + index, baseContext.isAdmin, this.isAdmin, 5);
       }, 100);
     }
     const baseContext = this;

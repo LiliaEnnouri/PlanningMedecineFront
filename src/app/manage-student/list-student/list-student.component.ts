@@ -85,8 +85,7 @@ export class ListStudentComponent implements OnInit {
         (error) => {
 
         }
-      )
-
+      );
     this.isAdmin = this.userService.checkIfAdminHasRole(1);
 
   }

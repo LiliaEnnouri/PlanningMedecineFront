@@ -1,7 +1,7 @@
 <div *ngIf="statusSection" [ngBusy]="busy">
   <ul class="list list-unstyled text-right">
     <li></li>
-    <li class="dropdown">
+    <li class="dropdown" style="height: 22px">
       <a href="#"
          class="label {{statusSection.status===0?'bg-grey':statusSection.status===-1?'bg-danger':statusSection.status===1?'bg-green':'bg-warning'}}  dropdown-toggle"
          data-toggle="dropdown">{{statusSection.status===0?"En

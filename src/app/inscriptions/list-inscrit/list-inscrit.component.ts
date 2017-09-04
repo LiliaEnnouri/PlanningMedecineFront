@@ -85,7 +85,9 @@ export class ListInscritComponent implements OnInit {
   }
 
   generationAttestationFr(index: number) {
-    this.busy=this.studentFileServie.generationAttestationFr(this.registrationsUniversityStudents[index].id_student, this.registrationsUniversityStudents[index].registration_university.year_university, this.registrationsUniversityStudents[index].id_level)
+    this.busy = this.studentFileServie.generationAttestationFr(this.registrationsUniversityStudents[index].id_student,
+      this.registrationsUniversityStudents[index].registration_university.year_university,
+      this.registrationsUniversityStudents[index].id_level)
       .subscribe(
         (data) => {
           FileSaver.saveAs(data, this.registrationsUniversityStudents[index].student.first_name

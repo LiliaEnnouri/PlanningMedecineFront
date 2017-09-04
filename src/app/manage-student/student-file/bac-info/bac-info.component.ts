@@ -55,7 +55,7 @@ export class BacInfoComponent implements OnInit {
 
     if (!this.student.bac.medias) {
       Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/bac/upload",
-        this.userService.getTokent(), ".file-input-student-bac-medias", 1);
+        this.userService.getTokent(), ".file-input-student-bac-medias", this.isAdmin, this.isAdmin, 1);
       this.student.bac.medias = [];
     } else {
       this.initStudentBacMedias();
@@ -281,7 +281,7 @@ export class BacInfoComponent implements OnInit {
       });
     });
     Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/bac/upload",
-      this.userService.getTokent(), ".file-input-student-bac-medias", 2, inputMedias, initialPreviewConfig);
+      this.userService.getTokent(), ".file-input-student-bac-medias", this.isAdmin, this.isAdmin, 2, inputMedias, initialPreviewConfig);
   }
 }
 
