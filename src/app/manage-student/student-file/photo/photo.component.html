@@ -55,11 +55,11 @@
 
         <!-- Student Medical Extrait -->
         <div class="row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-12" *ngIf="student.isNew">
             <label class="control-label">Reçu visite Medicale :</label>
           </div>
         </div>
-        <div class="form-group col-lg-12">
+        <div class="form-group col-lg-12" *ngIf="student.isNew">
           <div class="form-group">
             <input type="file" class="file-input-student-health-media" accept="image/*">
           </div>
