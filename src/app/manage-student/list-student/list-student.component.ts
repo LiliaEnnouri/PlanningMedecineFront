@@ -10,6 +10,8 @@ import {UserService} from "../../shared/services/user.service";
 import {Router} from "@angular/router";
 import * as FileSaver from "file-saver";
 import {Admin} from "../../shared/models/admin";
+import {Level} from "../../shared/models/level";
+import {StudentFileService} from "../../shared/services/student-file.service";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -32,7 +34,11 @@ export class ListStudentComponent implements OnInit {
   fixStudents: Student[] = [];
   isAdmin: boolean;
 
+  niveaux: Level[] = [];
+  selectedLevel: number;
+
   constructor(private studentService: StudentService,
+              private studentFileService: StudentFileService,
               private adminService: AdminService,
               private userService: UserService,
               private router: Router,
@@ -48,14 +54,7 @@ export class ListStudentComponent implements OnInit {
 
   ngOnInit() {
     const baseContext = this;
-    this.busy = this.studentService.getAllStudentsByStatus(this.requestedStatus).subscribe(data => {
-      this.students = data;
-      this.fixStudents = data;
-      this.students.forEach(student => {
-        student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
-      });
-      Utils.initializeDataTables(500, 8);
-    });
+
     jQuery(".switch").bootstrapSwitch().on('switchChange.bootstrapSwitch', function (e, data) {
       if (data) {
         baseContext.adminService.startReviewingStudents().subscribe(() => {
@@ -68,13 +67,21 @@ export class ListStudentComponent implements OnInit {
       }
       baseContext.storageService.write('isReviewingMode', data.toString());
     });
-
+    this.selectLevel(0);
     this.isSuperAdmin = this.checkIfAdminHasRole(1);
     console.log(this.isSuperAdmin);
 
-
+    this.busy = this.studentService.getAllStudentsByStatus(this.requestedStatus).subscribe(data => {
+      this.students = data;
+      this.fixStudents = data;
+      this.students.forEach(student => {
+        student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
+      });
+      Utils.initializeDataTables(300, 7);
+    });
     setTimeout(function () {
       baseContext.initializeSelectAdmin();
+      baseContext.initializeSelectLevel();
     }, 20);
 
     this.adminService.getAdminByPrivileges(2)
@@ -86,9 +93,52 @@ export class ListStudentComponent implements OnInit {
 
         }
       );
+
+
+    this.getAllLevels();
     this.isAdmin = this.userService.checkIfAdminHasRole(1);
 
   }
+
+  getAllLevels() {
+    this.studentFileService.getAllLevels()
+      .subscribe(
+        (data) => {
+          this.niveaux = data;
+        },
+        (error) => {
+
+        }
+      )
+  }
+
+  selectLevel(levelId: number) {
+    this.selectedLevel = levelId;
+    const baseContext = this;
+    if (levelId === 0) {
+      this.busy = this.studentService.getAllStudentsByStatus(this.requestedStatus).subscribe(data => {
+        this.students = data;
+        this.fixStudents = data;
+        this.students.forEach(student => {
+          student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
+        });
+        Utils.reInitializeDataTables(300, 7);
+      });
+    } else {
+      this.busy = this.studentService.getAllStudentsByLevel(this.requestedStatus, levelId)
+        .subscribe(
+          (data) => {
+            this.students = data;
+            this.fixStudents = data;
+            this.students.forEach(student => {
+              student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
+            });
+            Utils.reInitializeDataTables(300, 7);
+          }
+        )
+    }
+  }
+
 
   updateStudentStatusAfterReview(index: number, administrationReview: number) {
     const student: Student = this.students[index];
@@ -282,5 +332,14 @@ export class ListStudentComponent implements OnInit {
         }
       );
 
+  }
+
+  initializeSelectLevel() {
+    const selectLevel = jQuery(".select-level");
+    const baseContext = this;
+    selectLevel.select2();
+    selectLevel.on("change", function () {
+      baseContext.selectLevel(+jQuery(this).val());
+    });
   }
 }

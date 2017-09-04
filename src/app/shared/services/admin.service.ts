@@ -114,4 +114,8 @@ export class AdminService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  getAllStudentsByLevel(requestedStatus: number, levelId: number) {
+    
+  }
 }
