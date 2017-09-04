@@ -67,6 +67,7 @@
           </div>
           <div class="row">
             <div class="col-md-3">
+
               <div class="form-group">
                 <label>اللقب</label>
                 <input type="text" class="form-control" placeholder="اللقب"
@@ -74,6 +75,9 @@
                        #lastNameArabe="ngModel" name="lastNameArabe"
                 >
               </div>
+              <label *ngIf="submitted&&!student.last_name_arabe" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
             </div>
             <div class="col-md-3">
               <div class="form-group has-feedback">
@@ -98,6 +102,9 @@
                   <i class="icon-user-check text-muted"></i>
                 </div>
               </div>
+              <label *ngIf="submitted&&!student.first_name_arabe" class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
             </div>
 
 

@@ -226,7 +226,9 @@ export class GeneralInfoComponent implements OnInit {
       || (this.student.passport.code && (!this.student.passport.id_city || !this.student.passport.date))
       || !this.student.email || !this.student.mobile || !this.student.label_address
       || !this.student.oriented
-      || !this.student.study_access_year) {
+      || !this.student.study_access_year
+      || !this.student.first_name_arabe
+      || !this.student.last_name_arabe) {
       return;
     }
     console.log(JSON.stringify(this.student));

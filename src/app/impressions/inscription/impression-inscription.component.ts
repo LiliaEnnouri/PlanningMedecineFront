@@ -44,8 +44,13 @@ export class ImpressionInscriptionComponent implements OnInit {
     this.busy = this.impressionService.attestationInscription(this.langue, this.codeStudent)
       .subscribe(
         (data) => {
-          FileSaver.saveAs(data, this.codeStudent
-            + "_fr.pdf");
+          if (this.langue === 1) {
+            FileSaver.saveAs(data, this.codeStudent
+              + "_fr.pdf");
+          } else {
+            FileSaver.saveAs(data, this.codeStudent
+              + "_arabe.pdf");
+          }
         },
         (error) => {
 
