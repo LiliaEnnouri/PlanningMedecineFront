@@ -61,7 +61,7 @@ export class Student {
 
   public isNew: boolean;
   extrait_naissance: StudentExtraitNaissance;
-  attestation_orientation: StudentAttestationOrientation;
+  attestation_orientation: Array<StudentAttestationOrientation>;
 
   id_evaluateur: number;
   updated_at: string;
