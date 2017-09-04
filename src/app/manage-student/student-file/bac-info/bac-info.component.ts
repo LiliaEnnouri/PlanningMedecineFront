@@ -94,6 +94,7 @@ export class BacInfoComponent implements OnInit {
 
     if (!this.isAdmin) {
       jQuery('#formBacInfo').find('input, textarea, button, select').attr('disabled', 'disabled');
+      jQuery('.kv-file-zoom').removeAttr('disabled');
     }
   }
 

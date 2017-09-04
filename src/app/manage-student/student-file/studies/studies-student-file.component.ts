@@ -48,8 +48,8 @@ export class StudiesStudentFileComponent implements OnInit {
     if (!this.isAdmin) {
       setTimeout(function () {
         jQuery('#formStudies').find('input, textarea, button, select').attr('disabled', 'disabled');
+        jQuery('.kv-file-zoom').removeAttr('disabled');
       }, 50);
-
     }
     if (!this.editAction) {
       console.log("new");

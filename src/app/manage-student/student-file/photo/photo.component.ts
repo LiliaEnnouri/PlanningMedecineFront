@@ -26,13 +26,12 @@ export class PhotoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    if (!this.isAdmin) {
+      jQuery('#formPhotos').find('input, textarea, button, select').attr('disabled', 'disabled');
+      jQuery('.kv-file-zoom').removeAttr('disabled');
+    }
 
-
-    /*
-     if (!this.isAdmin) {
-     jQuery('#formPhotos').find('input, textarea, button, select').attr('disabled', 'disabled');
-     }
-     */
     if (!this.student.img) {
       Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
         this.userServices.getTokent(), ".file-input-student-photo", this.isAdmin, this.isAdmin, 1);
