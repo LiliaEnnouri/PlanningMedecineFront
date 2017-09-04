@@ -75,6 +75,7 @@ export class Student {
   last_name_arabe: string;
   nom_de_famille_arabe: string;
   second_name_arabe: string;
+  health_media: StudentHealthMedia;
 }
 
 export class StudentPhoto {
@@ -99,6 +100,12 @@ export class StudentExtraitNaissance {
 
 export class StudentAttestationOrientation {
   id_Student_Attestation_Orientation: number;
+  id_Student: number;
+  path: string;
+  size: number;
+}
+export class StudentHealthMedia {
+  id_Student_Health_Media: number;
   id_Student: number;
   path: string;
   size: number;

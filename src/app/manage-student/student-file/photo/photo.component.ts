@@ -55,6 +55,12 @@ export class PhotoComponent implements OnInit {
     } else {
       this.initStudentExtraitNaissance();
     }
+    if (!this.student.health_media) {
+      Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/health-media/upload",
+        this.userServices.getTokent(), ".file-input-student-health-media", this.isAdmin, this.isAdmin, 1);
+    } else {
+      this.initStudentHealthMedia();
+    }
 
     if (!this.student.attestation_orientation) {
       Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/attestation-orientation/upload",
@@ -92,7 +98,6 @@ export class PhotoComponent implements OnInit {
     }).on('fileuploaded', function (event, data, previewId, index) {
       baseContext.student.extrait_naissance = data.response.media;
       console.log("fileuploaded");
-      baseContext.storageService.write("student", baseContext.student);
       swal({
         title: "Succés!",
         text: 'Vous avez ajouté une photo de votre extrait de naissance',
@@ -101,7 +106,6 @@ export class PhotoComponent implements OnInit {
       });
     }).on('filedeleted', function (event, key, jqXHR, data) {
       baseContext.student.extrait_naissance = baseContext.student.extrait_naissance = null;
-      baseContext.storageService.write("student", baseContext.student);
       swal({
         title: "Succés!",
         text: 'Vous avez supprimé votre extrait de naissance',
@@ -109,6 +113,28 @@ export class PhotoComponent implements OnInit {
         type: "success"
       });
     });
+
+    jQuery('.file-input-student-health-media').change(function () {
+      console.log('file input change');
+    }).on('fileuploaded', function (event, data, previewId, index) {
+      baseContext.student.health_media = data.response.media;
+      console.log("fileuploaded");
+      swal({
+        title: "Succés!",
+        text: 'Vous avez ajouté une photo de votre reçu visite medicale',
+        confirmButtonColor: "#66BB6A",
+        type: "success"
+      });
+    }).on('filedeleted', function (event, key, jqXHR, data) {
+      baseContext.student.health_media = null;
+      swal({
+        title: "Succés!",
+        text: 'Vous avez supprimé votre reçu visite medicale',
+        confirmButtonColor: "#66BB6A",
+        type: "success"
+      });
+    });
+
     jQuery('.file-input-student-attestation-orientation').change(function () {
       console.log('file input change');
     }).on('fileuploaded', function (event, data, previewId, index) {
@@ -212,6 +238,25 @@ export class PhotoComponent implements OnInit {
     });
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
       this.userServices.getTokent(), ".file-input-student-extrait-naissance", this.isAdmin, this.isAdmin, 1,
+      inputMedias, initialPreviewConfig);
+  }
+
+  private initStudentHealthMedia() {
+    const medias = [];
+    const inputMedias = [];
+    const initialPreviewConfig: InitialPreviewConfig[] = [];
+    const studentImg = this.student.health_media;
+    medias.push(this.student.health_media.path);
+    inputMedias.push(Config.baseUrl + '/' + studentImg.path);
+    initialPreviewConfig.push({
+      type: Utils.loadTypeFromExtension(studentImg.path.substr(studentImg.path.indexOf('.') + 1)),
+      filetype: Utils.loadFileTypeFromExtension(studentImg.path.substr(studentImg.path.indexOf('.') + 1)),
+      key: studentImg.id_Student_Health_Media,
+      url: Config.baseUrl + '/' + studentImg.path + '/delete',
+      size: studentImg.size
+    });
+    Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/health-media/upload",
+      this.userServices.getTokent(), ".file-input-student-health-media", this.isAdmin, this.isAdmin, 1,
       inputMedias, initialPreviewConfig);
   }
 

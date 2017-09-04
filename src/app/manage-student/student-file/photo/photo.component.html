@@ -38,31 +38,40 @@
           <div class="form-group">
             <input type="file" class="file-input-student-extrait-naissance" accept="image/*">
           </div>
-
-
-          <!-- /registration form -->
-
-
-          <!-- Student Attestation Orientation -->
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label class="control-label">Attestation d'orientation ou de réorientation  & شهادة مغادرة:</label>
-            </div>
-          </div>
-          <div class="form-group col-lg-12">
-            <div class="form-group">
-              <input type="file" class="file-input-student-attestation-orientation" accept="image/*">
-            </div>
-          </div>
-          <button [routerLink]="['/student-file']"
-                  class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
-            class="icon-close2"></i></b> Annuler
-          </button>
-          <section-validation [sectionId]="4" [student]="student"></section-validation>
         </div>
 
+
+        <!-- Student Attestation Orientation -->
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label class="control-label">Attestation d'orientation ou de réorientation & شهادة مغادرة:</label>
+          </div>
+        </div>
+        <div class="form-group col-lg-12">
+          <div class="form-group">
+            <input type="file" class="file-input-student-attestation-orientation" accept="image/*">
+          </div>
+        </div>
+
+        <!-- Student Medical Extrait -->
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label class="control-label">Reçu visite Medicale :</label>
+          </div>
+        </div>
+        <div class="form-group col-lg-12">
+          <div class="form-group">
+            <input type="file" class="file-input-student-health-media" accept="image/*">
+          </div>
+        </div>
+        <button [routerLink]="['/student-file']"
+                class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
+          class="icon-close2"></i></b> Annuler
+        </button>
+        <section-validation [sectionId]="4" [student]="student"></section-validation>
       </div>
 
     </div>
+
   </div>
 </form>
