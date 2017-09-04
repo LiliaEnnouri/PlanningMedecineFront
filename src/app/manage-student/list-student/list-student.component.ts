@@ -67,7 +67,6 @@ export class ListStudentComponent implements OnInit {
       }
       baseContext.storageService.write('isReviewingMode', data.toString());
     });
-    this.selectLevel(0);
     this.isSuperAdmin = this.checkIfAdminHasRole(1);
     console.log(this.isSuperAdmin);
 
