@@ -75,7 +75,7 @@
             </div>
           </div>
         </div>
-        <div class="multiple">
+        <div *ngIf="student.cin!=null" class="multiple">
           <div class="title">CIN / ID Card :</div>
           <div class="group-field">
             <div class="sub-field">
@@ -95,7 +95,7 @@
             </div>
           </div>
         </div>
-        <div class="multiple">
+        <div *ngIf="student.cin==null" class="multiple">
           <div class="title">Passeport / Passport :</div>
           <div class="group-field">
             <div class="sub-field">

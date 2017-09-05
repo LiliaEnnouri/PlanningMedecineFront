@@ -87,4 +87,16 @@ export class StudentService extends GenericService {
       .catch(this.handleErrors);
   }
 
+  getAllStudentsByLevel(requestedStatus: number, levelId: number) {
+    const url = Config.baseUrl + '/admin/student/status/' + requestedStatus;
+    console.log(url);
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post(url, {
+      levelId: levelId
+    }, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
