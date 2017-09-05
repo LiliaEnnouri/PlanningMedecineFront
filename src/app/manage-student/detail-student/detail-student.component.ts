@@ -6,7 +6,6 @@ import {StudentService} from "../../shared/services/student.service";
 import {Config} from "../../shared/config";
 import {AdminService} from "../../shared/services/admin.service";
 import * as FileSaver from "file-saver";
-import {Utils} from "../../shared/utils";
 @Component({
   selector: 'app-detail-student',
   templateUrl: './detail-student.component.html',
@@ -30,7 +29,6 @@ export class DetailStudentComponent implements OnInit {
         this.student.id_student = +params["studentId"];
         this.studentService.getStudentDetail(this.student.id_student).subscribe(data => {
           this.student = data;
-          this.student.isNew = Utils.verifyNewStudent(this.student.study_access_year);
         });
       });
   }

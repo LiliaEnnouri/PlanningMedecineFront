@@ -55,13 +55,14 @@ export class PhotoComponent implements OnInit {
     } else {
       this.initStudentExtraitNaissance();
     }
-    if (!this.student.health_media) {
-      Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/health-media/upload",
-        this.userServices.getTokent(), ".file-input-student-health-media", this.isAdmin, this.isAdmin, 1);
-    } else {
-      this.initStudentHealthMedia();
-    }
-
+    setTimeout(function () {
+      if (!baseContext.student.health_media) {
+        Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + baseContext.student.id_student + "/health-media/upload",
+          baseContext.userServices.getTokent(), ".file-input-student-health-media", baseContext.isAdmin, baseContext.isAdmin, 1);
+      } else {
+        baseContext.initStudentHealthMedia();
+      }
+    }, 500);
     if (!this.student.attestation_orientation) {
       Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/attestation-orientation/upload",
         this.userServices.getTokent(), ".file-input-student-attestation-orientation", this.isAdmin, this.isAdmin, 2);
