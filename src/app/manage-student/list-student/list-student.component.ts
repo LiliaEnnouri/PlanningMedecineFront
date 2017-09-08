@@ -7,7 +7,7 @@ import {AdminService} from "../../shared/services/admin.service";
 import {StorageService} from "../../shared/services/storage.service";
 import {ConversationService} from "../../shared/services/conversation.service";
 import {UserService} from "../../shared/services/user.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import * as FileSaver from "file-saver";
 import {Admin} from "../../shared/models/admin";
 import {Level} from "../../shared/models/level";
@@ -36,6 +36,7 @@ export class ListStudentComponent implements OnInit {
 
   niveaux: Level[] = [];
   selectedLevel: number;
+  private sub: any;
 
   constructor(private studentService: StudentService,
               private studentFileService: StudentFileService,
@@ -43,7 +44,8 @@ export class ListStudentComponent implements OnInit {
               private userService: UserService,
               private router: Router,
               private conversationservice: ConversationService,
-              private storageService: StorageService) {
+              private storageService: StorageService,
+              private route: ActivatedRoute) {
     this.isReviewingMode = <boolean>this.storageService.read('isReviewingMode');
     if (router.url.indexOf('valid') > -1) {
       this.requestedStatus = 1;
@@ -70,14 +72,7 @@ export class ListStudentComponent implements OnInit {
     this.isSuperAdmin = this.checkIfAdminHasRole(1);
     console.log(this.isSuperAdmin);
 
-    this.busy = this.studentService.getAllStudentsByStatus(this.requestedStatus).subscribe(data => {
-      this.students = data;
-      this.fixStudents = data;
-      this.students.forEach(student => {
-        student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
-      });
-      Utils.initializeDataTables(300, 7);
-    });
+
     setTimeout(function () {
       baseContext.initializeSelectAdmin();
       baseContext.initializeSelectLevel();
@@ -96,6 +91,36 @@ export class ListStudentComponent implements OnInit {
 
     this.getAllLevels();
     this.isAdmin = this.userService.checkIfAdminHasRole(1);
+
+    this.sub = this.route.queryParams.subscribe(params => {
+
+        if (!params["level"]) {
+          this.busy = this.studentService.getAllStudentsByStatus(this.requestedStatus).subscribe(data => {
+            this.students = data;
+            this.fixStudents = data;
+            this.students.forEach(student => {
+              student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
+            });
+            Utils.initializeDataTables(300, 7);
+          });
+        } else {
+
+
+          this.busy = this.studentService.getAllStudentsByLevel(this.requestedStatus, params["level"])
+            .subscribe(
+              (data) => {
+                this.students = data;
+                this.fixStudents = data;
+                this.students.forEach(student => {
+                  student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
+                });
+                Utils.initializeDataTables(300, 7);
+              }
+            )
+        }
+      }
+    );
+
 
   }
 
@@ -300,7 +325,8 @@ export class ListStudentComponent implements OnInit {
     return Utils.getNumberStatus(this.students[index].validations, 0);
   }
 
-  private initializeSelectAdmin() {
+  private
+  initializeSelectAdmin() {
     const selectAdmin = jQuery(".select-evaluateur");
     const baseContext = this;
     selectAdmin.select2();
@@ -338,7 +364,9 @@ export class ListStudentComponent implements OnInit {
     const baseContext = this;
     selectLevel.select2();
     selectLevel.on("change", function () {
+      baseContext.router.navigate(["/student/list-current"], {queryParams: {level: +jQuery(this).val()}});
       baseContext.selectLevel(+jQuery(this).val());
+      baseContext.selectedLevel = +jQuery(this).val();
     });
   }
 }
