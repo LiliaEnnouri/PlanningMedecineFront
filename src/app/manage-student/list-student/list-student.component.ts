@@ -365,7 +365,6 @@ export class ListStudentComponent implements OnInit {
     selectLevel.select2();
     selectLevel.on("change", function () {
       baseContext.router.navigate(["/student/list-current"], {queryParams: {level: +jQuery(this).val()}});
-      baseContext.selectLevel(+jQuery(this).val());
       baseContext.selectedLevel = +jQuery(this).val();
     });
   }

@@ -51,6 +51,9 @@ export class Utils {
   static initializeDataTables(timout: number, columnNumber: number) {
     // Basic datatable
     const tableListStation = jQuery('.datatable-basic');
+    if (jQuery.fn.DataTable.isDataTable('.datatable-basic')) {
+      tableListStation.dataTable().fnDestroy();
+    }
     setTimeout(function () {
       tableListStation.DataTable({
         columnDefs: [{
