@@ -37,6 +37,7 @@ export class DetailsDiscussionComponent implements OnInit {
         const messages = [];
         this.conversation.messages.forEach(function (message) {
           message.user = message.student ? message.student : message.teacher;
+          messages.push(message);
         });
         this.conversation.messages = messages;
         if (!this.conversation.latest_message.id_Admin) {
