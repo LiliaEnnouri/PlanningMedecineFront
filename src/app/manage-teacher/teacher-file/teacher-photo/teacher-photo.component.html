@@ -11,7 +11,7 @@
         </div>
         <div class="form-group col-lg-12">
           <div class="form-group">
-            <input type="file" class="file-input-student-photo" accept="image/*">
+            <input type="file" class="file-input-teacher-photo" accept="image/*">
           </div>
         </div>
 
@@ -24,11 +24,24 @@
         </div>
         <div class="form-group col-lg-12">
           <div class="form-group">
-            <input type="file" class="file-input-student-cin" accept="image/*" multiple>
+            <input type="file" class="file-input-teacher-cin" accept="image/*" multiple>
           </div>
         </div>
+
+        <!-- Extrait de naissance -->
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label class="control-label">Extrait de naissance</label>
+          </div>
+        </div>
+        <div class="form-group col-lg-12">
+          <div class="form-group">
+            <input type="file" class="file-input-teacher-extrait-naissance" accept="image/*" multiple>
+          </div>
+        </div>
+        <section-validation-teacher [sectionId]="4" [teacher]="teacher"></section-validation-teacher>
       </div>
-      <section-validation-teacher [sectionId]="4" [teacher]="teacher"></section-validation-teacher>
+
 
     </div>
 

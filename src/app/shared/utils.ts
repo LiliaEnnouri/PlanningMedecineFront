@@ -230,7 +230,7 @@ export class Utils {
     return year === new Date().getFullYear();
   }
 
-  static getStatusSection(validations: SectionValidation[], id_section: number) {
+  static getStatusSection(validations: any[], id_section: number) {
 
     if (!validations) {
       return null;

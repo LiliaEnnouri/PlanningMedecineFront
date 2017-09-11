@@ -49,6 +49,13 @@ export class TeacherPhotoComponent implements OnInit {
     } else {
       this.initTeacherCin();
     }
+
+    if (!this.teacher.extrait_naissance) {
+      Utils.initializeUploadFile(Config.baseUrl + "/admin/teacher/" + this.teacher.id_Teacher + "/extrait-naissance/upload",
+        this.userServices.getTokent(), ".file-input-teacher-extrait-naissance", this.isAdmin, this.isAdmin, 1);
+    } else {
+      this.initTeacherExtraitNaissance();
+    }
     const baseContext = this;
     jQuery('.file-input-teacher-photo').change(function () {
       console.log('file input change');
@@ -118,6 +125,25 @@ export class TeacherPhotoComponent implements OnInit {
         type: "success"
       });
     });
+  }
+
+  private initTeacherExtraitNaissance() {
+    const medias = [];
+    const inputMedias = [];
+    const initialPreviewConfig: InitialPreviewConfig[] = [];
+    const teacherImg = this.teacher.extrait_naissance;
+    medias.push(this.teacher.extrait_naissance.path);
+    inputMedias.push(Config.baseUrl + '/' + teacherImg.path);
+    initialPreviewConfig.push({
+      type: Utils.loadTypeFromExtension(teacherImg.path.substr(teacherImg.path.indexOf('.') + 1)),
+      filetype: Utils.loadFileTypeFromExtension(teacherImg.path.substr(teacherImg.path.indexOf('.') + 1)),
+      key: teacherImg.id_Teacher_Extrait_Naissance,
+      url: Config.baseUrl + '/' + teacherImg.path + '/delete',
+      size: teacherImg.size
+    });
+    Utils.initializeUploadFile(Config.baseUrl + "/admin/teacher/" + this.teacher.id_Teacher + "/photo/upload",
+      this.userServices.getTokent(), ".file-input-teacher-extrait-naissance", this.isAdmin, this.isAdmin, 1,
+      inputMedias, initialPreviewConfig);
   }
 
   private initTeacherPhoto() {

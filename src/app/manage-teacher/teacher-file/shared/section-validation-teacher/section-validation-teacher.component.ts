@@ -30,7 +30,9 @@ export class SectionValidationTeacherComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.statusSection = Utils.getStatusSection(this.teacher.validations, this.sectionId);
+    console.log(this.statusSection);
   }
 
   /* Admin Special */
@@ -39,8 +41,9 @@ export class SectionValidationTeacherComponent implements OnInit {
     if (status === 2 && !note) {
       return;
     }
+    console.log(this.sectionId);
 
-    this.busy = this.adminService.changeSectionStatus(this.statusSection.id_Teacher, this.statusSection.id_Section, status, note)
+    this.busy = this.adminService.changeSectionStatusTeacher(this.statusSection.id_Teacher, this.statusSection.id_section, status, note)
       .subscribe(
         (data) => {
           console.log(data);
