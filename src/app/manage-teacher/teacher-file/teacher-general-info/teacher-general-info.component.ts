@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {Student} from "../../../shared/models/student";
 import {Country} from "../../../shared/models/country";
 import {InscriptionService} from "../../../shared/services/inscription.service";
 import {City} from "../../../shared/models/city";
@@ -14,18 +13,22 @@ import {SectionValidation} from "../../../shared/models/section-validation";
 import {AdminService} from "../../../shared/services/admin.service";
 import {PassportStudent} from "app/shared/models/Passport_Student";
 import {CinStudent} from "../../../shared/models/cinStudent";
+import {Teacher} from "../../../shared/models/Teacher";
+import {CinTeacher} from "../../../shared/models/cinTeacher";
+import {PassportTeacher} from "../../../shared/models/Passport_Teacher";
 import {SharedService} from "../../../shared/services/shared.service";
+import {TeacherFileService} from "../../../shared/services/teacher-file.service";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
-  selector: 'app-student-general-info',
-  templateUrl: './general-info.component.html',
-  styleUrls: ['./general-info.component.css'],
+  selector: 'app-teacher-general-info',
+  templateUrl: './teacher-general-info.component.html',
+  styleUrls: ['./teacher-general-info.component.css'],
 })
-export class GeneralInfoComponent implements OnInit {
+export class TeacherGeneralInfoComponent implements OnInit {
 
   @Input()
-  student: Student;
+  teacher: Teacher;
 
   @Input()
   isAdmin: boolean;
@@ -64,9 +67,12 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   constructor(private router: Router,
-              private studentFileService: StudentFileService,
+              private sharedService: SharedService,
+              private teacherFileService: TeacherFileService,
               private inscriptionService: InscriptionService,
-              private sharedService: SharedService) {
+              private stoarageService: StorageService,
+              private userService: UserService,
+              private adminService: AdminService) {
   }
 
   initializeRadioBox() {
@@ -75,51 +81,38 @@ export class GeneralInfoComponent implements OnInit {
     jQuery(".radioBox-sex").uniform({
       radioClass: 'choice'
     });
-    jQuery(".radioBox-oriented").uniform({
-      radioClass: 'choice'
-    });
     jQuery(".radioBox-civil").uniform({
       radioClass: 'choice'
     });
 
-    if (baseContext.student.sex) {
-      jQuery('#' + baseContext.student.sex).prop('checked', true);
-      jQuery.uniform.update('#' + baseContext.student.sex);
+    if (baseContext.teacher.sex) {
+      jQuery('#' + baseContext.teacher.sex).prop('checked', true);
+      jQuery.uniform.update('#' + baseContext.teacher.sex);
     }
-    if (baseContext.student.oriented) {
-      jQuery('#' + baseContext.student.oriented).prop('checked', true);
-      jQuery.uniform.update('#' + baseContext.student.oriented);
-    }
-    if (baseContext.student.civil_status) {
+    if (baseContext.teacher.civil_status) {
       console.log("Etat civil");
-      console.log(baseContext.student.civil_status);
-      jQuery('.radioBox-civil[value=' + baseContext.student.civil_status + ']').prop('checked', true);
-      jQuery.uniform.update('.radioBox-civil[value=' + baseContext.student.civil_status + ']');
+      console.log(baseContext.teacher.civil_status);
+      jQuery('.radioBox-civil[value=' + baseContext.teacher.civil_status + ']').prop('checked', true);
+      jQuery.uniform.update('.radioBox-civil[value=' + baseContext.teacher.civil_status + ']');
     }
     jQuery(".radioBox-sex").on("change", function () {
-      baseContext.student.sex = jQuery(this).val();
-    });
-    jQuery(".radioBox-oriented").on("change", function () {
-      baseContext.student.oriented = jQuery(this).val();
+      baseContext.teacher.sex = jQuery(this).val();
     });
     jQuery(".radioBox-civil").on("change", function () {
-      baseContext.student.civil_status = +jQuery(this).val();
+      baseContext.teacher.civil_status = +jQuery(this).val();
     });
   }
 
   settingInformation() {
 
-    if (!this.student.cin)
-      this.student.cin = new CinStudent();
-    if (!this.student.passport)
-      this.student.passport = new PassportStudent();
-    this.student.label_address = this.student.adress.label_address;
-    this.student.address_city = this.student.adress.id_adress;
-    this.student.postal_code = this.student.adress.postal_code;
+    if (!this.teacher.cin)
+      this.teacher.cin = new CinTeacher();
+    if (!this.teacher.passport)
+      this.teacher.passport = new PassportTeacher();
+    this.teacher.label_address = this.teacher.adress.label_address;
+    this.teacher.address_city = this.teacher.adress.id_adress;
+    this.teacher.postal_code = this.teacher.adress.postal_code;
 
-    if (this.student.oriented) {
-      jQuery(".checkbox").prop('checked', true).uniform('refresh');
-    }
     this.initializeDates();
   }
 
@@ -136,11 +129,11 @@ export class GeneralInfoComponent implements OnInit {
     });
 
     dateNaissance.on("change", function () {
-      baseContext.student.birthday = Utils.convertDateServer(jQuery(".date_naissance").val());
+      baseContext.teacher.birthday = Utils.convertDateServer(jQuery(".date_naissance").val());
     });
 
     if (this.editAction) {
-      const date = Utils.convertDate(this.student.birthday);
+      const date = Utils.convertDate(this.teacher.birthday);
       dateNaissance.val(date).trigger("change");
     }
 
@@ -156,11 +149,11 @@ export class GeneralInfoComponent implements OnInit {
     });
 
     dateCIN.on("change", function () {
-      baseContext.student.cin.date = Utils.convertDateServer(dateCIN.val());
+      baseContext.teacher.cin.date = Utils.convertDateServer(dateCIN.val());
     });
 
     if (this.editAction) {
-      dateCIN.val(Utils.convertDate(this.student.cin.date)).trigger("change");
+      dateCIN.val(Utils.convertDate(this.teacher.cin.date)).trigger("change");
     }
     /* Manage Date Passport */
     const datePassport = jQuery('.date_emition_passport');
@@ -173,11 +166,11 @@ export class GeneralInfoComponent implements OnInit {
     });
 
     datePassport.on("change", function () {
-      baseContext.student.passport.date = Utils.convertDateServer(datePassport.val());
+      baseContext.teacher.passport.date = Utils.convertDateServer(datePassport.val());
     });
 
     if (this.editAction) {
-      datePassport.val(Utils.convertDate(this.student.passport.date)).trigger("change");
+      datePassport.val(Utils.convertDate(this.teacher.passport.date)).trigger("change");
     }
   }
 
@@ -194,44 +187,42 @@ export class GeneralInfoComponent implements OnInit {
           this.countries = data;
           if (this.editAction) {
             setTimeout(function () {
-              paysSelect.val(baseContext.student.adress.city.country.Code).trigger("change");
+              paysSelect.val(baseContext.teacher.adress.city.country.Code).trigger("change");
             }, 50);
             setTimeout(function () {
-              paysSelectNaissance.val(baseContext.student.city_birth.CountryCode).trigger("change");
+              paysSelectNaissance.val(baseContext.teacher.city_birth.CountryCode).trigger("change");
             }, 50);
-            if (baseContext.student.cin.city)
+            if (baseContext.teacher.cin.city)
               setTimeout(function () {
-                paysCIN.val(baseContext.student.cin.city.CountryCode).trigger("change");
+                paysCIN.val(baseContext.teacher.cin.city.CountryCode).trigger("change");
               }, 50);
-            if (baseContext.student.passport.city)
+            if (baseContext.teacher.passport.city)
               setTimeout(function () {
-                paysPassport.val(baseContext.student.passport.city.CountryCode).trigger("change");
+                paysPassport.val(baseContext.teacher.passport.city.CountryCode).trigger("change");
               }, 50);
           }
         }
       )
   }
 
-  public registerStudent() {
+  public registerTeacher() {
     this.submitted = true;
 
-    if (!this.student.first_name
-      || !this.student.last_name
-      || !this.student.birthday
-      || !this.student.address_city
-      || !this.student.birthday_city
-      || (!this.student.cin.code && !this.student.passport.code)
-      || (this.student.cin.code && (!this.student.cin.id_city || !this.student.cin.date))
-      || (this.student.passport.code && (!this.student.passport.id_city || !this.student.passport.date))
-      || !this.student.email || !this.student.mobile || !this.student.label_address
-      || !this.student.oriented
-      || !this.student.study_access_year
-      || !this.student.first_name_arabe
-      || !this.student.last_name_arabe) {
+    if (!this.teacher.first_name
+      || !this.teacher.last_name
+      || !this.teacher.birthday
+      || !this.teacher.address_city
+      || !this.teacher.birthday_city
+      || (!this.teacher.cin.code && !this.teacher.passport.code)
+      || (this.teacher.cin.code && (!this.teacher.cin.id_city || !this.teacher.cin.date))
+      || (this.teacher.passport.code && (!this.teacher.passport.id_city || !this.teacher.passport.date))
+      || !this.teacher.email || !this.teacher.mobile || !this.teacher.label_address
+      || !this.teacher.first_name_arabe
+      || !this.teacher.last_name_arabe) {
       return;
     }
-    console.log(JSON.stringify(this.student));
-    this.busy = this.studentFileService.editInformations(this.student)
+    console.log(JSON.stringify(this.teacher));
+    this.busy = this.teacherFileService.editInformations(this.teacher)
       .subscribe(
         (data) => {
           data.isNew = Utils.verifyNewStudent(data.study_access_year);
@@ -261,7 +252,7 @@ export class GeneralInfoComponent implements OnInit {
     villeSelectNaissance.select2();
     const baseContext = this;
     villeSelectNaissance.on("change", function () {
-      baseContext.student.birthday_city = +villeSelectNaissance.val();
+      baseContext.teacher.birthday_city = +villeSelectNaissance.val();
     });
 
     paysSelectNaissance.select2();
@@ -273,7 +264,7 @@ export class GeneralInfoComponent implements OnInit {
             baseContext.citiesNaissance = data;
             if (baseContext.editAction) {
               setTimeout(function () {
-                villeSelectNaissance.val(baseContext.student.city_birth.id_City).trigger("change");
+                villeSelectNaissance.val(baseContext.teacher.city_birth.id_City).trigger("change");
               }, 100);
             }
           },
@@ -285,7 +276,7 @@ export class GeneralInfoComponent implements OnInit {
     paysSelect.select2();
     villeSelect.select2();
     villeSelect.on("change", function () {
-      baseContext.student.address_city = +villeSelect.val();
+      baseContext.teacher.address_city = +villeSelect.val();
     });
     paysSelect.on("change", function () {
       baseContext.sharedService.getCitiesByCountry(paysSelect.val())
@@ -295,23 +286,13 @@ export class GeneralInfoComponent implements OnInit {
 
             if (baseContext.editAction) {
               setTimeout(function () {
-                villeSelect.val(baseContext.student.adress.city.id_City).trigger("change");
+                villeSelect.val(baseContext.teacher.adress.city.id_City).trigger("change");
               }, 50);
             }
           }
         )
     });
 
-    /* University Year */
-    universityYear.select2();
-    universityYear.on("change", function () {
-      baseContext.student.study_access_year = jQuery(this).val();
-    });
-    if (this.editAction) {
-      setTimeout(function () {
-        universityYear.val(baseContext.student.study_access_year).trigger("change");
-      }, 20);
-    }
     /* Manage CIN & Passport */
     const paysCIN = jQuery(".select-pays-cin");
     const paysPassport = jQuery(".select-pays-passport");
@@ -330,7 +311,7 @@ export class GeneralInfoComponent implements OnInit {
             baseContext.citiesCIN = data;
             if (baseContext.editAction) {
               setTimeout(function () {
-                villeCIN.val(baseContext.student.cin.id_city).trigger("change");
+                villeCIN.val(baseContext.teacher.cin.id_city).trigger("change");
               }, 100);
             }
           },
@@ -340,7 +321,7 @@ export class GeneralInfoComponent implements OnInit {
         )
     });
     villeCIN.on("change", function () {
-      baseContext.student.cin.id_city = +villeCIN.val();
+      baseContext.teacher.cin.id_city = +villeCIN.val();
     });
 
 
@@ -351,7 +332,7 @@ export class GeneralInfoComponent implements OnInit {
             baseContext.citiesPassport = data;
             if (baseContext.editAction) {
               setTimeout(function () {
-                villePassport.val(baseContext.student.passport.id_city).trigger("change");
+                villePassport.val(baseContext.teacher.passport.id_city).trigger("change");
               }, 100);
             }
           },
@@ -362,7 +343,7 @@ export class GeneralInfoComponent implements OnInit {
     });
 
     villePassport.on("change", function () {
-      baseContext.student.passport.id_city = +villePassport.val();
+      baseContext.teacher.passport.id_city = +villePassport.val();
     });
   }
 
@@ -370,21 +351,16 @@ export class GeneralInfoComponent implements OnInit {
   private getAllUniversities() {
     const selectUniversity = jQuery(".select-university");
     const baseContext = this;
-    this.studentFileService.getAllUniversities()
+    this.sharedService.getAllUniversities()
       .subscribe(
         (data) => {
           this.universities = data;
           setTimeout(function () {
-            selectUniversity.val(baseContext.student.id_origin_university).trigger("change");
+            selectUniversity.val(baseContext.teacher.id_origin_university).trigger("change");
           }, 50);
         }
       )
   }
-
-  goStudentFile() {
-    this.router.navigate(["/student/liste"]);
-  }
-
 }
 
 

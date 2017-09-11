@@ -1,0 +1,34 @@
+<!-- Page container -->
+<div class="page-container">
+
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+
+      <!-- Content area -->
+      <div class="content" [ngBusy]="busy">
+
+
+        <!-- General Info -->
+        <app-teacher-general-info *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-teacher-general-info>
+        <!-- /General Info -->
+
+        <!-- Photos -->
+        <app-teacher-photos *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-teacher-photos>
+        <!-- /Photos -->
+
+
+      </div>
+      <!-- /content area -->
+
+    </div>
+    <!-- /main content -->
+
+  </div>
+  <!-- /page content -->
+
+</div>
+<!-- /page container -->
+

@@ -1,0 +1,38 @@
+<div *ngIf="statusSection" [ngBusy]="busy">
+  <ul class="list list-unstyled text-right">
+    <li></li>
+    <li class="dropdown" style="height: 22px">
+      <a href="#"
+         class="label {{statusSection.status===0?'bg-grey':statusSection.status===-1?'bg-danger':statusSection.status===1?'bg-green':'bg-warning'}}  dropdown-toggle"
+         data-toggle="dropdown">{{statusSection.status===0?"En
+        attente":statusSection.status===-1?'Invalid':statusSection.status===1?'Valid':'A
+        reviser'}}
+        <span class="caret"></span></a>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li><a (click)="changeSectionStatus(1)"><i
+          class="icon-checkmark3"></i>Valider</a></li>
+        <li><a (click)="changeSectionStatus(2)"><i class="icon-warning"></i>A reviser</a>
+          <!--
+          <li class="divider"></li>
+          <li><a (click)="changeSectionStatus(-1)"><i class="icon-cross2"></i>Refuser</a>
+          </li> -->
+      </ul>
+    </li>
+  </ul>
+
+  <div *ngIf="statusSection.status==2" class="row">
+              <textarea name="enter-message" [(ngModel)]="statusSection.note" class="form-control content-group"
+                        rows="3"
+                        cols="1" placeholder="Enter your message..."></textarea>
+    <label *ngIf="statusSection.note===''" class="validation-error-label">Ce champs
+      est
+      obligatoire.</label>
+    <button (click)="changeSectionStatus(2,statusSection.note)"
+            class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+      class="icon-add"></i></b> Envoyer
+    </button>
+
+  </div>
+
+</div>
+

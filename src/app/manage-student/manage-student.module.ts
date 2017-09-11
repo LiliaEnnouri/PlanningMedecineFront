@@ -1,5 +1,4 @@
 import {NgModule} from "@angular/core";
-import {StudentRoutingModule} from "./manage-student.routing";
 import {ListStudentComponent} from "./list-student/list-student.component";
 import {SharedModule} from "../shared/shared.module";
 import {DetailStudentComponent} from "./detail-student/detail-student.component";
@@ -12,11 +11,12 @@ import {PhotoComponent} from "./student-file/photo/photo.component";
 import {ResidanatStudentFileComponent} from "./student-file/residanat/residanat-student-file.component";
 import {StudiesStudentFileComponent} from "./student-file/studies/studies-student-file.component";
 import {SectionValidationComponent} from "./student-file/shared/section-validation/section-validation.component";
+import {ManageStudentRoutingModule} from "app/manage-student/manage-student.routing";
 
 @NgModule({
   imports: [
     SharedModule,
-    StudentRoutingModule
+    ManageStudentRoutingModule
   ],
   declarations: [
     ListStudentComponent,

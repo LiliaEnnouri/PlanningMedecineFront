@@ -2,28 +2,27 @@
  * Created by Abbes on 21/08/2017.
  */
 import {Component, Input, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {SectionValidation} from "../../../../shared/models/section-validation";
 import {AdminService} from "../../../../shared/services/admin.service";
 import {Utils} from "../../../../shared/utils";
-import {Student} from "../../../../shared/models/student";
 import {Subscription} from "rxjs/Subscription";
+import {Teacher} from "../../../../shared/models/Teacher";
+import {SectionValidationTeacher} from "../../../../shared/models/section-validation-teacher";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
-  selector: 'section-validation',
-  templateUrl: './section-validation.component.html',
+  selector: 'section-validation-teacher',
+  templateUrl: './section-validation-teacher.component.html',
   styleUrls: [],
 })
-export class SectionValidationComponent implements OnInit {
+export class SectionValidationTeacherComponent implements OnInit {
 
 
   @Input()
   sectionId: number;
   @Input()
-  student: Student;
+  teacher: Teacher;
   busy: Subscription;
-  statusSection: SectionValidation;
+  statusSection: SectionValidationTeacher;
 
 
   constructor(private adminService: AdminService) {
@@ -31,7 +30,7 @@ export class SectionValidationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.statusSection = Utils.getStatusSection(this.student.validations, this.sectionId);
+    this.statusSection = Utils.getStatusSection(this.teacher.validations, this.sectionId);
   }
 
   /* Admin Special */
@@ -41,7 +40,7 @@ export class SectionValidationComponent implements OnInit {
       return;
     }
 
-    this.busy = this.adminService.changeSectionStatus(this.statusSection.id_student, this.statusSection.id_section, status, note)
+    this.busy = this.adminService.changeSectionStatus(this.statusSection.id_Teacher, this.statusSection.id_Section, status, note)
       .subscribe(
         (data) => {
           console.log(data);

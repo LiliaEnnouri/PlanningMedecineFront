@@ -1,6 +1,5 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-
 import {AppComponent} from "./app.component";
 import {LoginComponent} from "./login/login.component";
 import {AppRoutingModule} from "./app.routing";
@@ -15,7 +14,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpModule} from "@angular/http";
 import {FullLayoutComponent} from "./layouts/full-layout.component";
 import {StudentService} from "./shared/services/student.service";
-import {ManageStudentModule} from "./manage-student/manage-student.module";
+
 import {SupportModule} from "./support/support.module";
 import {ReclamationService} from "./shared/services/reclamation.service";
 import {StudentFileService} from "./shared/services/student-file.service";
@@ -27,6 +26,12 @@ import {ManageNotificationModule} from "./manage-notification/manage-notificatio
 import {ConversationService} from "./shared/services/conversation.service";
 import {ErrorModule} from "./error/error.module";
 import {ImpressionService} from "./shared/services/impression.service";
+import {TeacherService} from "./shared/services/teacher.service";
+import {TeacherFileService} from "./shared/services/teacher-file.service";
+import {ManageStudentModule} from "./manage-student/manage-student.module";
+import {ManageTeacherModule} from "./manage-teacher/manage-teacher.module";
+import {SharedService} from "./shared/services/shared.service";
+
 
 @NgModule({
   declarations: [
@@ -47,6 +52,7 @@ import {ImpressionService} from "./shared/services/impression.service";
     SupportModule,
     InscriptionsModule,
     ManageNotificationModule,
+    ManageTeacherModule,
     ErrorModule
   ],
   providers: [
@@ -64,7 +70,10 @@ import {ImpressionService} from "./shared/services/impression.service";
     AdminService,
     NotificationService,
     ConversationService,
-    ImpressionService
+    ImpressionService,
+    TeacherService,
+    SharedService,
+    TeacherFileService
   ],
   bootstrap: [AppComponent]
 })

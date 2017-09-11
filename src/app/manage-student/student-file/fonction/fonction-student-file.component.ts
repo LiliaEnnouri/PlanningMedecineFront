@@ -13,6 +13,7 @@ import {InscriptionService} from "../../../shared/services/inscription.service";
 import {Country} from "../../../shared/models/country";
 import {UserService} from "../../../shared/services/user.service";
 import {FonctionType} from "../../../shared/models/FonctionType";
+import {SharedService} from "../../../shared/services/shared.service";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -68,6 +69,7 @@ export class FonctionStudentFileComponent implements OnInit {
   constructor(private storageService: StorageService,
               private studentFileService: StudentFileService,
               private router: Router,
+              private sharedService: SharedService,
               private inscriptionService: InscriptionService,
               private userService: UserService) {
 
@@ -300,7 +302,7 @@ export class FonctionStudentFileComponent implements OnInit {
 
 
     paysSelect.on("change", function () {
-      baseContext.inscriptionService.getCitiesByCountry(paysSelect.val())
+      baseContext.sharedService.getCitiesByCountry(paysSelect.val())
         .subscribe(
           (data) => {
             baseContext.student.fonctions[index].cities = data;
@@ -327,7 +329,7 @@ export class FonctionStudentFileComponent implements OnInit {
 
   private getAllCountries() {
     const baseContext = this;
-    this.inscriptionService.getAllCountries()
+    this.sharedService.getAllCountries()
       .subscribe(
         (data) => {
           this.countries = data;

@@ -13,25 +13,7 @@ export class InscriptionService extends GenericService {
   }
 
 
-  getAllCountries() {
-    const url = Config.baseUrl + "/geo/countries";
 
-    return this.http.get(url, {
-      headers: this.headers
-    })
-      .map(res => res.json())
-      .catch(this.handleErrors);
-  }
-
-  getCitiesByCountry(countryId: string) {
-    const url = Config.baseUrl + "/geo/countries/" + countryId + "/cities";
-
-    return this.http.get(url, {
-      headers: this.headers
-    })
-      .map(res => res.json())
-      .catch(this.handleErrors);
-  }
 
   openInscription(registrationYear: RegistrationYearUniversity) {
     this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));

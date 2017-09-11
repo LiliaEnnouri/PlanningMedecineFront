@@ -1,0 +1,235 @@
+<!-- Content area -->
+<div class="content">
+
+  <div class="panel panel-flat">
+    <div class="panel-heading">
+      <h5 class="panel-title">Filterage</h5>
+      <div class="heading-elements">
+        <ul class="icons-list">
+          <li><a data-action="collapse"></a></li>
+          <li><a data-action="reload"></a></li>
+          <li><a data-action="close"></a></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="panel-body">
+      <div class="row">
+        <div *ngIf="isAdmin" class="form-group col-md-4">
+          <label>Scholarité</label>
+          <select name="niveau" class="select-evaluateur">
+            <option value="0">Tous</option>
+            <option *ngFor="let item of evaluateurs" value="{{item.id_admin}}">
+              {{item.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Invoice archive -->
+  <div class="panel panel-white">
+    <div class="panel-heading" [ngBusy]="busy">
+      <h6 class="panel-title">Liste étudiant</h6>
+      <div class="heading-elements">
+        <div class=" checkbox-switchery reviewOn">
+          <label>
+
+            <button *ngIf="requestedStatus==0" (click)="downloadStudentsExcel()" type="button"
+                    class="btn btn-info btn-labeled btn-labeled-right">
+              <b><i class="icon-file-excel"></i></b>
+              Générer Excel des étudiants
+            </button>
+            <input type="checkbox" class="switch" [(ngModel)]="isReviewingMode">
+            Entrain de traiter les dossiers
+          </label>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <table class="table datatable-basic">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Nom & Prénom</th>
+        <th>CIN/Passport</th>
+        <th>E-mail</th>
+        <th>modifié le</th>
+        <th>Etat</th>
+        <th>Not Viewed</th>
+
+        <th class="text-center">Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let teacher of teachers;let i=index;">
+        <td>
+          {{teacher.id_Teacher<10?'000'+teacher.id_Teacher:teacher.id_Teacher<100?'00'+teacher.id_Teacher:teacher.id_Teacher<1000?'0'+teacher.id_Teacher:teacher.id_Teacher}}
+        </td>
+        <td>
+          {{teacher.last_name}} {{teacher.first_name}}
+        </td>
+        <td>
+          <span *ngIf="teacher.cin">{{teacher.cin.code}}</span>
+          <span *ngIf="teacher.cin && teacher.passport">/</span>
+          <span *ngIf="teacher.passport">{{teacher.passport.code}}</span>
+        </td>
+        <td>
+          {{teacher.email}}
+        </td>
+        <td>
+          {{teacher.updated_at.substr(0,10)}}
+        </td>
+        <td>
+
+          <a href="#"
+             class="label {{teacher.administration_review===0?'bg-grey':teacher.administration_review===-1?'bg-danger':teacher.administration_review===1?'bg-green':'bg-warning'}}  dropdown-toggle"
+             data-toggle="dropdown">{{teacher.administration_review===0?"En
+            attente":teacher.administration_review===-1?'Invalid':teacher.administration_review===1?'Valid':'A
+            reviser'}}
+          </a>
+
+        </td>
+        <td>
+          <span *ngIf="teacher.numberStatusZero!=0" class="badge bg-warning-400">{{teacher.numberStatusZero}}</span>
+          <span *ngIf="teacher.numberStatusZero==0" class="badge bg-success">-</span>
+
+        </td>
+
+        <td class="text-center">
+          <ul class="icons-list">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-menu9"></i>
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-right">
+                <!-- "-->
+                <li><a [routerLink]="'/teacher/'+teacher.id_Teacher+'/detail'"><i class="icon-file-eye"></i>Voir détails</a>
+                </li>
+                <li><a [routerLink]="'/teacher/'+teacher.id_Teacher+'/edit'"><i
+                  class="icon-pencil"></i>Evaluer/Editer</a></li>
+                <li *ngIf="isSuperAdmin"><a (click)="deleteTeacher(i)"><i
+                  class="icon-close2"></i>Supprimer</a></li>
+                <li><a (click)="openModalEmail(i)"><i class="icon-mail5"></i>Envoyer un message</a></li>
+                <li class="divider"></li>
+                <li *ngIf="isSuperAdmin"><a (click)="openModalScholar(i)"><i class="icon-add-to-list"></i>Affecter au
+                  scholarité</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- /invoice archive -->
+
+</div>
+<!-- /content area -->
+
+<div id="modal_form_vertical" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h5 class="modal-title">Envoyer un message</h5>
+      </div>
+
+      <div class="modal-body">
+
+        <form action="#">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="panel panel-flat">
+
+
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label>Destinataire:</label>
+                    <input type="text" [(ngModel)]="selectedTeacher.first_name +' '+ selectedTeacher.last_name"
+                           disabled="disabled"
+                           [ngModelOptions]="{standalone: true}" class="form-control"
+                           placeholder="Entrez votre nom et prénom">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Email:</label>
+                    <input type="text" [(ngModel)]="selectedTeacher.email" disabled="disabled"
+                           [ngModelOptions]="{standalone: true}" class="form-control"
+                           placeholder="Entrez votre adresse email">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Le sujet de Votre Message:</label>
+                    <input type="text" [(ngModel)]="topicToSend"
+                           [ngModelOptions]="{standalone: true}" class="form-control"
+                           placeholder="Entrez le sujet de l'email">
+                    <label>Votre Message:</label>
+                    <textarea rows="5" cols="5" [(ngModel)]="emailToSend" name="fhizf" class="form-control"
+                              placeholder="Entrez votre texte ici"></textarea>
+                  </div>
+
+                  <div class="text-right">
+                    <button type="submit" (click)="sendMail()" class="btn btn-primary">Envoyer<i
+                      class="icon-arrow-right14 position-right"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modal_scholarite" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h5 class="modal-title">Affectation scholarité</h5>
+      </div>
+
+      <div class="modal-body">
+
+        <form action="#">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="panel panel-flat">
+
+
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="form-group">
+                      <label>Scholarité</label>
+                      <select name="niveau" class="select-scholoarite">
+                        <option value="0" disabled>Choisir l'evaluateur</option>
+                        <option *ngFor="let item of evaluateurs" value="{{item.id_admin}}">
+                          {{item.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="text-right">
+                    <button type="submit" (click)="affectScholar()" class="btn btn-primary">Affecter<i
+                      class="icon-arrow-right14 position-right"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>

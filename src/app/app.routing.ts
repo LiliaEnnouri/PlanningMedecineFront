@@ -14,6 +14,10 @@ export const routes: Routes = [
         loadChildren: "./manage-student/manage-student.module#ManageStudentModule"
       },
       {
+        path: 'teacher',
+        loadChildren: "./manage-teacher/manage-teacher.module#ManageTeacherModule"
+      },
+      {
         path: 'support',
         loadChildren: "./support/support.module#SupportModule"
       },

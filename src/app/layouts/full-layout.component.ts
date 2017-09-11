@@ -47,6 +47,18 @@ export class FullLayoutComponent implements OnInit {
             name: "Dossiers en cours",
             url: "/student/list-current"
           }]
+      },
+      {
+        name: "Gestion des Enseignants",
+        icon: "icon-address-book",
+        childrens: [
+          {
+            name: "Dossiers validés",
+            url: "/teacher/list-valid"
+          }, {
+            name: "Dossiers en cours",
+            url: "/teacher/list-current"
+          }]
       }, {
         name: "Inscriptions",
         icon: "icon-folder3",
