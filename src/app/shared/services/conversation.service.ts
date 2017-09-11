@@ -14,13 +14,21 @@ export class ConversationService extends GenericService {
   }
 
 
-  getAllConversations() {
-    const url = Config.baseUrl + '/conversation';
+  getAllConversations(user: string) {
+    const url = Config.baseUrl + '/conversation/admin/' + user;
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.get(url, {
       headers: this.headers
     })
-      .map(res => res.json())
+      .map(res => {
+        const data = res.json();
+        const conversations = [];
+        data.forEach(function (conversation) {
+          conversation.user = conversation.student ? conversation.student : conversation.teacher;
+          conversations.push(conversation);
+        });
+        return conversations;
+      })
       .catch(this.handleErrors);
   }
 
@@ -73,13 +81,21 @@ export class ConversationService extends GenericService {
       .catch(this.handleErrors);
   }
 
-  getConversationByStatus(status: number) {
-    const url = Config.baseUrl + '/conversation/status/' + status;
+  getConversationByStatus(user: string, status: number) {
+    const url = Config.baseUrl + '/conversation/admin/' + user + '/status/' + status;
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.get(url, {
       headers: this.headers
     })
-      .map(res => res.json())
+      .map(res => {
+        const data = res.json();
+        const conversations = [];
+        data.forEach(function (conversation) {
+          conversation.user = conversation.student ? conversation.student : conversation.teacher;
+          conversations.push(conversation);
+        });
+        return conversations;
+      })
       .catch(this.handleErrors);
   }
 
@@ -96,7 +112,7 @@ export class ConversationService extends GenericService {
   }
 
   getConversationsCount() {
-    const url = Config.baseUrl + '/conversation/count';
+    const url = Config.baseUrl + '/conversation/admin/count';
     this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
     return this.http.get(url, {
       headers: this.headers

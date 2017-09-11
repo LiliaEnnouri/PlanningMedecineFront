@@ -32,11 +32,13 @@
           <li *ngIf="false"><a href="#"><i class="icon-user-plus"></i> Add users <span
             class="label label-success">32 online</span></a></li>
           <li *ngIf="false"><a href="#"><i class="icon-users"></i> Create team</a></li>
-          <li><a [routerLink]="'/support/messages/all'"><i class="icon-files-empty active"></i>Toutes les discussions<span
-            class="badge badge-danger" *ngIf="false">99+</span></a></li>
-          <li><a [routerLink]="'/support/messages/active'"><i class="icon-file-plus"></i>Les discussions actives<span
+          <li><a [routerLink]="'/support/messages/'+user+'/all'"><i class="icon-files-empty active"></i>Toutes les
+            discussions<span
+              class="badge badge-danger" *ngIf="false">99+</span></a></li>
+          <li><a [routerLink]="'/support/messages/'+user+'/active'"><i class="icon-file-plus"></i>Les discussions actives<span
             class="badge badge-default" *ngIf="false">32</span></a></li>
-          <li><a [routerLink]="'/support/messages/closed'"><i class="icon-file-locked"></i>Les discussions fermées </a></li>
+          <li><a [routerLink]="'/support/messages/'+user+'/closed'"><i class="icon-file-locked"></i>Les discussions
+            fermées </a></li>
 
         </ul>
       </div>

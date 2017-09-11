@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {ConversationService} from "../../../shared/services/conversation.service";
 import {Conversation} from "../../../shared/models/conversation";
 import {Config} from "../../../shared/config";
+import {ActivatedRoute} from "@angular/router";
 declare let swal;
 declare let jQuery;
 @Component({
@@ -17,7 +18,7 @@ export class AllMessagesActivesComponent implements OnInit {
   conversations: Array<Conversation>;
   baseUrl = Config.baseUrl + '/';
 
-  constructor(private conversationServices: ConversationService) {
+  constructor(private conversationServices: ConversationService, private route: ActivatedRoute) {
 
   }
 
@@ -26,8 +27,11 @@ export class AllMessagesActivesComponent implements OnInit {
   }
 
   private getAllMessages() {
-    this.busy = this.conversationServices.getConversationByStatus(1).subscribe(data => {
-      this.conversations = data;
-    })
+    this.route.params.subscribe(params => {
+      const user = params["user"];
+      this.busy = this.conversationServices.getConversationByStatus(user, 1).subscribe(data => {
+        this.conversations = data;
+      })
+    });
   }
 }

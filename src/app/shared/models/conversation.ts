@@ -11,4 +11,5 @@ export class Conversation {
   messages: Array<ConversationMessage>;
   latest_message: ConversationMessage;
   student: Student;
+  user: any;
 }

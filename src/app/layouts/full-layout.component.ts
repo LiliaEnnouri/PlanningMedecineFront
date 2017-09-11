@@ -83,7 +83,17 @@ export class FullLayoutComponent implements OnInit {
       }, {
         name: "Messages",
         icon: "icon-comments",
-        url: "/support/messages/all"
+        childrens: [
+          {
+            name: "Avec Etudiants",
+            url: "/support/messages/student/all",
+          },
+          {
+            name: "Avec Enseignants",
+            url: "/support/messages/teacher/all",
+            hidden: !this.checkIfAdminHasRole(1),
+          }
+        ]
       }, {
         name: "Notifications",
         hidden: !this.checkIfAdminHasRole(1),
