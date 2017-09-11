@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import {StorageService} from "app/shared/services/storage.service";
 import {AuthService} from "app/shared/services/auth.service";
 import {Credentials} from "app/shared/models/credentials";
-import {AdminService} from "../shared/services/admin.service";
 import {UserService} from "../shared/services/user.service";
 
 declare let jQuery: any;
@@ -31,6 +30,7 @@ export class LoginComponent implements OnInit {
   loginSubmit() {
     this.isLoading = true;
     jQuery(".alert").hide();
+    this.credentials.password = this.credentials.password.split(' ').join('');
     this.authService.login(this.credentials)
       .subscribe(
         (data) => {
