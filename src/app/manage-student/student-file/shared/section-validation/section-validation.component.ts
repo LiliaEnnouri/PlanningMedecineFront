@@ -41,7 +41,7 @@ export class SectionValidationComponent implements OnInit {
       return;
     }
 
-    this.busy = this.adminService.changeSectionStatus(this.student.id_student, this.statusSection.id_section, status, note)
+    this.busy = this.adminService.changeSectionStatus(this.statusSection.id_student, this.statusSection.id_section, status, note)
       .subscribe(
         (data) => {
           console.log(data);
