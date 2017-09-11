@@ -17,6 +17,8 @@ export class FullLayoutComponent implements OnInit {
   admin: Admin;
   nbr_reclamations: number;
   conversationCount: number;
+  readonly SUPPORT_CONVERSATION_STUDENT = 1;
+  readonly SUPPORT_CONVERSATION_TEACHER = 2;
 
   constructor(private storageService: StorageService, private conversationService: ConversationService,
               public router: Router, private userService: UserService,
@@ -59,7 +61,8 @@ export class FullLayoutComponent implements OnInit {
             name: "Dossiers en cours",
             url: "/teacher/list-current"
           }]
-      }, {
+      },
+      {
         name: "Inscriptions",
         icon: "icon-folder3",
         childrens: [
@@ -80,21 +83,25 @@ export class FullLayoutComponent implements OnInit {
             name: "Attestation d'inscription",
             url: "/impressions/inscription"
           }]
-      }, {
+      },
+      {
         name: "Messages",
         icon: "icon-comments",
         childrens: [
           {
             name: "Avec Etudiants",
             url: "/support/messages/student/all",
+            action: this.SUPPORT_CONVERSATION_STUDENT
           },
           {
             name: "Avec Enseignants",
             url: "/support/messages/teacher/all",
             hidden: !this.checkIfAdminHasRole(1),
+            action: this.SUPPORT_CONVERSATION_TEACHER
           }
         ]
-      }, {
+      },
+      {
         name: "Notifications",
         hidden: !this.checkIfAdminHasRole(1),
         icon: "icon-bubble-notification",
@@ -109,8 +116,7 @@ export class FullLayoutComponent implements OnInit {
           }
         ]
       }
-    ]
-    ;
+    ];
 
     this.route.queryParams.subscribe(
       params => {
@@ -129,7 +135,13 @@ export class FullLayoutComponent implements OnInit {
     }
     this.getNumberReclamations();
     this.conversationService.getConversationsCount().subscribe(data => {
-      this.conversationCount = data.count;
+      this.components[4].notification = data.count;
+    });
+    this.conversationService.getConversationsWithStudentCount().subscribe(data => {
+      this.components[4].childrens[0].notification = data.count;
+    });
+    this.conversationService.getConversationsWithTeacherCount().subscribe(data => {
+      this.components[4].childrens[1].notification = data.count;
     });
   }
 
@@ -161,6 +173,7 @@ export class FullLayoutComponent implements OnInit {
   }
 
   goUrl(url: string) {
+    console.log("url + ", url);
     if (url) {
       this.router.navigate([url]);
     }
@@ -192,6 +205,23 @@ export class FullLayoutComponent implements OnInit {
   private checkIfAdminHasRole(number: number) {
     return this.userService.checkIfAdminHasRole(number);
   }
+
+  triggerChildAction(child: ChildrenNavigation) {
+    if (child.action) {
+      switch (child.action) {
+        case this.SUPPORT_CONVERSATION_STUDENT:
+          if (this.conversationService.supportObserver) {
+            this.conversationService.supportObserver.switchSupportUser('student');
+          }
+          break;
+        case this.SUPPORT_CONVERSATION_TEACHER:
+          if (this.conversationService.supportObserver) {
+            this.conversationService.supportObserver.switchSupportUser('teacher');
+          }
+          break;
+      }
+    }
+  }
 }
 export class NavigationMain {
   public name: string;
@@ -200,11 +230,15 @@ export class NavigationMain {
   public childrens?: ChildrenNavigation[] = [];
   public url?: string;
   public hidden?: boolean;
+  public notification?: number;
+
 }
 export class ChildrenNavigation {
   public name: string;
   public active?: string;
   public url: string;
   public hidden?: boolean;
+  public notification?: number;
+  public action?: any;
 }
 

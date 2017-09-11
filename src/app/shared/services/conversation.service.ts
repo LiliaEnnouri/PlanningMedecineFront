@@ -8,6 +8,7 @@ import {UserService} from "./user.service";
 
 @Injectable()
 export class ConversationService extends GenericService {
+  supportObserver: SupportObserver;
 
   constructor(private http: Http, private storageService: StorageService, private userService: UserService) {
     super();
@@ -121,6 +122,26 @@ export class ConversationService extends GenericService {
       .catch(this.handleErrors);
   }
 
+  getConversationsWithStudentCount() {
+    const url = Config.baseUrl + '/conversation/admin/count/student';
+    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  getConversationsWithTeacherCount() {
+    const url = Config.baseUrl + '/conversation/admin/count/teacher';
+    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
   setConversationViewed(conversation: Conversation) {
     const url = Config.baseUrl + '/conversation/' + conversation.id_Conversation + '/viewed';
     this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
@@ -130,5 +151,10 @@ export class ConversationService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+}
+
+
+interface SupportObserver {
+  switchSupportUser(user: string);
 }
 

@@ -89,16 +89,19 @@
                   <a (click)="goUrl(component.url)" *ngIf="!component.hidden">
                     <i class="{{component.icon}}"></i>
                     <span>{{component.name}}
-                      <span *ngIf="component.name=='Assistance' && nbr_reclamations != 0" class="badge bg-warning-400">{{nbr_reclamations}}</span>
-                    </span>
-                    <span *ngIf="component.name=='Messages' && conversationCount != 0"
-                          class="badge bg-warning-400">{{conversationCount}}</span>
+                        </span>
+                    <span *ngIf="component.notification"
+                          class="badge bg-warning-400">{{component.notification}}</span>
                   </a>
                   <ul>
                     <li *ngFor="let child of component.childrens"
                         class="{{child.active}}">
                       <a href *ngIf="!child.hidden && child.url"
-                         [routerLink]="[child.url]">{{child.name}}</a>
+                         [routerLink]="[child.url]"
+                         (click)="triggerChildAction(child)">{{child.name}}
+                        <span *ngIf="child.notification"
+                              class="badge bg-warning-400">{{child.notification}}</span></a>
+
                     </li>
                   </ul>
                 </li>
