@@ -71,11 +71,21 @@ export class ConversationService extends GenericService {
   addConversationMessage(conversation: Conversation, content: string) {
     const url = Config.baseUrl + '/conversation/' + conversation.id_Conversation + '/message/add';
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.post(url, {
-      id_Student: conversation.id_Student,
-      id_Admin: this.userService.loggedAdmin.id_admin,
-      content: content
-    }, {
+    let requestObj: any;
+    if (conversation.id_Student) {
+      requestObj = {
+        id_Student: conversation.id_Student,
+        id_Admin: this.userService.loggedAdmin.id_admin,
+        content: content
+      };
+    } else if (conversation.id_Teacher) {
+      requestObj = {
+        id_Teacher: conversation.id_Teacher,
+        id_Admin: this.userService.loggedAdmin.id_admin,
+        content: content
+      };
+    }
+    return this.http.post(url, requestObj, {
       headers: this.headers
     })
       .map(res => res.json())

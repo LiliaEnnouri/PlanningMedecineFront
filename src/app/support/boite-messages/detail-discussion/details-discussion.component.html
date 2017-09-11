@@ -2,9 +2,9 @@
 <div class="page-header page-header-default">
   <div class="page-header-content">
     <div class="page-title">
-      <h4 *ngIf="conversation.student"><i class="icon-arrow-left52 position-left"></i> Conversation avec
-        {{conversation.student.first_name+'
-        '+conversation.student.last_name}}</h4>
+      <h4 *ngIf="conversation.user"><i class="icon-arrow-left52 position-left"></i> Conversation avec
+        {{conversation.user.first_name+'
+        '+conversation.user.last_name}}</h4>
     </div>
 
     <div class="heading-elements">
@@ -88,9 +88,9 @@
             class="icon-pin-alt position-right text-muted"></i></a></span>
         </div>
 
-        <div class="media-right" *ngIf="message.student&&!message.admin">
+        <div class="media-right" *ngIf="message.user&&!message.admin">
           <a href="assets/images/placeholder.jpg">
-            <img src="{{message.student.img?baseUrl+message.student.img.path:'assets/images/placeholder.jpg'}}"
+            <img src="{{message.user.img?baseUrl+message.user.img.path:'assets/images/placeholder.jpg'}}"
                  class="img-circle" alt="">
           </a>
         </div>

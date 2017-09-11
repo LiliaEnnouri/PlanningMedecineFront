@@ -1,8 +1,10 @@
 import {ConversationMessage} from "./conversation_message";
 import {Student} from "./student";
+import {Teacher} from "./Teacher";
 export class Conversation {
   id_Conversation: number;
   id_Student: number;
+  id_Teacher: number;
   status: number;
   topic: string;
   viewed: boolean;
@@ -12,4 +14,5 @@ export class Conversation {
   latest_message: ConversationMessage;
   student: Student;
   user: any;
+  teacher: Teacher;
 }
