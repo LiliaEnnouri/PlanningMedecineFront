@@ -30,5 +30,20 @@ export class ImpressionService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  attestationPresence(langueId: number, studentCode: string) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/impression/presence";
+
+    return this.http.post(url, {
+      id_Langue: langueId,
+      studentCode: studentCode
+    }, {
+      headers: this.headers,
+      responseType: ResponseContentType.Blob
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
 

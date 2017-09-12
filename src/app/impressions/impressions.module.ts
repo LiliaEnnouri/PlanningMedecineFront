@@ -5,6 +5,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import {SharedModule} from "../shared/shared.module";
 import {ImpressionsModuleRouting} from "./impressions.routing";
 import {ImpressionInscriptionComponent} from "./inscription/impression-inscription.component";
+import {ImpressionPresenceComponent} from "./presence/impression-presence.component";
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import {ImpressionInscriptionComponent} from "./inscription/impression-inscripti
     SharedModule,
   ],
   declarations: [
-    ImpressionInscriptionComponent
+    ImpressionInscriptionComponent,
+    ImpressionPresenceComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: []

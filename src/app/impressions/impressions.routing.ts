@@ -4,11 +4,16 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {ImpressionInscriptionComponent} from "./inscription/impression-inscription.component";
+import {ImpressionPresenceComponent} from "./presence/impression-presence.component";
 
 export const routes: Routes = [
   {
     path: 'inscription',
     component: ImpressionInscriptionComponent,
+  },
+  {
+    path: 'presence',
+    component: ImpressionPresenceComponent
   }
 ];
 

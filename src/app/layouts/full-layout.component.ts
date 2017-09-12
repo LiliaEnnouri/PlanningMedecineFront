@@ -79,6 +79,10 @@ export class FullLayoutComponent implements OnInit {
           {
             name: "Attestation d'inscription",
             url: "/impressions/inscription"
+          },
+          {
+            name: "Attestation de présence",
+            url: "/impressions/presence"
           }]
       }, {
         name: "Messages",
