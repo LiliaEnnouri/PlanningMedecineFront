@@ -35,7 +35,7 @@ export class ListStudentComponent implements OnInit {
   isAdmin: boolean;
 
   niveaux: Level[] = [];
-  selectedLevel: number;
+  selectedLevel: number = 0;
   private sub: any;
 
   constructor(private studentService: StudentService,
@@ -106,6 +106,7 @@ export class ListStudentComponent implements OnInit {
         } else {
 
 
+          this.selectedLevel = params["level"];
           this.busy = this.studentService.getAllStudentsByLevel(this.requestedStatus, params["level"])
             .subscribe(
               (data) => {
@@ -125,10 +126,17 @@ export class ListStudentComponent implements OnInit {
   }
 
   getAllLevels() {
+    const baseContext = this;
     this.studentFileService.getAllLevels()
       .subscribe(
         (data) => {
           this.niveaux = data;
+          const selectLevel = jQuery(".select-level");
+          setTimeout(function () {
+            selectLevel.val(baseContext.selectedLevel + "").trigger("change");
+          }, 100);
+
+
         },
         (error) => {
 
@@ -363,8 +371,20 @@ export class ListStudentComponent implements OnInit {
     const selectLevel = jQuery(".select-level");
     const baseContext = this;
     selectLevel.select2();
+    console.log(baseContext.selectedLevel);
+
+
+    selectLevel.val(baseContext.selectedLevel + "").trigger("change");
+
     selectLevel.on("change", function () {
-      baseContext.router.navigate(["/student/list-current"], {queryParams: {level: +jQuery(this).val()}});
+      console.log("Change");
+      console.log(jQuery(this).val());
+      if (+jQuery(this).val() && baseContext.selectedLevel !== +jQuery(this).val())
+        if (baseContext.requestedStatus === 0) {
+          baseContext.router.navigate(["/student/list-current"], {queryParams: {level: +jQuery(this).val()}});
+        } else {
+          baseContext.router.navigate(["/student/list-valid"], {queryParams: {level: +jQuery(this).val()}});
+        }
       baseContext.selectedLevel = +jQuery(this).val();
     });
   }
