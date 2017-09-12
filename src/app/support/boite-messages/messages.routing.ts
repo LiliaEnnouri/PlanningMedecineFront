@@ -13,15 +13,15 @@ export const routes: Routes = [
     component: BoiteMessagesComponent,
     children: [
       {
-        path: 'all',
+        path: ':user/all',
         component: AllMessagesComponent
       },
       {
-        path: 'active',
+        path: ':user/active',
         component: AllMessagesActivesComponent
       },
       {
-        path: 'closed',
+        path: ':user/closed',
         component: AllMessagesClosedComponent
       },
       {

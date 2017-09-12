@@ -97,7 +97,7 @@
         <li class="media" *ngFor="let conversation of conversations;let i=index">
           <div class="media-left">
             <img
-              src="{{conversation.student.img?baseUrl+conversation.student.img.path:'assets/images/placeholder.jpg'}}"
+              src="{{conversation.user.img?baseUrl+conversation.user.img.path:'assets/images/placeholder.jpg'}}"
               class="img-circle"
               alt="">
             <span class="badge bg-danger media-badge"
@@ -107,8 +107,8 @@
             <div class="media-heading">
               <span
                 class="status-mark {{conversation.status===-1?'border-danger':'border-green'}} position-left"></span>
-              <a [routerLink]="'/support/messages/'+conversation.id_Conversation+'/discussion'" class="text-semibold">{{conversation.student?conversation.student.first_name+'
-                '+conversation.student.last_name:'Vous'}}</a>
+              <a [routerLink]="'/support/messages/'+conversation.id_Conversation+'/discussion'" class="text-semibold">{{conversation.user?conversation.user.first_name+'
+                '+conversation.user.last_name:'Vous'}}</a>
               <span class="media-annotation dotted" *ngIf="conversation.topic">{{conversation.topic}}</span>
               <span class="media-annotation dotted">{{conversation.updated_at|amTimeAgo}}</span>
             </div>

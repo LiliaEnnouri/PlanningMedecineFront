@@ -2,4 +2,5 @@ export class Config {
   public static baseUrl = "http://wsstudentfile.vayetek.com/api";
   //public static baseUrl = "http://137.74.165.25:8084/api";
   //public static baseUrl = "http://localhost/plateforme-medecine-backend/public/api";
+  //public static baseUrl = "http://localhost/api";
 }

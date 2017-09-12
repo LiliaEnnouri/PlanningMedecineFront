@@ -8,19 +8,28 @@ import {UserService} from "./user.service";
 
 @Injectable()
 export class ConversationService extends GenericService {
+  supportObserver: SupportObserver;
 
   constructor(private http: Http, private storageService: StorageService, private userService: UserService) {
     super();
   }
 
 
-  getAllConversations() {
-    const url = Config.baseUrl + '/conversation';
+  getAllConversations(user: string) {
+    const url = Config.baseUrl + '/conversation/admin/' + user;
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.get(url, {
       headers: this.headers
     })
-      .map(res => res.json())
+      .map(res => {
+        const data = res.json();
+        const conversations = [];
+        data.forEach(function (conversation) {
+          conversation.user = conversation.student ? conversation.student : conversation.teacher;
+          conversations.push(conversation);
+        });
+        return conversations;
+      })
       .catch(this.handleErrors);
   }
 
@@ -62,24 +71,42 @@ export class ConversationService extends GenericService {
   addConversationMessage(conversation: Conversation, content: string) {
     const url = Config.baseUrl + '/conversation/' + conversation.id_Conversation + '/message/add';
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.post(url, {
-      id_Student: conversation.id_Student,
-      id_Admin: this.userService.loggedAdmin.id_admin,
-      content: content
-    }, {
+    let requestObj: any;
+    if (conversation.id_Student) {
+      requestObj = {
+        id_Student: conversation.id_Student,
+        id_Admin: this.userService.loggedAdmin.id_admin,
+        content: content
+      };
+    } else if (conversation.id_Teacher) {
+      requestObj = {
+        id_Teacher: conversation.id_Teacher,
+        id_Admin: this.userService.loggedAdmin.id_admin,
+        content: content
+      };
+    }
+    return this.http.post(url, requestObj, {
       headers: this.headers
     })
       .map(res => res.json())
       .catch(this.handleErrors);
   }
 
-  getConversationByStatus(status: number) {
-    const url = Config.baseUrl + '/conversation/status/' + status;
+  getConversationByStatus(user: string, status: number) {
+    const url = Config.baseUrl + '/conversation/admin/' + user + '/status/' + status;
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.get(url, {
       headers: this.headers
     })
-      .map(res => res.json())
+      .map(res => {
+        const data = res.json();
+        const conversations = [];
+        data.forEach(function (conversation) {
+          conversation.user = conversation.student ? conversation.student : conversation.teacher;
+          conversations.push(conversation);
+        });
+        return conversations;
+      })
       .catch(this.handleErrors);
   }
 
@@ -96,7 +123,27 @@ export class ConversationService extends GenericService {
   }
 
   getConversationsCount() {
-    const url = Config.baseUrl + '/conversation/count';
+    const url = Config.baseUrl + '/conversation/admin/count';
+    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  getConversationsWithStudentCount() {
+    const url = Config.baseUrl + '/conversation/admin/count/student';
+    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get(url, {
+      headers: this.headers
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  getConversationsWithTeacherCount() {
+    const url = Config.baseUrl + '/conversation/admin/count/teacher';
     this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
     return this.http.get(url, {
       headers: this.headers
@@ -114,5 +161,10 @@ export class ConversationService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+}
+
+
+interface SupportObserver {
+  switchSupportUser(user: string);
 }
 

@@ -1,6 +1,7 @@
 import {Conversation} from "./conversation";
 import {Admin} from "./admin";
 import {Student} from "./student";
+import {Teacher} from "./Teacher";
 export class ConversationMessage {
   id_Conversation_Message: number;
   id_Conversation: number;
@@ -13,4 +14,6 @@ export class ConversationMessage {
 
   student: Student;
   admin: Admin;
+  teacher: Teacher;
+  user: any;
 }
