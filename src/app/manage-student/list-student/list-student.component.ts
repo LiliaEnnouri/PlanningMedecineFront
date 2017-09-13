@@ -101,7 +101,8 @@ export class ListStudentComponent implements OnInit {
             this.students.forEach(student => {
               student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
             });
-            Utils.initializeDataTables(300, 7);
+            console.log("transmit");
+            Utils.initializeDataTables(300, 7, 5);
           });
         } else {
 
@@ -115,7 +116,7 @@ export class ListStudentComponent implements OnInit {
                 this.students.forEach(student => {
                   student.numberStatusZero = Utils.getNumberStatus(student.validations, 0);
                 });
-                Utils.initializeDataTables(300, 7);
+                Utils.initializeDataTables(300, 7, 5);
               }
             )
         }

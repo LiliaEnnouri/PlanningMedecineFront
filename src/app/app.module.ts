@@ -31,6 +31,7 @@ import {TeacherFileService} from "./shared/services/teacher-file.service";
 import {ManageStudentModule} from "./manage-student/manage-student.module";
 import {ManageTeacherModule} from "./manage-teacher/manage-teacher.module";
 import {SharedService} from "./shared/services/shared.service";
+import {ImpressionsModule} from "./impressions/impressions.module";
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import {SharedService} from "./shared/services/shared.service";
     InscriptionsModule,
     ManageNotificationModule,
     ManageTeacherModule,
-    ErrorModule
+    ErrorModule,
+    ImpressionsModule
   ],
   providers: [
     {

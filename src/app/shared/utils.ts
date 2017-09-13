@@ -48,19 +48,31 @@ export class Utils {
   };
 
 
-  static initializeDataTables(timout: number, columnNumber: number) {
+  static initializeDataTables(timout: number, columnNumber: number, orderBy ?: number) {
     // Basic datatable
     const tableListStation = jQuery('.datatable-basic');
     if (jQuery.fn.DataTable.isDataTable('.datatable-basic')) {
       tableListStation.dataTable().fnDestroy();
     }
-    setTimeout(function () {
-      tableListStation.DataTable({
-        columnDefs: [{
-          targets: [columnNumber - 1]
-        }]
-      });
-    }, timout);
+    console.log("order By " + orderBy);
+    if (orderBy) {
+      setTimeout(function () {
+        tableListStation.DataTable({
+          order: [[orderBy, "desc"]],
+          columnDefs: [{
+            targets: [columnNumber - 1]
+          }]
+        });
+      }, timout);
+    } else {
+      setTimeout(function () {
+        tableListStation.DataTable({
+          columnDefs: [{
+            targets: [columnNumber - 1]
+          }]
+        });
+      }, timout);
+    }
   }
 
   static reInitializeDataTables(timout: number, columnNumber: number) {
