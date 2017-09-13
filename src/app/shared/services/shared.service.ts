@@ -125,14 +125,14 @@ export class SharedService extends GenericService {
         observer.complete();
       })
     } else {
-      console.log('get countries from APIs');
+      console.log('get countries from APIs 1 ');
       return this.http.get(url, {
         headers: this.headers
       })
         .map(res => {
           const data = res.json();
           this.saveAllCountriesFromStorage(data);
-          console.log("get countries from APIs");
+          console.log("get countries from APIs 2 ");
           return data;
         })
         .catch(this.handleErrors);
