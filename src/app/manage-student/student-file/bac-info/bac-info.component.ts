@@ -13,6 +13,7 @@ import {Country} from "../../../shared/models/country";
 import {City} from "../../../shared/models/city";
 import {AdminService} from "../../../shared/services/admin.service";
 import {Config} from "../../../shared/config";
+import {SharedService} from "../../../shared/services/shared.service";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -102,6 +103,7 @@ export class BacInfoComponent implements OnInit {
               private studentFileService: StudentFileService,
               private router: Router,
               private userService: UserService,
+              private sharedService: SharedService,
               private adminService: AdminService) {
 
   }
@@ -214,7 +216,7 @@ export class BacInfoComponent implements OnInit {
   private getAllCountries() {
     const baseContext = this;
     const paysSelect = jQuery(".select-pays");
-    this.studentFileService.getAllCountries()
+    this.sharedService.getAllCountries()
       .subscribe(
         (data) => {
           this.countries = data;
@@ -245,7 +247,7 @@ export class BacInfoComponent implements OnInit {
       baseContext.student.bac.id_city = +villeSelect.val();
     });
     paysSelect.on("change", function () {
-      baseContext.studentFileService.getCitiesByCountry(paysSelect.val())
+      baseContext.sharedService.getCitiesByCountry(paysSelect.val())
         .subscribe(
           (data) => {
             baseContext.cities = data;
