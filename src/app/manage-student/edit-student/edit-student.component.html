@@ -10,7 +10,7 @@
       <form>
         <div class="col-lg-4 col-lg-offset-4 panel ">
           <div class="panel-body form-group">
-            <label><h5>{{student.last_name+" "+student?student.first_name:''}}</h5></label>
+            <label><h5>{{student? student.last_name+" "+student.first_name:''}}</h5></label>
             <select name="niveau" class="select-level">
               <option value="0">Tous les niveaux</option>
               <option *ngFor="let niveau of niveaux" value="{{niveau.id_level}}">
