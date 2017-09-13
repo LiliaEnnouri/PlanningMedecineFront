@@ -327,12 +327,12 @@ export class StudiesStudentFileComponent implements OnInit {
       });
       this.student.studies[index].medias = medias;
       setTimeout(function () {
-        Utils.initializeUploadFile(Config.baseUrl + "/student/me/studies/upload",
+        Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + baseContext.student.id_student + "/studies/upload",
           token, ".file-input-study-" + index, this.isAdmin, baseContext.isAdmin, 5, inputMedias, initialPreviewConfig);
       }, 100);
     } else {
       setTimeout(function () {
-        Utils.initializeUploadFile(Config.baseUrl + "/student/me/studies/upload",
+        Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + baseContext.student.id_student + "/studies/upload",
           token, ".file-input-study-" + index, baseContext.isAdmin, this.isAdmin, 5);
       }, 100);
     }
