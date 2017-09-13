@@ -3,21 +3,18 @@
  */
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {Http, ResponseContentType} from "@angular/http";
+import {Http} from "@angular/http";
 import {Config} from "../config";
-import {Student} from "../models/student";
 import {StorageService} from "./storage.service";
-import {Bac} from "app/shared/models/bac";
-import {Fonction} from "../models/fonction";
-import {Doctaurat} from "../models/doctaurat";
-import {Residanat} from "../models/residanat";
+import {City} from "../models/city";
+import {Observable} from "rxjs/Observable";
+import {Country} from "../models/country";
 @Injectable()
 export class SharedService extends GenericService {
 
   constructor(private http: Http, private storageService: StorageService) {
     super();
   }
-
 
 
   getAllTypes() {
@@ -118,26 +115,55 @@ export class SharedService extends GenericService {
       .catch(this.handleErrors);
   }
 
-  getAllCountries() {
+  getAllCountries(): Observable<Country[]> {
     const url = Config.baseUrl + "/geo/countries";
-
-    return this.http.get(url, {
-      headers: this.headers
-    })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+    const countries = this.getAllCountriesFromStorage();
+    if (countries) {
+      console.log('get countries from locale');
+      return Observable.create(observer => {
+        observer.next(countries);
+        observer.complete();
+      })
+    } else {
+      console.log('get countries from APIs');
+      return this.http.get(url, {
+        headers: this.headers
+      })
+        .map(res => {
+          const data = res.json();
+          this.saveAllCountriesFromStorage(data);
+          console.log("get countries from APIs");
+          return data;
+        })
+        .catch(this.handleErrors);
+    }
   }
 
-  getCitiesByCountry(countryId: string) {
+  getCitiesByCountry(countryId: string): Observable<City[]> {
     const url = Config.baseUrl + "/geo/countries/" + countryId + "/cities";
-
-    return this.http.get(url, {
-      headers: this.headers
-    })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+    const tunisCities = this.getTunisCitiesFromStorage();
+    if (countryId.localeCompare('TUN') === 0 && tunisCities) {
+      console.log("getCitiesByCountryFromLocal");
+      return Observable.create(observer => {
+        observer.next(tunisCities);
+        observer.complete();
+      })
+    } else {
+      console.log("getCitiesByCountryFromRemote");
+      return this.http.get(url, {
+        headers: this.headers
+      })
+        .map(res => {
+          console.log('remote response');
+          const data = res.json();
+          if (countryId.localeCompare('TUN') === 0) {
+            this.saveTunisCitiesFromStorage(data);
+          }
+          return data;
+        })
+        .catch(this.handleErrors);
+    }
   }
-
 
   getAllFonctionTypes() {
     const url = Config.baseUrl + "/fonction_types";
@@ -147,5 +173,21 @@ export class SharedService extends GenericService {
     })
       .map(res => res.json())
       .catch(this.handleErrors);
+  }
+
+  getAllCountriesFromStorage() {
+    return <Array<Country>> this.storageService.read('countries');
+  }
+
+  saveAllCountriesFromStorage(countries: Array<Country>) {
+    this.storageService.write('countries', countries);
+  }
+
+  getTunisCitiesFromStorage() {
+    return <Array<City>> this.storageService.read('tunis-cities');
+  }
+
+  saveTunisCitiesFromStorage(cities: Array<City>) {
+    this.storageService.write('tunis-cities', cities);
   }
 }

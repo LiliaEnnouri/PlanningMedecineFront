@@ -146,8 +146,6 @@ export class Utils {
                               maxFileCount?: number,
                               initialData?: any[],
                               initialPreviewConfig?: InitialPreviewConfig[]) {
-    console.log('showRemove ' + showRemove);
-    console.log('showUpload ' + showUpload);
     jQuery(className).fileinput({
       uploadUrl: url, // server upload action
       uploadAsync: true,

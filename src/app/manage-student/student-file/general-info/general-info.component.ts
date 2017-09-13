@@ -7,11 +7,8 @@ import {City} from "../../../shared/models/city";
 import {Utils} from "../../../shared/utils";
 import {University} from "../../../shared/models/university";
 import {Subscription} from "rxjs/Subscription";
-import {StorageService} from "../../../shared/services/storage.service";
-import {UserService} from "../../../shared/services/user.service";
 import {StudentFileService} from "../../../shared/services/student-file.service";
 import {SectionValidation} from "../../../shared/models/section-validation";
-import {AdminService} from "../../../shared/services/admin.service";
 import {PassportStudent} from "app/shared/models/Passport_Student";
 import {CinStudent} from "../../../shared/models/cinStudent";
 import {SharedService} from "../../../shared/services/shared.service";
@@ -199,14 +196,16 @@ export class GeneralInfoComponent implements OnInit {
             setTimeout(function () {
               paysSelectNaissance.val(baseContext.student.city_birth.CountryCode).trigger("change");
             }, 50);
-            if (baseContext.student.cin.city)
+            if (baseContext.student.cin.city) {
               setTimeout(function () {
                 paysCIN.val(baseContext.student.cin.city.CountryCode).trigger("change");
               }, 50);
-            if (baseContext.student.passport.city)
+            }
+            if (baseContext.student.passport.city) {
               setTimeout(function () {
                 paysPassport.val(baseContext.student.passport.city.CountryCode).trigger("change");
               }, 50);
+            }
           }
         }
       )
@@ -276,12 +275,51 @@ export class GeneralInfoComponent implements OnInit {
                 villeSelectNaissance.val(baseContext.student.city_birth.id_City).trigger("change");
               }, 100);
             }
-          },
-          (error) => {
-
           }
         )
     });
+    /*
+     paysSelectNaissance.on("change", function () {
+     if (paysSelectNaissance.val().localeCompare('TUN') === 0) {
+     baseContext.citiesNaissance = baseContext.sharedService.getTunisCitiesFromStorage();
+     console.log('tunis cities : ' + JSON.stringify(baseContext.citiesNaissance));
+     if (!baseContext.citiesNaissance) {
+     baseContext.sharedService.getCitiesByCountry(paysSelectNaissance.val())
+     .subscribe(
+     (data) => {
+     baseContext.citiesNaissance = data;
+     console.log('get tunis cities');
+     baseContext.sharedService.saveTunisCitiesFromStorage(data);
+     if (baseContext.editAction) {
+     setTimeout(function () {
+     villeSelectNaissance.val(baseContext.student.city_birth.id_City).trigger("change");
+     }, 100);
+     }
+     }
+     )
+     } else {
+     if (baseContext.editAction) {
+     setTimeout(function () {
+     villeSelectNaissance.val(baseContext.student.city_birth.id_City).trigger("change");
+     }, 100);
+     }
+     }
+     } else {
+     baseContext.sharedService.getCitiesByCountry(paysSelectNaissance.val())
+     .subscribe(
+     (data) => {
+     baseContext.citiesNaissance = data;
+     if (baseContext.editAction) {
+     setTimeout(function () {
+     villeSelectNaissance.val(baseContext.student.city_birth.id_City).trigger("change");
+     }, 100);
+     }
+     }
+     )
+     }
+     });
+
+     */
     paysSelect.select2();
     villeSelect.select2();
     villeSelect.on("change", function () {
