@@ -259,6 +259,7 @@ export class PhotoComponent implements OnInit {
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/health-media/upload",
       this.userServices.getTokent(), ".file-input-student-health-media", this.isAdmin, this.isAdmin, 1,
       inputMedias, initialPreviewConfig);
+    jQuery('.kv-file-zoom').removeAttr('disabled');
   }
 
   private initStudentAttestationOrientation() {
