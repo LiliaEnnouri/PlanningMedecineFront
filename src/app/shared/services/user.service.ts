@@ -47,4 +47,18 @@ export class UserService extends GenericService {
     });
     return hasRole;
   }
+
+  checkIfOnlyAdminHasRole(roleId: number) {
+
+    if (!this.loggedAdmin) {
+      return false;
+    }
+    if (!this.loggedAdmin.privileges) {
+      return false;
+    }
+    if (this.loggedAdmin.privileges.length > 1) {
+      return false;
+    }
+    return this.loggedAdmin.privileges[0].id_Privilege === roleId;
+  }
 }

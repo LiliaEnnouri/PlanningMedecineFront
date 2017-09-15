@@ -31,6 +31,10 @@ export const routes: Routes = [
       {
         path: 'impressions',
         loadChildren: "./impressions/impressions.module#ImpressionsModule"
+      },
+      {
+        path: 'stats',
+        loadChildren: "./stats/stats.module#StatsModule"
       }, {
         path: 'error',
         loadChildren: "./error/error.module#ErrorModule"

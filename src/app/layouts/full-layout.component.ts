@@ -119,6 +119,16 @@ export class FullLayoutComponent implements OnInit {
             url: "/notification/add",
           }
         ]
+      },
+      {
+        name: "Statistiques",
+        icon: "icon-statistics",
+        childrens: [
+          {
+            name: "Dossier de l'etudiant",
+            url: "/stats/student-file",
+          }
+        ]
       }
     ];
 

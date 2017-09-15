@@ -32,6 +32,8 @@ import {ManageStudentModule} from "./manage-student/manage-student.module";
 import {ManageTeacherModule} from "./manage-teacher/manage-teacher.module";
 import {SharedService} from "./shared/services/shared.service";
 import {ImpressionsModule} from "./impressions/impressions.module";
+import {StatsModule} from "./stats/stats.module";
+import {StatsService} from "./shared/services/stats.service";
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import {ImpressionsModule} from "./impressions/impressions.module";
     ManageNotificationModule,
     ManageTeacherModule,
     ErrorModule,
-    ImpressionsModule
+    ImpressionsModule,
+    StatsModule
   ],
   providers: [
     {
@@ -75,7 +78,8 @@ import {ImpressionsModule} from "./impressions/impressions.module";
     ImpressionService,
     TeacherService,
     SharedService,
-    TeacherFileService
+    TeacherFileService,
+    StatsService
   ],
   bootstrap: [AppComponent]
 })

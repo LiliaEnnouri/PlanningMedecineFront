@@ -131,7 +131,20 @@ export class ListStudentComponent implements OnInit {
     this.studentFileService.getAllLevels()
       .subscribe(
         (data) => {
-          this.niveaux = data;
+          this.niveaux = [];
+
+          if (this.userService.checkIfOnlyAdminHasRole(2)) {
+            for (let i = 0; i < 5; i++) {
+              this.niveaux.push(data[i]);
+            }
+          } else if (this.userService.checkIfOnlyAdminHasRole(3)) {
+            for (let i = 5; i < 12; i++) {
+              this.niveaux.push(data[i]);
+            }
+          } else {
+            this.niveaux = data;
+          }
+
           const selectLevel = jQuery(".select-level");
           setTimeout(function () {
             selectLevel.val(baseContext.selectedLevel + "").trigger("change");
