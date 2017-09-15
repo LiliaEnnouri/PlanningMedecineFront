@@ -76,6 +76,10 @@ export class Student {
   nom_de_famille_arabe: string;
   second_name_arabe: string;
   health_media: StudentHealthMedia;
+
+  /* Code Pays */
+  nationality: string;
+  nationalityLabel: string;
 }
 
 export class StudentPhoto {

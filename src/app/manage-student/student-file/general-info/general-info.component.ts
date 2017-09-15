@@ -38,6 +38,8 @@ export class GeneralInfoComponent implements OnInit {
   citiesPassport: City[] = [];
   uni_years: string[] = [];
 
+  isNationalityExist: boolean;
+
 
   /* Admin special */
   statusSection: SectionValidation;
@@ -182,7 +184,7 @@ export class GeneralInfoComponent implements OnInit {
     const baseContext = this;
     const paysSelect = jQuery(".select-pays");
     const paysSelectNaissance = jQuery(".select-pays-naissance");
-
+    const nationalitySelect = jQuery(".select-pays-nationality");
     const paysCIN = jQuery(".select-pays-cin");
     const paysPassport = jQuery(".select-pays-passport");
     this.sharedService.getAllCountries()
@@ -195,6 +197,9 @@ export class GeneralInfoComponent implements OnInit {
             }, 50);
             setTimeout(function () {
               paysSelectNaissance.val(baseContext.student.city_birth.CountryCode).trigger("change");
+            }, 50);
+            setTimeout(function () {
+              nationalitySelect.val(baseContext.student.nationality).trigger("change");
             }, 50);
             if (baseContext.student.cin.city) {
               setTimeout(function () {
@@ -401,6 +406,21 @@ export class GeneralInfoComponent implements OnInit {
 
     villePassport.on("change", function () {
       baseContext.student.passport.id_city = +villePassport.val();
+    });
+
+    /* Nationality */
+    const selectNationality = jQuery(".select-pays-nationality");
+    selectNationality.select2();
+    selectNationality.on("change", function () {
+      baseContext.student.nationality = jQuery(this).val();
+      let i;
+      for (i = 0; i < baseContext.countries.length; i++) {
+        if (baseContext.countries[i].Code === baseContext.student.nationality) {
+          baseContext.student.nationalityLabel = baseContext.countries[i].nationality;
+          break;
+        }
+      }
+      baseContext.isNationalityExist = baseContext.student.nationalityLabel != null;
     });
   }
 

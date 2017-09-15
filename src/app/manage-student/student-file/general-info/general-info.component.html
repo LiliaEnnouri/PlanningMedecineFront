@@ -15,7 +15,7 @@
 
 
           <div class="row first-ligne">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group has-feedback
 {{lastName.errors && (lastName.dirty || lastName.touched) ? 'has-error' :''}}">
                 <label>Nom</label>
@@ -31,16 +31,7 @@
                 est
                 obligatoire.</label>
             </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>Nom de famille</label>
-                <input type="text" class="form-control" placeholder="Nom de famille (pour les femmes mariées)"
-                       [(ngModel)]="student.nom_de_famille"
-                       #nameFamille="ngModel" name="nom_de_famille"
-                >
-              </div>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group has-feedback
                 {{firstName.errors && (firstName.dirty || firstName.touched) ? 'has-error' :''}}">
                 <label>Prénom</label>
@@ -55,7 +46,7 @@
                 est
                 obligatoire.</label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Deuxiéme prénom</label>
                 <input type="text" class="form-control" placeholder="Deuxiéme prénom"
@@ -66,7 +57,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
 
               <div class="form-group">
                 <label>اللقب</label>
@@ -79,19 +70,8 @@
                 est
                 obligatoire.</label>
             </div>
-            <div class="col-md-3">
-              <div class="form-group has-feedback">
-                <label>( اللقب عند الولادة (المتزوجات </label>
-                <input type="text" class="form-control" placeholder="( اللقب عند الولادة (المتزوجات "
-                       name="nom_de_famille_arabe"
-                       [(ngModel)]="student.nom_de_famille_arabe"
-                >
-                <div class="form-control-feedback">
-                  <i class="icon-user-check text-muted"></i>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
+
+            <div class="col-md-4">
               <div class="form-group has-feedback">
                 <label>الإسم</label>
                 <input type="text" class="form-control" placeholder="الإسم"
@@ -108,7 +88,7 @@
             </div>
 
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>( إسم ثاني (إن وجد </label>
                 <input type="text" class="form-control" placeholder="( إسم ثاني (إن وجد "
@@ -165,6 +145,59 @@
               </label>
             </div>
           </div>
+
+          <div class="row" *ngIf="student.civil_status==2">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nom de famille (femmes mariées)</label>
+                <input type="text" class="form-control" placeholder="Nom de famille (pour les femmes mariées)"
+                       [(ngModel)]="student.nom_de_famille"
+                       #nameFamille="ngModel" name="nom_de_famille"
+                >
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group has-feedback">
+                <label>( اللقب عند الولادة (المتزوجات </label>
+                <input type="text" class="form-control" placeholder="( اللقب عند الولادة (المتزوجات "
+                       name="nom_de_famille_arabe"
+                       [(ngModel)]="student.nom_de_famille_arabe"
+                >
+                <div class="form-control-feedback">
+                  <i class="icon-user-check text-muted"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <h6>Nationalité</h6>
+            <div class="col-md-6">
+              <label>Pays</label>
+              <select name="nationality" class="select-pays-nationality">
+                <option disabled value="0">Choisir la pays</option>
+                <option *ngFor="let item of countries" value="{{item.Code}}">
+                  {{item.Name}}
+                </option>
+              </select>
+              <label
+                *ngIf="submitted&&(!student.nationality || student.nationality && !student.nationalityLabel)"
+                class="validation-error-label">Ce champs
+                est
+                obligatoire.</label>
+            </div>
+            <div *ngIf="student.nationality" class="col-md-6">
+              <div class="form-group">
+                <label>Nationalité</label>
+                <input [disabled]="isNationalityExist" type="text" class="form-control"
+                       placeholder="Nationalité"
+                       [(ngModel)]="student.nationalityLabel"
+                       #nameFamille="ngModel" name="nationalityLabel"
+                >
+              </div>
+            </div>
+          </div>
+
 
           <div class="row">
             <h6>Lieu de naissance</h6>
