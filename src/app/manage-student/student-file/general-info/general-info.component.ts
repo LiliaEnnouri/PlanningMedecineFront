@@ -12,7 +12,6 @@ import {SectionValidation} from "../../../shared/models/section-validation";
 import {PassportStudent} from "app/shared/models/Passport_Student";
 import {CinStudent} from "../../../shared/models/cinStudent";
 import {SharedService} from "../../../shared/services/shared.service";
-import {Privilege} from "../../../shared/models/privilege";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -26,7 +25,7 @@ export class GeneralInfoComponent implements OnInit {
   student: Student;
 
   @Input()
-  isAdmin: Privilege;
+  isAdmin: boolean;
 
   busy: Subscription;
   countries: Country[] = [];

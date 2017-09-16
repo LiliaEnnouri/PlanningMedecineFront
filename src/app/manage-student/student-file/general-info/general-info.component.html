@@ -483,15 +483,7 @@
           </div>
 
 
-          <div *ngIf="privilege.id_Privilege==1" class="text-right">
-            <button *ngIf="!editAction" (click)="registerStudent()"
-                    class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
-              class="icon-plus3"></i></b> Create account
-            </button>
-            <button *ngIf="editAction" (click)="goStudentFile()"
-                    class="btn bg-grey-400 btn-labeled btn-labeled-right ml-10"><b><i
-              class="icon-close2"></i></b> Annuler
-            </button>
+          <div *ngIf="isAdmin" class="text-right">
             <button *ngIf="editAction" (click)="registerStudent()"
                     class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
               class="icon-pen"></i></b> Modifier
