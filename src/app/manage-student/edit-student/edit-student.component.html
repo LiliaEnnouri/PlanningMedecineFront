@@ -37,15 +37,18 @@
       <!-- /Student Studies Info -->
 
       <!-- Student Residanat Info -->
-      <app-student-residnat *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-residnat>
+      <app-student-residnat *ngIf="student&&student.residanat" [isAdmin]="isAdmin"
+                            [student]="student"></app-student-residnat>
       <!-- /Student Residanat Info -->
 
       <!-- Student Doctaurat Info -->
-      <app-student-doctaurat *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-doctaurat>
+      <app-student-doctaurat *ngIf="student&&student.doctaurat" [isAdmin]="isAdmin"
+                             [student]="student"></app-student-doctaurat>
       <!-- /Student Doctaurat Info -->
 
       <!-- Student Fonctions Info -->
-      <app-student-fonction *ngIf="student" [isAdmin]="isAdmin" [student]="student"></app-student-fonction>
+      <app-student-fonction *ngIf="student&&student.fonctions&&student.fonctions.length>0" [isAdmin]="isAdmin"
+                            [student]="student"></app-student-fonction>
       <!-- /Student Fonctions Info -->
 
     </div>
