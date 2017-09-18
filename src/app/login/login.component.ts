@@ -38,8 +38,10 @@ export class LoginComponent implements OnInit {
           this.stoarageService.write("admin", data.admin);
           this.userService.loggedAdmin = data.admin;
           this.stoarageService.write("admin-token", data.token);
-          this.router.navigate(["/"], {queryParams: {reload: true}});
-
+          const baseContext = this;
+          setTimeout(function () {
+            baseContext.router.navigate(["/"], {queryParams: {reload: true}});
+          }, 1000);
         },
         (error) => {
           this.isLoading = false;

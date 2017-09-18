@@ -31,8 +31,10 @@ export class FullLayoutComponent implements OnInit {
       this.admin = this.userService.loggedAdmin = data.admin;
       this.storageService.write("admin", data.admin);
     }, error => {
-      this.storageService.removeAll();
-      this.router.navigateByUrl('login');
+      if (error.status === 401) {
+        this.storageService.removeAll();
+        this.router.navigateByUrl('login');
+      }
     });
   }
 
@@ -53,6 +55,7 @@ export class FullLayoutComponent implements OnInit {
       {
         name: "Gestion des Enseignants",
         icon: "icon-address-book",
+        hidden: !this.userService.checkIfAdminHasRole(1),
         childrens: [
           {
             name: "Dossiers validés",
@@ -158,7 +161,6 @@ export class FullLayoutComponent implements OnInit {
       this.components[4].childrens[1].notification = data.count;
     });
   }
-
 
   changeActiveUrl(url: string) {
     this.components.forEach(
