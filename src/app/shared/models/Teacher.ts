@@ -3,6 +3,9 @@ import {Adress} from "./adress";
 import {City} from "./city";
 import {PassportTeacher} from "./Passport_Teacher";
 import {CinTeacher} from "./cinTeacher";
+import {Specialite} from "app/shared/models/specialite";
+import {Service} from "./service";
+import {Grade} from "./grade";
 /**
  * Created by Abbes on 29/08/2017.
  */
@@ -50,6 +53,12 @@ export class Teacher {
   civil_status: number;
 
 
+  id_Service: number;
+  id_Grade: number;
+  id_Specialite: number;
+  service: Service;
+  specialite: Specialite;
+  grade: Grade;
   /* Info Arabe */
   first_name_arabe: string;
   last_name_arabe: string;

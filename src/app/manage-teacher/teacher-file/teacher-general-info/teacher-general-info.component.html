@@ -424,6 +424,42 @@
                     </div>
                   </div>
 
+                  <div class="row">
+                    <h6>Job Info</h6>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Choisir specialité</label>
+                        <select name="specialite" class="select-specialite">
+                          <option disabled value="0">Choisir Specialité</option>
+                          <option *ngFor="let item of specialites" value="{{item.id_Specialite}}">
+                            {{item.nom}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Choisir Grade</label>
+                        <select name="grade" class="select-grade">
+                          <option disabled value="0">Choisir Grade</option>
+                          <option *ngFor="let item of grades" value="{{item.id_Grade}}">
+                            {{item.nom}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Choisir Service</label>
+                        <select name="service" class="select-service">
+                          <option disabled value="0">Choisir Service</option>
+                          <option *ngFor="let item of services" value="{{item.id_Service}}">
+                            {{item.nom}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
 
                   <div *ngIf="isAdmin" class="text-right">
                     <button *ngIf="!editAction" (click)="registerTeacher()"

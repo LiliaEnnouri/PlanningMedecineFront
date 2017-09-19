@@ -8,16 +8,15 @@ import {University} from "../../../shared/models/university";
 import {Subscription} from "rxjs/Subscription";
 import {StorageService} from "../../../shared/services/storage.service";
 import {UserService} from "../../../shared/services/user.service";
-import {StudentFileService} from "../../../shared/services/student-file.service";
 import {SectionValidation} from "../../../shared/models/section-validation";
 import {AdminService} from "../../../shared/services/admin.service";
-import {PassportStudent} from "app/shared/models/Passport_Student";
-import {CinStudent} from "../../../shared/models/cinStudent";
 import {Teacher} from "../../../shared/models/Teacher";
 import {CinTeacher} from "../../../shared/models/cinTeacher";
 import {PassportTeacher} from "../../../shared/models/Passport_Teacher";
 import {SharedService} from "../../../shared/services/shared.service";
 import {TeacherFileService} from "../../../shared/services/teacher-file.service";
+import {Specialite} from "../../../shared/models/specialite";
+import {Service} from "../../../shared/models/service";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
@@ -45,6 +44,10 @@ export class TeacherGeneralInfoComponent implements OnInit {
   uni_years: string[] = [];
 
 
+  specialites: Specialite[] = [];
+  grades: Grade[] = [];
+  services: Service[] = [];
+
   /* Admin special */
   statusSection: SectionValidation;
 
@@ -59,6 +62,8 @@ export class TeacherGeneralInfoComponent implements OnInit {
     this.initializeSelect2();
     this.getAllCountries();
     this.getAllUniversities();
+    this.initializeInformationSelect2();
+    this.getServicesGradeSpecialite();
     if (!this.isAdmin) {
       jQuery('#formGeneralInfo').find('input, textarea, button, select').attr('disabled', 'disabled');
     }
@@ -345,6 +350,71 @@ export class TeacherGeneralInfoComponent implements OnInit {
     villePassport.on("change", function () {
       baseContext.teacher.passport.id_city = +villePassport.val();
     });
+  }
+
+
+  initializeInformationSelect2() {
+    const baseContext = this;
+
+    setTimeout(function () {
+      const selectSerivce = jQuery(".select-service");
+      selectSerivce.select2();
+      selectSerivce.on("change", function () {
+        baseContext.teacher.id_Service = +selectSerivce.val();
+      });
+      const selectGrade = jQuery(".select-grade");
+      selectGrade.select2();
+      selectGrade.on("change", function () {
+        baseContext.teacher.id_Grade = +selectGrade.val();
+      });
+      const selectSpecialite = jQuery(".select-specialite");
+      selectSpecialite.select2();
+      selectSpecialite.on("change", function () {
+        baseContext.teacher.id_Specialite = +selectSpecialite.val();
+      });
+    }, 20);
+
+
+  }
+
+  private getServicesGradeSpecialite() {
+    const selectService = jQuery(".select-service");
+    const selectGrade = jQuery(".select-grade");
+    const selectSpecialite = jQuery(".select-specialite");
+    const baseContext = this;
+    this.sharedService.getAllServices()
+      .subscribe(
+        (data) => {
+          this.services = data;
+          if (this.editAction) {
+            setTimeout(function () {
+              selectService.val(baseContext.teacher.id_Service).trigger("change");
+            }, 50);
+          }
+        }
+      );
+    this.sharedService.getAllSpecialities()
+      .subscribe(
+        (data) => {
+          this.specialites = data;
+          if (this.editAction) {
+            setTimeout(function () {
+              selectSpecialite.val(baseContext.teacher.id_Specialite).trigger("change");
+            }, 50);
+          }
+        }
+      );
+    this.sharedService.getAllGrades()
+      .subscribe(
+        (data) => {
+          this.grades = data;
+          if (this.editAction) {
+            setTimeout(function () {
+              selectGrade.val(baseContext.teacher.id_Grade).trigger("change");
+            }, 50);
+          }
+        }
+      )
   }
 
 
