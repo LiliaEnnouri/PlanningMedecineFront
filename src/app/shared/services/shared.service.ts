@@ -81,6 +81,17 @@ export class SharedService extends GenericService {
       .catch(this.handleErrors);
   }
 
+  getAllGrades() {
+    const url = Config.baseUrl + "/grades";
+
+    return this.http.get(url,
+      {
+        headers: this.headers
+      })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
   getAllHopitaux() {
     const url = Config.baseUrl + "/hopitaux";
 

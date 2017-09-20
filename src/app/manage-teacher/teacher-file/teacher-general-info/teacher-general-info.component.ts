@@ -17,6 +17,7 @@ import {SharedService} from "../../../shared/services/shared.service";
 import {TeacherFileService} from "../../../shared/services/teacher-file.service";
 import {Specialite} from "../../../shared/models/specialite";
 import {Service} from "../../../shared/models/service";
+import {Grade} from "../../../shared/models/grade";
 declare var jQuery: any;
 declare var swal: any;
 @Component({
