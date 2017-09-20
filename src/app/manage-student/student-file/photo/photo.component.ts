@@ -292,19 +292,22 @@ export class PhotoComponent implements OnInit {
     } else if (this.student.passport) {
       imgs = this.student.passport.imgs;
     }
-    imgs.forEach(function (img) {
-      medias.push(img.path);
-      inputMedias.push(Config.baseUrl + '/' + img.path);
-      initialPreviewConfig.push({
-        type: Utils.loadTypeFromExtension(img.path.substr(img.path.indexOf('.') + 1)),
-        filetype: Utils.loadFileTypeFromExtension(img.path.substr(img.path.indexOf('.') + 1)),
-        key: img.id_Student_Cin,
-        url: Config.baseUrl + '/' + img.path + '/delete',
-        size: img.size
+    if (imgs) {
+      imgs.forEach(function (img) {
+        medias.push(img.path);
+        inputMedias.push(Config.baseUrl + '/' + img.path);
+        initialPreviewConfig.push({
+          type: Utils.loadTypeFromExtension(img.path.substr(img.path.indexOf('.') + 1)),
+          filetype: Utils.loadFileTypeFromExtension(img.path.substr(img.path.indexOf('.') + 1)),
+          key: img.id_Student_Cin,
+          url: Config.baseUrl + '/' + img.path + '/delete',
+          size: img.size
+        });
       });
-    });
+    }
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/cin/upload",
       this.userServices.getTokent(), ".file-input-student-cin", this.isAdmin, this.isAdmin, 2, inputMedias, initialPreviewConfig);
+
   }
 
 }
