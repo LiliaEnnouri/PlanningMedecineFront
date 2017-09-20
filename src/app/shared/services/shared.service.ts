@@ -201,15 +201,5 @@ export class SharedService extends GenericService {
   saveTunisCitiesFromStorage(cities: Array<City>) {
     this.storageService.write('tunis-cities', cities);
   }
-
-  getAllGrades() {
-    const url = Config.baseUrl + "/grades";
-
-    return this.http.get(url,
-      {
-        headers: this.headers
-      })
-      .map(res => res.json())
-      .catch(this.handleErrors);
-  }
+    
 }
