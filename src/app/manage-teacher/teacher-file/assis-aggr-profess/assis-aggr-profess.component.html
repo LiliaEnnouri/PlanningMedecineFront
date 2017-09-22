@@ -17,7 +17,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Année universitaire :</label>
-                  <select name="year" class="select-year">
+                  <select name="year" class="select-year-{{mode}}">
                     <option value="0" disabled>Choisir l'année</option>
                     <option *ngFor="let year of years" value="{{year}}">
                       {{year}}
@@ -33,7 +33,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Résultat :</label>
-                  <select name="result" class="select-result">
+                  <select name="result" class="select-result-{{mode}}">
                     <option value="0" disabled>Resultat</option>
                     <option *ngFor="let result of results" value="{{result.id_result}}">
                       {{result.label}}
@@ -49,7 +49,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Spécialité :</label>
-                  <select name="specialite" class="select-specialite">
+                  <select name="specialite" class="select-specialite-{{mode}}">
                     <option value="0" disabled>Choisir la spécialité</option>
                     <option *ngFor="let speciality of specialities" value="{{speciality.id_Specialite}}">
                       {{speciality.nom}}
@@ -66,8 +66,8 @@
 
             <div class="row">
               <div class="col-md-3  text-right" style="margin-bottom: 15px">
-                <button [routerLink]="['/teacher-file']"
-                        class="btn bg-grey-400"> Annuler
+                <button
+                  class="btn bg-grey-400"> Annuler
                 </button>
               </div>
               <button (click)="reinitialiseConcour()"

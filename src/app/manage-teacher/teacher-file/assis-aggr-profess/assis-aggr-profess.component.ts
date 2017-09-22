@@ -52,15 +52,13 @@ export class AssisAggrProfessComponent implements OnInit {
       this.teacher.concours.push(concour);
       this.indexSelected = this.teacher.concours.length - 1;
     }
-
-    baseContext.initSpecialitySelect();
-    baseContext.initResultSelect();
-    baseContext.initYearSelect();
-
-    baseContext.getAllResults();
-    baseContext.getAllSpecialities();
-
-
+    setTimeout(function () {
+      baseContext.initSpecialitySelect();
+      baseContext.initResultSelect();
+      baseContext.initYearSelect();
+      baseContext.getAllResults();
+      baseContext.getAllSpecialities();
+    }, 500);
   }
 
   constructor(private stoarageService: StorageService,
@@ -70,7 +68,7 @@ export class AssisAggrProfessComponent implements OnInit {
   }
 
   private initYearSelect() {
-    const year = jQuery(".select-year");
+    const year = jQuery(".select-year-" + this.mode);
     const baseContext = this;
     year.select2();
 
@@ -93,7 +91,7 @@ export class AssisAggrProfessComponent implements OnInit {
 
           if (this.isEditAction) {
             const baseContext = this;
-            const result = jQuery(".select-result");
+            const result = jQuery(".select-result-" + this.mode);
             setTimeout(function () {
               result.val(baseContext.teacher.concours[baseContext.indexSelected].id_result).trigger("change");
             }, 10);
@@ -106,7 +104,7 @@ export class AssisAggrProfessComponent implements OnInit {
   }
 
   private initResultSelect() {
-    const result = jQuery(".select-result");
+    const result = jQuery(".select-result-" + this.mode);
     const baseContext = this;
     result.select2();
 
@@ -128,7 +126,7 @@ export class AssisAggrProfessComponent implements OnInit {
 
           if (this.isEditAction) {
             const baseContext = this;
-            const speciality = jQuery(".select-specialite");
+            const speciality = jQuery(".select-specialite-" + this.mode);
             setTimeout(function () {
               speciality.val(baseContext.teacher.concours[baseContext.indexSelected].id_Specialite).trigger("change")
             }, 20);
@@ -142,7 +140,7 @@ export class AssisAggrProfessComponent implements OnInit {
   }
 
   initSpecialitySelect() {
-    const specialite = jQuery(".select-specialite");
+    const specialite = jQuery(".select-specialite-" + this.mode);
     const baseContext = this;
     specialite.select2();
 
