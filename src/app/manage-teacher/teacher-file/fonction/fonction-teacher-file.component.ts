@@ -111,7 +111,6 @@ export class FonctionTeacherFileComponent implements OnInit {
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/teacher-file"]);
         },
         (error) => {
 
