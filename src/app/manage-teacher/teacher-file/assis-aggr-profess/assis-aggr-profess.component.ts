@@ -34,6 +34,7 @@ export class AssisAggrProfessComponent implements OnInit {
   indexSelected: number;
   typeGrade: number;
   title: string;
+  sectionId: number;
 
   ngOnInit() {
     const baseContext = this;
@@ -41,6 +42,7 @@ export class AssisAggrProfessComponent implements OnInit {
 
     this.typeGrade = this.getTypeGrade(this.mode);
 
+    this.sectionId = this.getSection(this.typeGrade);
 
     this.isEditAction = this.verifyIfEdit(this.typeGrade, this.teacher.concours);
 
@@ -251,6 +253,17 @@ export class AssisAggrProfessComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  private getSection(concourType: number) {
+    switch (concourType) {
+      case 2 :
+        return 8;
+      case 3 :
+        return 9;
+      case 4 :
+        return 10;
+    }
   }
 }
 
