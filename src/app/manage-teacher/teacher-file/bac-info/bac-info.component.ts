@@ -127,7 +127,7 @@ export class BacInfoComponent implements OnInit {
     }
     bac.medias = medias;
     console.log(JSON.stringify(bac));
-    this.busy = this.teacherFileService.editBacInformation(bac)
+    this.busy = this.teacherFileService.editBacInformation(bac, this.teacher.id_Teacher)
       .subscribe(
         (data) => {
           data.id_Teacher = this.teacher.id_Teacher;

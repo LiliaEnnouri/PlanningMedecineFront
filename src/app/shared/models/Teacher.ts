@@ -69,6 +69,8 @@ export class Teacher {
   specialite: Specialite;
   grade: Grade;
 
+  numberStatusZero: number;
+
 
 }
 
