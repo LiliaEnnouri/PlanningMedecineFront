@@ -11,6 +11,7 @@ import {Admin} from "../../shared/models/admin";
 import {StudentFileService} from "../../shared/services/student-file.service";
 import {Teacher} from "../../shared/models/Teacher";
 import {TeacherService} from "../../shared/services/teacher.service";
+import {TeacherFileService} from "../../shared/services/teacher-file.service";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -35,7 +36,7 @@ export class ListTeacherComponent implements OnInit {
 
 
   constructor(private teacherService: TeacherService,
-              private studentFileService: StudentFileService,
+              private teacherFileService: TeacherFileService,
               private adminService: AdminService,
               private userService: UserService,
               private router: Router,
@@ -129,6 +130,31 @@ export class ListTeacherComponent implements OnInit {
   initializeScholarSelect() {
     const selectScholar = jQuery(".select-scholoarite");
     selectScholar.select2();
+  }
+
+  changeStatusFileTeacher(teacherId: number, index: number, status: number) {
+
+    this.busy = this.teacherFileService.changeStatusFileTeacher(teacherId, status)
+      .subscribe(
+        (data) => {
+          if (status === 1) {
+            this.teachers[index].administration_review = 1;
+            this.teachers[index].dossier_status = 3;
+          } else {
+            this.teachers[index].administration_review = 2;
+            this.teachers[index].dossier_status = 3;
+          }
+          swal({
+            title: "Succées",
+            text: "Votre status de dossier à été modifié",
+            confirmButtonColor: "#66BB6A",
+            type: "success"
+          });
+        },
+        (error) => {
+
+        }
+      )
   }
 
   deleteTeacher(index: number) {

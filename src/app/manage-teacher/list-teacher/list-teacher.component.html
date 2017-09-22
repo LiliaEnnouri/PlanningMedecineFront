@@ -31,16 +31,10 @@
   <!-- Invoice archive -->
   <div class="panel panel-white">
     <div class="panel-heading" [ngBusy]="busy">
-      <h6 class="panel-title">Liste étudiant</h6>
+      <h6 class="panel-title">Liste des enseignants</h6>
       <div class="heading-elements">
         <div class=" checkbox-switchery reviewOn">
           <label>
-
-            <button *ngIf="requestedStatus==0" (click)="downloadStudentsExcel()" type="button"
-                    class="btn btn-info btn-labeled btn-labeled-right">
-              <b><i class="icon-file-excel"></i></b>
-              Générer Excel des étudiants
-            </button>
             <input type="checkbox" class="switch" [(ngModel)]="isReviewingMode">
             Entrain de traiter les dossiers
           </label>
@@ -84,13 +78,20 @@
           {{teacher.updated_at.substr(0,10)}}
         </td>
         <td>
-
-          <a href="#"
-             class="label {{teacher.administration_review===0?'bg-grey':teacher.administration_review===-1?'bg-danger':teacher.administration_review===1?'bg-green':'bg-warning'}}  dropdown-toggle"
-             data-toggle="dropdown">{{teacher.administration_review===0?"En
-            attente":teacher.administration_review===-1?'Invalid':teacher.administration_review===1?'Valid':'A
-            reviser'}}
-          </a>
+          <div class="btn-group">
+            <a href="#"
+               class="label {{teacher.administration_review===0?'bg-grey':teacher.administration_review===-1?'bg-danger':teacher.administration_review===1?'bg-green':'bg-warning'}}  dropdown-toggle"
+               data-toggle="dropdown">{{teacher.administration_review===0?"En
+              attente":teacher.administration_review===-1?'Invalid':teacher.administration_review===1?'Valid':'A
+              reviser'}}
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a (click)="changeStatusFileTeacher(teacher.id_Teacher,i,1)"><i
+                class="icon-checkmark3"></i>Valider</a></li>
+              <li><a (click)="changeStatusFileTeacher(teacher.id_Teacher,i,2)"><i class="icon-warning"></i>A reviser</a>
+            </ul>
+          </div>
 
         </td>
         <td>

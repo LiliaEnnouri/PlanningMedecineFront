@@ -115,4 +115,19 @@ export class TeacherFileService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  changeStatusFileTeacher(teacherId: number, status: number) {
+    const url = Config.baseUrl + "/admin/teacher/" + teacherId + "/status-file/edit";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post(url,
+      {
+        status: status
+      },
+      {
+        headers: this.headers
+      }
+    )
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
