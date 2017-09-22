@@ -19,12 +19,16 @@
         <app-teacher-photos *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-teacher-photos>
         <!-- /Photos -->
 
+        <!-- Bac -->
+        <app-bac-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-bac-component>
+        <!-- /Photos -->
+
         <!-- Doctaurat -->
         <app-doctaurat-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-doctaurat-component>
 
-        <!-- Fonction
+        <!-- Fonction -->
         <app-fonction-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-fonction-component>
-        -->
+
         <!-- Residanat -->
         <app-residanat-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-residanat-component>
 

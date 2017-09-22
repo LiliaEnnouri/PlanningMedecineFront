@@ -368,7 +368,6 @@ export class ResidanatTeacherFileComponent implements OnInit {
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/teacher-file"]);
         },
         (error) => {
 
@@ -479,7 +478,6 @@ export class ResidanatTeacherFileComponent implements OnInit {
                   confirmButtonColor: "#66BB6A",
                   type: "success"
                 });
-                baseContext.router.navigate(["/teacher-file"]);
               },
               (error) => {
 

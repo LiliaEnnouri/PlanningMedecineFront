@@ -38,8 +38,6 @@ export class BacInfoComponent implements OnInit {
   cities: City[] = [];
 
   ngOnInit() {
-
-    this.teacher = <Teacher>this.storageService.read("teacher");
     this.editAction = this.teacher.bac != null;
     if (!this.editAction) {
       this.teacher.bac = new Bac();
@@ -138,7 +136,6 @@ export class BacInfoComponent implements OnInit {
             confirmButtonColor: "#66BB6A",
             type: "success"
           });
-          this.router.navigate(["/teacher-file"]);
         },
         (error) => {
 
