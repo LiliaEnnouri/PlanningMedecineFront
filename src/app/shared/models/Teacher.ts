@@ -3,12 +3,15 @@ import {Adress} from "./adress";
 import {City} from "./city";
 import {PassportTeacher} from "./Passport_Teacher";
 import {CinTeacher} from "./cinTeacher";
-import {Specialite} from "app/shared/models/specialite";
+import {Bac} from "app/shared/models/bac";
+import {Fonction} from "./fonction";
+import {Study} from "./study";
+import {Doctaurat} from "./doctaurat";
+import {Specialite} from "./specialite";
 import {Service} from "./service";
 import {Grade} from "./grade";
-/**
- * Created by Abbes on 29/08/2017.
- */
+import {TeacherConcour} from "./Teacher_Concour";
+
 export class Teacher {
   public id_Teacher: number;
   public first_name: string;
@@ -32,10 +35,14 @@ export class Teacher {
 
   public adress?: Adress;
 
+  public concours: TeacherConcour [];
+  public fonctions: Fonction[];
+  public doctaurat: Doctaurat;
+  public studies: Study[];
+  public bac: Bac;
   public dossier_status?: number;
   public administration_review?: number;
 
-  public numberStatusZero: number;
 
   public validations: SectionValidation[];
 
@@ -45,13 +52,15 @@ export class Teacher {
 
   extrait_naissance: TeacherExtraitNaissance;
 
-  id_evaluateur: number;
 
-
-  updated_at: string;
-  created_at: string;
   civil_status: number;
 
+
+  /* Info Arabe */
+  first_name_arabe: string;
+  last_name_arabe: string;
+  nom_de_famille_arabe: string;
+  second_name_arabe: string;
 
   id_Service: number;
   id_Grade: number;
@@ -59,11 +68,8 @@ export class Teacher {
   service: Service;
   specialite: Specialite;
   grade: Grade;
-  /* Info Arabe */
-  first_name_arabe: string;
-  last_name_arabe: string;
-  nom_de_famille_arabe: string;
-  second_name_arabe: string;
+
+
 }
 
 

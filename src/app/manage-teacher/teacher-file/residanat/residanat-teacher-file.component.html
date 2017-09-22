@@ -1,0 +1,291 @@
+<!-- Content area -->
+<div class="content" [ngBusy]="busy">
+
+  <!-- Registration form -->
+  <form #registerForm="ngForm" class="form-validate">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel registration-form">
+          <div class="panel-body">
+            <div class="text-center">
+              <h5 class="content-group-lg">Concours de résidanat
+              </h5>
+            </div>
+
+            <!-- First Part General Info Residanat -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Année universitaire :</label>
+                  <select name="year" class="select-year">
+                    <option value="0" disabled>Choisir l'année</option>
+                    <option *ngFor="let year of years" value="{{year}}">
+                      {{year}}
+                    </option>
+                  </select>
+                </div>
+                <label *ngIf="submitted&&!teacher.concours[indexSelected].year"
+                       class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Résultat :</label>
+                  <select name="result" class="select-result">
+                    <option value="0" disabled>Resultat</option>
+                    <option *ngFor="let result of results" value="{{result.id_result}}">
+                      {{result.label}}
+                    </option>
+                  </select>
+                </div>
+                <label *ngIf="submitted&&!teacher.concours[indexSelected].id_result"
+                       class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+
+              <div *ngIf="teacher.concours[indexSelected].id_result==2" class="col-md-4">
+                <div class="form-group">
+                  <label>Spécialité :</label>
+                  <select name="specialite" class="select-specialite">
+                    <option value="0" disabled>Choisir la spécialité</option>
+                    <option *ngFor="let speciality of specialities" value="{{speciality.id_Specialite}}">
+                      {{speciality.nom}}
+                    </option>
+                  </select>
+                </div>
+                <label *ngIf="submitted&&!teacher.concours[indexSelected].id_Specialite"
+                       class="validation-error-label">Ce
+                  champs
+                  est
+                  obligatoire.</label>
+              </div>
+            </div>
+
+            <!-- Semester Inputs -->
+            <div *ngFor="let semester of teacher.concours[indexSelected].semesters;let i = index">
+              <h4>Semester {{i+1}}</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Date Debut :</label>
+                  <div class="form-group">
+
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                      <input type="text" placeholder="Date Debut"
+                             class="form-control date startDate_{{i}}">
+
+                    </div>
+                    <label *ngIf="submitted&&!semester.start_date" class="validation-error-label">Ce champs
+                      est
+                      obligatoire.</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label>Date Fin :</label>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                      <input type="text" placeholder="Date Fin"
+                             class="form-control date  endDate_{{i}}">
+
+                    </div>
+                    <label *ngIf="submitted&&!semester.end_date" class="validation-error-label">Ce champs
+                      est
+                      obligatoire.</label>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Hopital :</label>
+                    <select name="hopital" class="select-hopital_{{i}}">
+                      <option value="0" disabled>Choisir l'hopital</option>
+                      <option *ngFor="let hopital of hopitaux" value="{{hopital.id_Hopital}}">
+                        {{hopital.nom}}
+                      </option>
+                    </select>
+                  </div>
+                  <label *ngIf="submitted&&!semester.id_Hopital"
+                         class="validation-error-label">Ce champs
+                    est
+                    obligatoire.</label>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Service :</label>
+                    <select name="service" class="select-service_{{i}}">
+                      <option value="0" disabled>Choisir le service</option>
+                      <option *ngFor="let speciality of specialities" value="{{speciality.id_Specialite}}">
+                        {{speciality.nom}}
+                      </option>
+                    </select>
+                  </div>
+                  <label *ngIf="submitted&&!semester.id_Service"
+                         class="validation-error-label">Ce champs
+                    est
+                    obligatoire.</label>
+                </div>
+              </div>
+              <div class="row">
+                <!--
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Spécialité :</label>
+                    <select name="specialite" class="select-specialite_{{i}}">
+                      <option value="0" disabled>Choisir la spécialité</option>
+                      <option *ngFor="let speciality of specialities" value="{{speciality.id_Specialite}}">
+                        {{speciality.nom}}
+                      </option>
+                    </select>
+                  </div>
+                  <label *ngIf="submitted&&!semester.id_Specialite" class="validation-error-label">Ce
+                    champs
+                    est
+                    obligatoire.</label>
+                </div>-->
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Université :</label>
+                    <select name="university" class="select-university_{{i}}">
+                      <option value="0" disabled>Choisir une université</option>
+                      <option *ngFor="let item of universities" value="{{item.id_university}}">
+                        {{item.label}}
+                      </option>
+                    </select>
+                    <label *ngIf="submitted&&!semester.id_university" class="validation-error-label">Ce champs
+                      est
+                      obligatoire.</label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div *ngIf="teacher.concours[indexSelected].id_result==2" class="row">
+              <div *ngIf="teacher.concours[indexSelected].semesters.length" class="col-md-6  text-right"
+                   style="margin-bottom: 15px">
+                <button (click)="removeSemester()"
+                        class="btn bg-danger btn-labeled btn-labeled-right ml-10"><b><i
+                  class="icon-cross2"></i></b> Supprimer une semester
+                </button>
+              </div>
+              <div *ngIf="teacher.concours[indexSelected].semesters.length!=10" class="col-md-6  text-right"
+                   style="margin-bottom: 15px">
+                <button (click)="addSemester()"
+                        class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
+                  class="icon-plus2"></i></b> Ajouter une semester
+                </button>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-3  text-right" style="margin-bottom: 15px">
+                <button [routerLink]="['/teacher-file']"
+                        class="btn bg-grey-400"> Annuler
+                </button>
+              </div>
+              <button (click)="reinitialiseResidanat()"
+                      class="col-md-4 btn bg-danger-400 btn-danger btn-labeled-right ml-10"><b><i
+                class="icon-close2"></i></b> Réinitialiser mon résidanat
+              </button>
+              <div class="col-md-3 text-right" style="margin-bottom: 15px">
+                <button (click)="validationResidanat()"
+                        class="btn bg-teal-400"> Valider
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- /registration form -->
+
+  <form #registerForm="ngForm" class="form-validate">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel registration-form">
+          <div class="panel-body">
+            <div class="text-center">
+              <h5 class="content-group-lg">Résultat Examen National
+              </h5>
+            </div>
+
+            <div class="row" *ngIf="!isNationalExam">
+              <button (click)="addNationalExam()"
+                      class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
+                class="icon-plus2"></i></b> Ajouter le resultat de l'examen national
+              </button>
+            </div>
+
+            <div *ngIf="isNationalExam" class="row">
+              <h5>Examen national de fin de formation spécialisée</h5>
+              <div class="col-md-6">
+                <label>Date de l'examen :</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                    <input type="text" placeholder="Date de l'examen"
+                           class="form-control date-exam ">
+
+                  </div>
+                  <label *ngIf="submitted&&!teacher.concours[indexSelected].national_exam.date"
+                         class="validation-error-label">Ce
+                    champs
+                    est
+                    obligatoire.</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Resultat :</label>
+                  <select name="result" class="select-result-exam">
+                    <option value="0" disabled>Resultat</option>
+                    <option *ngFor="let result of results" value="{{result.id_result}}">
+                      {{result.label}}
+                    </option>
+                  </select>
+                </div>
+                <label *ngIf="submitted&&!teacher.concours[indexSelected].national_exam.id_result"
+                       class="validation-error-label">Ce champs
+                  est
+                  obligatoire.</label>
+              </div>
+
+            </div>
+            <div class="row" *ngIf="isNationalExam" style="margin-bottom: 10px">
+              <button (click)="addNationalExam()"
+                      class="btn bg-primary btn-labeled btn-labeled-right ml-10"><b><i
+                class="icon-close2"></i></b> Supprimer
+              </button>
+            </div>
+            <div class="row" *ngIf="isNationalExam">
+              <div class="col-md-3  text-right" style="margin-bottom: 15px">
+                <button [routerLink]="['/teacher-file']"
+                        class="btn bg-grey-400"> Annuler
+                </button>
+              </div>
+              <div class="col-md-3 text-right" style="margin-bottom: 15px">
+                <button (click)="validationResidanat()"
+                        class="btn bg-teal-400"> Valider
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+
+</div>
+<!-- /content area -->

@@ -19,6 +19,8 @@ export class Bac {
 
   public type: Type ;
   public mention: Mention;
+  public id_Teacher: number;
+
 }
 
 export class BacMedia {

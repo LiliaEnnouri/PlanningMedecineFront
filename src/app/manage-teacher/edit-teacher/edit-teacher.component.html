@@ -19,7 +19,28 @@
         <app-teacher-photos *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-teacher-photos>
         <!-- /Photos -->
 
+        <!-- Doctaurat -->
+        <app-doctaurat-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-doctaurat-component>
 
+        <!-- Fonction
+        <app-fonction-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-fonction-component>
+        -->
+        <!-- Residanat -->
+        <app-residanat-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"></app-residanat-component>
+
+        <!-- Assistant -->
+        <app-assis-aggr-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"
+                                  [mode]="'assistanat'"></app-assis-aggr-component>
+
+        <!-- Aggregation -->
+        <app-assis-aggr-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"
+                                  [mode]="'aggregation'"></app-assis-aggr-component>
+
+        <!-- Professorat -->
+        <app-assis-aggr-component *ngIf="teacher" [isAdmin]="isAdmin" [teacher]="teacher"
+                                  [mode]="'professorat'"></app-assis-aggr-component>
+
+        <!-- -->
       </div>
       <!-- /content area -->
 

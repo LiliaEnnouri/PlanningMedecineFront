@@ -18,8 +18,8 @@ import {TeacherFileService} from "../../../shared/services/teacher-file.service"
 import {Specialite} from "../../../shared/models/specialite";
 import {Service} from "../../../shared/models/service";
 import {Grade} from "../../../shared/models/grade";
-declare var jQuery: any;
-declare var swal: any;
+declare let jQuery: any;
+declare let swal: any;
 @Component({
   selector: 'app-teacher-general-info',
   templateUrl: './teacher-general-info.component.html',
