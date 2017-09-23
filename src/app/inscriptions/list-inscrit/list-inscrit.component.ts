@@ -101,5 +101,21 @@ export class ListInscritComponent implements OnInit {
       )
   }
 
+  generationPresenceFr(index: number) {
+    this.busy = this.studentFileServie.generationAttestationPresenceFr(this.registrationsUniversityStudents[index].id_student,
+      this.registrationsUniversityStudents[index].registration_university.year_university,
+      this.registrationsUniversityStudents[index].id_level)
+      .subscribe(
+        (data) => {
+          FileSaver.saveAs(data, this.registrationsUniversityStudents[index].student.first_name
+            + " " + this.registrationsUniversityStudents[index].student.last_name
+            + "_Presence_" + this.registrationsUniversityStudents[index].registration_university.year_university
+            + ".pdf");
+        },
+        (error) => {
+
+        })
+  }
+
 
 }

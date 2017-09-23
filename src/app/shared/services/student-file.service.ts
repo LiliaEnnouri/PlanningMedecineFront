@@ -239,4 +239,19 @@ export class StudentFileService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  generationAttestationPresenceFr(studentId: number, year: string, levelId: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/attestation-presence/fr";
+
+    return this.http.post(url, {
+      id_level: levelId,
+      year: year
+    }, {
+      headers: this.headers,
+      responseType: ResponseContentType.Blob
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }
