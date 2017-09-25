@@ -130,20 +130,17 @@ export class SharedService extends GenericService {
     const url = Config.baseUrl + "/geo/countries";
     const countries = this.getAllCountriesFromStorage();
     if (countries) {
-      console.log('get countries from locale');
       return Observable.create(observer => {
         observer.next(countries);
         observer.complete();
       })
     } else {
-      console.log('get countries from APIs 1 ');
       return this.http.get(url, {
         headers: this.headers
       })
         .map(res => {
           const data = res.json();
           this.saveAllCountriesFromStorage(data);
-          console.log("get countries from APIs 2 ");
           return data;
         })
         .catch(this.handleErrors);
@@ -154,18 +151,15 @@ export class SharedService extends GenericService {
     const url = Config.baseUrl + "/geo/countries/" + countryId + "/cities";
     const tunisCities = this.getTunisCitiesFromStorage();
     if (countryId.localeCompare('TUN') === 0 && tunisCities) {
-      console.log("getCitiesByCountryFromLocal");
       return Observable.create(observer => {
         observer.next(tunisCities);
         observer.complete();
       })
     } else {
-      console.log("getCitiesByCountryFromRemote");
       return this.http.get(url, {
         headers: this.headers
       })
         .map(res => {
-          console.log('remote response');
           const data = res.json();
           if (countryId.localeCompare('TUN') === 0) {
             this.saveTunisCitiesFromStorage(data);
@@ -201,5 +195,5 @@ export class SharedService extends GenericService {
   saveTunisCitiesFromStorage(cities: Array<City>) {
     this.storageService.write('tunis-cities', cities);
   }
-    
+
 }

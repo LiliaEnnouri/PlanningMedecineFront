@@ -287,7 +287,7 @@ export class PhotoComponent implements OnInit {
     const inputMedias = [];
     const initialPreviewConfig: InitialPreviewConfig[] = [];
     let imgs = [];
-    if (this.student.cin) {
+    if (this.student.cin.id_Student_CIN) {
       imgs = this.student.cin.imgs;
     } else if (this.student.passport) {
       imgs = this.student.passport.imgs;
@@ -307,7 +307,6 @@ export class PhotoComponent implements OnInit {
     }
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/cin/upload",
       this.userServices.getTokent(), ".file-input-student-cin", this.isAdmin, this.isAdmin, 2, inputMedias, initialPreviewConfig);
-
   }
 
 }
