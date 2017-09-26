@@ -141,4 +141,16 @@ export class AdminService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  getListInscritbyLevelExcel(selectedLevel: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/registration/university-year/list-student/level/" + selectedLevel + "/excel";
+    return this.http.get(url, {
+      headers: this.headers,
+      responseType: ResponseContentType.Blob
+
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }

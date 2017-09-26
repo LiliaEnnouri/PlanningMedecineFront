@@ -54,12 +54,23 @@
     <div class="panel-heading">
       <h6 class="panel-title">Liste étudiant</h6>
       <br>
-      <select class="select-level">
-        <option value="0">Tous les Niveaux</option>
-        <option *ngFor="let level of levels" value="{{level.id_level}}">
-          {{level.label}}
-        </option>
-      </select>
+      <div class="row">
+        <div class="col-md-9">
+          <select class="select-level">
+            <option value="0">Tous les Niveaux</option>
+            <option *ngFor="let level of levels" value="{{level.id_level}}">
+              {{level.label}}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button (click)="downloadStudentsExcel()" type="button"
+                  class="btn btn-info btn-labeled btn-labeled-right">
+            <b><i class="icon-file-excel"></i></b>
+            Générer Excel des étudiants
+          </button>
+        </div>
+      </div>
     </div>
     <br>
 
@@ -79,26 +90,26 @@
 
       <tbody>
       <tr *ngFor="let item of registrationsUniversityStudents;let i=index;">
-        <td>{{item.student.id_student}}</td>
+        <td>{{item.id_student}}</td>
         <td>
-          {{item.student.first_name}}
+          {{item.first_name}}
         </td>
         <td>
-          {{item.student.last_name}}
+          {{item.last_name}}
         </td>
         <td>
-          <span *ngIf="item.student.cin">{{item.student.cin.code}}</span>
-          <span *ngIf="item.student.cin && item.student.passport">/</span>
-          <span *ngIf="item.student.passport">{{item.student.passport.code}}</span>
+          <span *ngIf="item.cin">{{item.cin.code}}</span>
+          <span *ngIf="item.cin && item.passport">/</span>
+          <span *ngIf="item.passport">{{item.passport.code}}</span>
         </td>
         <td>
-          {{item.student.email}}
+          {{item.email}}
         </td>
         <td>
-          {{item.level.label}}
+          {{item.registrations[0].level.label}}
         </td>
         <td>
-          {{item.registration_university.year_university}}
+          {{item.registrations[0].registration_university.year_university}}
         </td>
         <td>
           <ul class="icons-list">

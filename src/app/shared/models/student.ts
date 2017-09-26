@@ -9,6 +9,7 @@ import {SectionValidation} from "./section-validation";
 import {PassportStudent} from "./Passport_Student";
 import {CinStudent} from "./cinStudent";
 import {Admin} from "./admin";
+import {RegistrationYearUniversityStudent} from "./RegistrationYearUniversityStudent";
 declare let jQuery: any;
 /**
  * Created by Abbes on 01/08/2017.
@@ -80,6 +81,8 @@ export class Student {
   /* Code Pays */
   nationality: string;
   nationalityLabel: string;
+
+  registrations: RegistrationYearUniversityStudent[];
 }
 
 export class StudentPhoto {

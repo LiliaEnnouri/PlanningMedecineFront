@@ -4,12 +4,12 @@
 import {Component, OnInit} from "@angular/core";
 import {AdminService} from "../../shared/services/admin.service";
 import {Subscription} from "rxjs/Subscription";
-import {RegistrationYearUniversityStudent} from "../../shared/models/RegistrationYearUniversityStudent";
 import {Utils} from "../../shared/utils";
 import {StudentFileService} from "../../shared/services/student-file.service";
 import {Level} from "../../shared/models/level";
 
 import * as FileSaver from "file-saver";
+import {Student} from "../../shared/models/student";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -21,7 +21,7 @@ declare let swal: any;
 export class ListInscritComponent implements OnInit {
 
   busy: Subscription;
-  registrationsUniversityStudents: RegistrationYearUniversityStudent[] = [];
+  registrationsUniversityStudents: Student[] = [];
   selectedLevel: number;
   levels: Array<Level>;
 
@@ -86,13 +86,13 @@ export class ListInscritComponent implements OnInit {
 
   generationAttestationFr(index: number) {
     this.busy = this.studentFileServie.generationAttestationFr(this.registrationsUniversityStudents[index].id_student,
-      this.registrationsUniversityStudents[index].registration_university.year_university,
-      this.registrationsUniversityStudents[index].id_level)
+      this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university,
+      this.registrationsUniversityStudents[index].registrations[0].id_level)
       .subscribe(
         (data) => {
-          FileSaver.saveAs(data, this.registrationsUniversityStudents[index].student.first_name
-            + " " + this.registrationsUniversityStudents[index].student.last_name
-            + "_Attestation_" + this.registrationsUniversityStudents[index].registration_university.year_university
+          FileSaver.saveAs(data, this.registrationsUniversityStudents[index].first_name
+            + " " + this.registrationsUniversityStudents[index].last_name
+            + "_Attestation_" + this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university
             + ".pdf");
         },
         (error) => {
@@ -103,18 +103,35 @@ export class ListInscritComponent implements OnInit {
 
   generationPresenceFr(index: number) {
     this.busy = this.studentFileServie.generationAttestationPresenceFr(this.registrationsUniversityStudents[index].id_student,
-      this.registrationsUniversityStudents[index].registration_university.year_university,
-      this.registrationsUniversityStudents[index].id_level)
+      this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university,
+      this.registrationsUniversityStudents[index].registrations[0].id_level)
       .subscribe(
         (data) => {
-          FileSaver.saveAs(data, this.registrationsUniversityStudents[index].student.first_name
-            + " " + this.registrationsUniversityStudents[index].student.last_name
-            + "_Presence_" + this.registrationsUniversityStudents[index].registration_university.year_university
+          FileSaver.saveAs(data, this.registrationsUniversityStudents[index].first_name
+            + " " + this.registrationsUniversityStudents[index].last_name
+            + "_Presence_" + this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university
             + ".pdf");
         },
         (error) => {
 
         })
+  }
+
+  downloadStudentsExcel() {
+    this.busy = this.adminService.getListInscritbyLevelExcel(this.selectedLevel)
+      .subscribe(
+        (data) => {
+          if (this.selectedLevel > 0) {
+            FileSaver.saveAs(data, 'Liste Etudiants en ' + this.levels[this.selectedLevel - 1].label + '.xls');
+          } else {
+            FileSaver.saveAs(data, 'Liste Etudiants .xls');
+          }
+        },
+        (error) => {
+
+        }
+      );
+
   }
 
 
