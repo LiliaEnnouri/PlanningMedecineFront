@@ -1,0 +1,52 @@
+<!-- Info blocks -->
+<div class="panel-heading">
+  <h6 class="panel-title"></h6>
+
+</div>
+
+<div class="row">
+  <form action="#" [ngBusy]="busy">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-flat">
+
+
+          <div class="panel-body">
+            <div class="form-group">
+              <label>Nom et Prénom:</label>
+              <input type="text" [(ngModel)]="loggedUser.name" disabled="disabled"
+                     [ngModelOptions]="{standalone: true}" class="form-control"
+                     placeholder="Entrez votre nom et prénom">
+            </div>
+
+            <div class="form-group">
+              <label>Email:</label>
+              <input type="text" [(ngModel)]="loggedUser.email" disabled="disabled"
+                     [ngModelOptions]="{standalone: true}" class="form-control"
+                     placeholder="Entrez votre adresse email">
+            </div>
+
+            <div class="form-group">
+              <label>Problème rencontré:</label>
+              <input type="text" [(ngModel)]="topicToSend" [ngModelOptions]="{standalone: true}" class="form-control"
+                     placeholder="Quel type de problème ?">
+            </div>
+
+
+            <div class="form-group">
+              <label>Votre Message:</label>
+              <textarea rows="5" cols="5" [(ngModel)]="reclamtionContent" [ngModelOptions]="{standalone: true}"
+                        class="form-control" placeholder="Entrez le détail du problème"></textarea>
+            </div>
+
+            <div class="text-right">
+              <button type="submit" (click)="sendReclamation()" class="btn btn-primary">Envoyer<i
+                class="icon-arrow-right14 position-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

@@ -132,6 +132,11 @@ export class FullLayoutComponent implements OnInit {
             url: "/stats/student-file",
           }
         ]
+      },
+      {
+        name: "Réclamer à Vayetek",
+        icon: "icon-lifebuoy",
+        url: "/support/reclamationvayetek",
       }
     ];
 

@@ -52,7 +52,19 @@ export class ReclamationService extends GenericService {
 
 
   }
+  sendMail(adminId:number , content: string ,topic: string) {
+    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const url = Config.baseUrl + "/reclamation/mail/" + adminId  ;
 
+    return this.http.post(url, {"content" : content,"topic" : topic},
+      {
+        headers: this.headers
+      }
+    )
+      .catch(this.handleErrors);
+
+
+  }
 
   getNumberOfReclamations() {
     this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
