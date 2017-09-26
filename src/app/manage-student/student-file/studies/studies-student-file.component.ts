@@ -288,7 +288,14 @@ export class StudiesStudentFileComponent implements OnInit {
         (data) => {
           this.credits = data;
           if (this.editAction) {
-            // TODO
+            for (let i = 0; i < this.student.studies.length; i++) {
+              if (baseContext.student.studies[i].id_credit) {
+                setTimeout(function () {
+                  const selectUniversity = jQuery(".select-credit_" + i);
+                  selectUniversity.val(baseContext.student.studies[i].id_credit).trigger("change");
+                }, 50);
+              }
+            }
           }
         }
       )
@@ -302,10 +309,6 @@ export class StudiesStudentFileComponent implements OnInit {
     selectCredit.on("change", function () {
       baseContext.student.studies[index].id_credit = +jQuery(this).val();
     });
-
-    if (baseContext.editAction && baseContext.student.studies[index].id_credit) {
-      selectCredit.val(baseContext.student.studies[index].id_credit).trigger("change");
-    }
   }
 
   initStudyFileInput(index: number) {
