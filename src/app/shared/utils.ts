@@ -185,9 +185,7 @@ export class Utils {
       previewZoomButtonClasses: Utils.getPreviewZoomButtonClasses(),
       previewZoomButtonIcons: Utils.getPreviewZoomButtonIcons(),
       ajaxSettings: {headers: {'Authorization': 'Bearer ' + token}},
-    });
-
-
+    })
   }
 
   static convertDateServer(date: string) {
