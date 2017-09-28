@@ -325,7 +325,8 @@ export class StudiesStudentFileComponent implements OnInit {
           filetype: Utils.loadFileTypeFromExtension(media.media_Path.substr(media.media_Path.indexOf('.') + 1)),
           key: media.id_Banque_Media,
           url: Config.baseUrl + '/' + media.media_Path + '/delete',
-          size: media.size
+          size: media.size,
+          downloadUrl: Config.baseUrl + '/' + media.path
         });
       });
       this.student.studies[index].medias = medias;

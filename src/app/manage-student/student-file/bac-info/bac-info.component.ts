@@ -280,7 +280,8 @@ export class BacInfoComponent implements OnInit {
         filetype: Utils.loadFileTypeFromExtension(media.path.substr(media.path.indexOf('.') + 1)),
         key: media.id_Bac_Media,
         url: Config.baseUrl + '/' + media.path + '/delete',
-        size: media.size
+        size: media.size,
+        downloadUrl: Config.baseUrl + '/' + media.path
       });
     });
     Utils.initializeUploadFile(Config.baseUrl + "/student/" + this.student.id_student + "/bac/upload",

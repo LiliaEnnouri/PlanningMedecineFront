@@ -21,6 +21,7 @@
       "styles": [
         "styles.css",
         "assets/css/icons/icomoon/styles.css",
+        "assets/css/fileinput.min.css",
         "assets/css/bootstrap.css",
         "assets/css/core.css",
         "assets/css/components.css",
@@ -29,7 +30,7 @@
         "../node_modules/angular2-busy/build/style/busy.css"
       ],
       "scripts": [
-        "assets/js/core/libraries/jquery.min.js",
+        "assets/js/core/libraries/jquery-3.2.1.min.js",
         "assets/js/core/app.js",
         "assets/js/core/libraries/bootstrap.min.js",
         "assets/js/core/libraries/jquery_ui/core.min.js",

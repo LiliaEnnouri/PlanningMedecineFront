@@ -213,11 +213,13 @@ export class PhotoComponent implements OnInit {
     medias.push(this.student.img.path);
     inputMedias.push(Config.baseUrl + '/' + studentImg.path);
     initialPreviewConfig.push({
+      width: "120px",
       type: Utils.loadTypeFromExtension(studentImg.path.substr(studentImg.path.indexOf('.') + 1)),
       filetype: Utils.loadFileTypeFromExtension(studentImg.path.substr(studentImg.path.indexOf('.') + 1)),
       key: studentImg.id_Student_Photo,
       url: Config.baseUrl + '/' + studentImg.path + '/delete',
-      size: studentImg.size
+      size: studentImg.size,
+      downloadUrl: Config.baseUrl + '/' + studentImg.path
     });
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/photo/upload",
       this.userServices.getTokent(), ".file-input-student-photo", this.isAdmin, this.isAdmin, 1, inputMedias, initialPreviewConfig);
@@ -254,7 +256,8 @@ export class PhotoComponent implements OnInit {
       filetype: Utils.loadFileTypeFromExtension(studentImg.path.substr(studentImg.path.indexOf('.') + 1)),
       key: studentImg.id_Student_Health_Media,
       url: Config.baseUrl + '/' + studentImg.path + '/delete',
-      size: studentImg.size
+      size: studentImg.size,
+      downloadUrl: Config.baseUrl + '/' + studentImg.path
     });
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/health-media/upload",
       this.userServices.getTokent(), ".file-input-student-health-media", this.isAdmin, this.isAdmin, 1,
@@ -274,7 +277,8 @@ export class PhotoComponent implements OnInit {
         filetype: Utils.loadFileTypeFromExtension(media.path.substr(media.path.indexOf('.') + 1)),
         key: media.id_Student_Attestation_Orientation,
         url: Config.baseUrl + '/' + media.path + '/delete',
-        size: media.size
+        size: media.size,
+        downloadUrl: Config.baseUrl + '/' + media.path
       });
     });
     Utils.initializeUploadFile(Config.baseUrl + "/admin/student/" + this.student.id_student + "/attestation-orientation/upload",
@@ -301,7 +305,8 @@ export class PhotoComponent implements OnInit {
           filetype: Utils.loadFileTypeFromExtension(img.path.substr(img.path.indexOf('.') + 1)),
           key: img.id_Student_Cin,
           url: Config.baseUrl + '/' + img.path + '/delete',
-          size: img.size
+          size: img.size,
+          downloadUrl: Config.baseUrl + '/' + img.path
         });
       });
     }

@@ -164,23 +164,12 @@ export class Utils {
       showRemove: showRemove,
       showUpload: showUpload,
       maxFileCount: maxFileCount,
+      overwriteInitial: false,
       initialPreview: initialData,
-      initialPreviewConfig: initialPreviewConfig,
-      fileActionSettings: {
-        removeIcon: '<i class="icon-bin"></i>',
-        removeClass: 'btn btn-link btn-xs btn-icon',
-        uploadIcon: '<i class="icon-upload"></i>',
-        uploadClass: 'btn btn-link btn-xs btn-icon',
-        indicatorNew: '<i class="icon-file-plus text-slate"></i>',
-        indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
-        indicatorError: '<i class="icon-cross2 text-danger"></i>',
-        indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>',
-      },
       initialPreviewAsData: true,
-      layoutTemplates: {
-        icon: '<i class="icon-file-check"></i>',
-        modal: Utils.getModalTemplate()
-      },
+      initialPreviewFileType: 'image', // image is the default and can be overridden in config below
+      initialPreviewConfig: initialPreviewConfig,
+      purifyHtml: true, // this by default purifies HTML data for preview
       initialCaption: "Pas encore de fichier selectionné",
       previewZoomButtonClasses: Utils.getPreviewZoomButtonClasses(),
       previewZoomButtonIcons: Utils.getPreviewZoomButtonIcons(),
@@ -287,5 +276,6 @@ export class InitialPreviewConfig {
   filetype?: string;
   url: string;
   key: number;
+  downloadUrl?: string;
 }
 
