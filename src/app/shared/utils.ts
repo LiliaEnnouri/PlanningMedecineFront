@@ -169,6 +169,20 @@ export class Utils {
       initialPreviewAsData: true,
       initialPreviewFileType: 'image', // image is the default and can be overridden in config below
       initialPreviewConfig: initialPreviewConfig,
+      fileActionSettings: {
+        removeIcon: '<i class="icon-bin"></i>',
+        removeClass: 'btn btn-link btn-xs btn-icon',
+        uploadIcon: '<i class="icon-upload"></i>',
+        uploadClass: 'btn btn-link btn-xs btn-icon',
+        zoomIcon: '<i class="icon-zoomin3"></i>',
+        zoomClass: 'btn btn-link btn-xs btn-icon',
+        downloadIcon: '<i class="icon-download"></i>',
+        downloadClass: 'btn btn-link btn-xs btn-icon',
+        indicatorNew: '<i class="icon-file-plus text-slate"></i>',
+        indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
+        indicatorError: '<i class="icon-cross2 text-danger"></i>',
+        indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>',
+      },
       purifyHtml: true, // this by default purifies HTML data for preview
       initialCaption: "Pas encore de fichier selectionné",
       previewZoomButtonClasses: Utils.getPreviewZoomButtonClasses(),
