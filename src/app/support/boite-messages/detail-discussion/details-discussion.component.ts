@@ -50,6 +50,13 @@ export class DetailsDiscussionComponent implements OnInit {
   public sendMessage() {
     this.busy = this.conversationServices.addConversationMessage(this.conversation, this.messageContent).subscribe(data => {
       this.conversation = data;
+      this.conversation.user = this.conversation.student ? this.conversation.student : this.conversation.teacher;
+      const messages = [];
+      this.conversation.messages.forEach(function (message) {
+        message.user = message.student ? message.student : message.teacher;
+        messages.push(message);
+      });
+      this.conversation.messages = messages;
       this.messageContent = '';
       swal({
         title: "Succés!",
