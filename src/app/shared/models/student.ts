@@ -84,7 +84,7 @@ export class Student {
   nationalityLabel: string;
 
 
-  nationalityStudent: Country;
+  nationality_student: Country;
 
 
   registrations: RegistrationYearUniversityStudent[];

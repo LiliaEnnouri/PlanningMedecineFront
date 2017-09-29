@@ -347,8 +347,7 @@ export class ListStudentComponent implements OnInit {
     return Utils.getNumberStatus(this.students[index].validations, 0);
   }
 
-  private
-  initializeSelectAdmin() {
+  private initializeSelectAdmin() {
     const selectAdmin = jQuery(".select-evaluateur");
     const baseContext = this;
     selectAdmin.select2();
