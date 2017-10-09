@@ -240,6 +240,21 @@ export class StudentFileService extends GenericService {
       .catch(this.handleErrors);
   }
 
+  generationAttestationAr(studentId: number, year: string, levelId: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/attestation-inscription/ar";
+
+    return this.http.post(url, {
+      id_level: levelId,
+      year: year
+    }, {
+      headers: this.headers,
+      responseType: ResponseContentType.Blob
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
   generationAttestationPresenceFr(studentId: number, year: string, levelId: number) {
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     const url = Config.baseUrl + "/admin/student/" + studentId + "/attestation-presence/fr";
@@ -251,6 +266,35 @@ export class StudentFileService extends GenericService {
       headers: this.headers,
       responseType: ResponseContentType.Blob
     })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  generationAttestationPresenceAr(studentId: number, year: string, levelId: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/" + studentId + "/attestation-presence/ar";
+
+    return this.http.post(url, {
+      id_level: levelId,
+      year: year
+    }, {
+      headers: this.headers,
+      responseType: ResponseContentType.Blob
+    })
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
+
+  updateRegistrationStudent(registration_id_student: number, status: number) {
+    const url = Config.baseUrl + "/admin/registration/university-year/" + registration_id_student + "/update";
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post(url, {
+        status: status
+      },
+      {
+        headers: this.headers
+      }
+    )
       .map(res => res.json())
       .catch(this.handleErrors);
   }

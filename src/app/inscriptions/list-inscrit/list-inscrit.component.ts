@@ -36,7 +36,7 @@ export class ListInscritComponent implements OnInit {
       .subscribe(
         (data) => {
           this.registrationsUniversityStudents = data;
-          Utils.initializeDataTables(300, 7);
+          Utils.initializeDataTables(50, 7);
         }
       );
     this.getAllLevels();
@@ -101,6 +101,27 @@ export class ListInscritComponent implements OnInit {
       )
   }
 
+  generationAttestationAr(index: number) {
+    this.busy = this.studentFileServie.generationAttestationAr(this.registrationsUniversityStudents[index].id_student,
+      this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university,
+      this.registrationsUniversityStudents[index].registrations[0].id_level)
+      .subscribe(
+        (data) => {
+          FileSaver.saveAs(data, this.registrationsUniversityStudents[index].first_name
+            + " " + this.registrationsUniversityStudents[index].last_name
+            + "_Attestation_Ar_" + this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university
+            + ".pdf");
+        },
+        (error) => {
+          swal({
+            title: "Erreur!",
+            text: "Etudiant n'a pas eu de nom arabe",
+            type: "error"
+          });
+        }
+      )
+  }
+
   generationPresenceFr(index: number) {
     this.busy = this.studentFileServie.generationAttestationPresenceFr(this.registrationsUniversityStudents[index].id_student,
       this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university,
@@ -115,6 +136,62 @@ export class ListInscritComponent implements OnInit {
         (error) => {
 
         })
+  }
+
+  generationPresenceAr(index: number) {
+    this.busy = this.studentFileServie.generationAttestationPresenceAr(this.registrationsUniversityStudents[index].id_student,
+      this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university,
+      this.registrationsUniversityStudents[index].registrations[0].id_level)
+      .subscribe(
+        (data) => {
+          FileSaver.saveAs(data, this.registrationsUniversityStudents[index].first_name
+            + " " + this.registrationsUniversityStudents[index].last_name
+            + "_Presence_" + this.registrationsUniversityStudents[index].registrations[0].registration_university.year_university
+            + ".pdf");
+        },
+        (error) => {
+
+        })
+  }
+
+  retirerInscriptionStudent(registration_id_student: number, index: number) {
+    let baseContext = this;
+    swal({
+        title: "Retirer L'inscription?",
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#33cc33',
+        confirmButtonText: 'مغادرة',
+        cancelButtonText: 'سحب',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-warning',
+        buttonsStyling: false
+      },
+      function (log) {
+        console.log(log);
+        //مغادرة : 1
+        baseContext.busy = baseContext.studentFileServie.updateRegistrationStudent(registration_id_student, log ? 1 : 2)
+          .subscribe(
+            (data) => {
+              swal({
+                title: "Success!",
+                text: "Opération effectué avec succées",
+                type: "success"
+              });
+              baseContext.registrationsUniversityStudents.splice(index, 1);
+            },
+            (error) => {
+              swal({
+                title: "Erreur!",
+                text: "Erreur",
+                type: "erreur"
+              });
+            }
+          );
+      }
+    )
   }
 
   downloadStudentsExcel() {

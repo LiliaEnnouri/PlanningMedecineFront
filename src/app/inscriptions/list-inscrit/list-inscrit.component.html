@@ -123,7 +123,19 @@
                 <li><a (click)="generationAttestationFr(i)"><i class="icon-database-export"></i>Att
                   inscription</a></li>
                 <li><a (click)="generationPresenceFr(i)"><i class="icon-database-export"></i>Att Présence</a></li>
+                <li><a (click)="generationAttestationAr(i)"><i class="icon-database-export">
 
+                </i>
+                  شهادة ترسيم</a></li>
+                <li><a (click)="generationPresenceAr(i)"><i class="icon-database-export">
+
+                </i>
+                  شهادة حضور </a></li>
+
+
+                <li><a (click)="retirerInscriptionStudent(item.registrations[0].id_Registration_University_Student,i)"><i
+                  class="icon-box-remove"></i>Retirer
+                  Inscription</a></li>
               </ul>
             </li>
           </ul>
