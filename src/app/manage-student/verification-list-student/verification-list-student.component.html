@@ -19,7 +19,7 @@
       </div>
 
       <div class="text-right">
-        <button (click)="generateListProblemStudent()"
+        <button [disabled]="data.length==0" (click)="generateListProblemStudent()"
                 class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
           class="icon-pen2"></i></b> Générer
         </button>
