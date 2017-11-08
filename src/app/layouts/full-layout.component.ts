@@ -50,6 +50,10 @@ export class FullLayoutComponent implements OnInit {
           }, {
             name: "Dossiers en cours",
             url: "/student/list-current"
+          }, {
+            name: "Verification liste des étudiants",
+            url: "/student/verification-list",
+            hidden: !this.checkIfAdminHasRole(1)
           }]
       },
       {

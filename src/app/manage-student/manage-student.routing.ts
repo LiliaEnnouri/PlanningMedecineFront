@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {ListStudentComponent} from "./list-student/list-student.component";
 import {DetailStudentComponent} from "./detail-student/detail-student.component";
 import {EditStudentComponent} from "./edit-student/edit-student.component";
+import {VerificationListStudentComponent} from "./verification-list-student/verification-list-student.component";
 
 export const routes: Routes = [
   {
@@ -17,6 +18,9 @@ export const routes: Routes = [
   }, {
     path: ':studentId/edit',
     component: EditStudentComponent,
+  }, {
+    path: 'verification-list',
+    component: VerificationListStudentComponent
   }
 ];
 

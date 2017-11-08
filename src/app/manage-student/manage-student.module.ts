@@ -12,6 +12,7 @@ import {ResidanatStudentFileComponent} from "./student-file/residanat/residanat-
 import {StudiesStudentFileComponent} from "./student-file/studies/studies-student-file.component";
 import {SectionValidationComponent} from "./student-file/shared/section-validation/section-validation.component";
 import {ManageStudentRoutingModule} from "app/manage-student/manage-student.routing";
+import {VerificationListStudentComponent} from "./verification-list-student/verification-list-student.component";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {ManageStudentRoutingModule} from "app/manage-student/manage-student.rout
     PhotoComponent,
     ResidanatStudentFileComponent,
     StudiesStudentFileComponent,
-    SectionValidationComponent]
+    SectionValidationComponent,
+    VerificationListStudentComponent]
 })
 export class ManageStudentModule {
 }
