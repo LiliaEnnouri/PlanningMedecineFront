@@ -1,0 +1,29 @@
+<div class="panel panel-flat">
+  <div class="panel-heading">
+    <h5 class="panel-title">Verification des étudiants</h5>
+    <div class="heading-elements">
+      <ul class="icons-list">
+        <li><a data-action="collapse"></a></li>
+        <li><a data-action="reload"></a></li>
+        <li><a data-action="close"></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-lg-10">
+          <input type="file" class="file-input-ajax file-input-excel">
+        </div>
+      </div>
+
+      <div class="text-right">
+        <button [disabled]="data.length==0" (click)="generateListProblemStudent()"
+                class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i
+          class="icon-pen2"></i></b> Générer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

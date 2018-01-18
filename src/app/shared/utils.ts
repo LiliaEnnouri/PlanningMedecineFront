@@ -275,8 +275,11 @@ export class Utils {
   }
 
   static getCurrentUniversityYear() {
-
-    return (new Date().getFullYear()) + "-" + (new Date().getFullYear() + 1)
+    let fullYear = new Date().getFullYear();
+    if (new Date().getMonth() >= 0 && new Date().getMonth() <= 5) {
+      fullYear -= 1;
+    }
+    return (fullYear) + "-" + (fullYear + 1)
   }
 
 }
