@@ -1,6 +1,3 @@
-/**
- * Created by Abbes on 21/08/2017.
- */
 import {Component, Input, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {SectionValidation} from "../../../../shared/models/section-validation";
@@ -8,8 +5,8 @@ import {AdminService} from "../../../../shared/services/admin.service";
 import {Utils} from "../../../../shared/utils";
 import {Student} from "../../../../shared/models/student";
 import {Subscription} from "rxjs/Subscription";
-declare var jQuery: any;
-declare var swal: any;
+declare let jQuery: any;
+declare let swal: any;
 @Component({
   selector: 'section-validation',
   templateUrl: './section-validation.component.html',
