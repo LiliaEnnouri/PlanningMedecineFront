@@ -13,9 +13,11 @@ import {UserService} from "../../../shared/services/user.service";
 import {Credit} from "../../../shared/models/credit";
 import {Config} from "../../../shared/config";
 import {SectionValidation} from "../../../shared/models/section-validation";
-import set = Reflect.set;
-declare var jQuery: any;
-declare var swal: any;
+import {Specialite} from "../../../shared/models/specialite";
+
+declare let jQuery: any;
+declare let swal: any;
+
 @Component({
   selector: 'app-student-studies',
   templateUrl: 'studies-student-file.component.html',
@@ -35,6 +37,7 @@ export class StudiesStudentFileComponent implements OnInit {
   universities: University[] = [];
   editAction: boolean;
   credits: Credit[] = [];
+  specialities: Specialite[] = [];
 
   statusSection: SectionValidation;
 
@@ -75,6 +78,7 @@ export class StudiesStudentFileComponent implements OnInit {
     this.getAllUniversities();
     this.getAllLevels();
     this.getAllCredits();
+    this.getAllSpecialities();
 
 
     /* Admin special */
@@ -140,6 +144,26 @@ export class StudiesStudentFileComponent implements OnInit {
       )
   }
 
+  private getAllSpecialities() {
+    const baseContext = this;
+    this.busy = this.studentFileServie.getAllSpecialities()
+      .subscribe(
+        (data) => {
+          this.specialities = data;
+          if (this.editAction) {
+            for (let i = 0; i < this.student.studies.length; i++) {
+              if (baseContext.student.studies[i].id_specialite) {
+                setTimeout(function () {
+                  const selectSpeciality = jQuery(".select-speciality_" + i);
+                  selectSpeciality.val(baseContext.student.studies[i].id_specialite).trigger("change");
+                }, 50);
+              }
+            }
+          }
+        }
+      )
+  }
+
   private getAllLevels() {
     const baseContext = this;
     this.studentFileServie.getAllLevels()
@@ -195,7 +219,14 @@ export class StudiesStudentFileComponent implements OnInit {
 
     const baseContext = this;
     selectLevel.on("change", function () {
-      baseContext.student.studies[index].id_level = +jQuery(this).val();
+      const selectedLevel = baseContext.student.studies[index].id_level = +jQuery(this).val();
+      if (selectedLevel > 7) {
+        setTimeout(function () {
+          baseContext.initSpecialitySelect(index);
+        }, 100);
+      } else {
+        baseContext.student.studies[index].id_specialite = null;
+      }
     });
   }
 
@@ -264,6 +295,7 @@ export class StudiesStudentFileComponent implements OnInit {
       baseContext.initUniversitySelect(index);
       baseContext.initLevelSelect(index);
       baseContext.initYearSelect(index);
+      baseContext.initSpecialitySelect(index);
     }, timout);
   }
 
@@ -308,6 +340,15 @@ export class StudiesStudentFileComponent implements OnInit {
     const baseContext = this;
     selectCredit.on("change", function () {
       baseContext.student.studies[index].id_credit = +jQuery(this).val();
+    });
+  }
+
+  private initSpecialitySelect(index: number) {
+    const selectSpeciality = jQuery(".select-speciality_" + index);
+    selectSpeciality.select2();
+    const baseContext = this;
+    selectSpeciality.on("change", function () {
+      baseContext.student.studies[index].id_specialite = +jQuery(this).val();
     });
   }
 

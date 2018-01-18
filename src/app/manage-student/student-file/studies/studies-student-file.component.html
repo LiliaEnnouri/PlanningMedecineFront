@@ -102,6 +102,22 @@
                           obligatoire.</label>
                       </div>
                     </div>
+                    <div class="row" *ngIf="study.id_level>7">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Spécialité :</label>
+                          <select name="specility" class="select-speciality_{{i}}">
+                            <option disabled value="0">Choisir la spécialité</option>
+                            <option *ngFor="let speciality of specialities" value="{{speciality.id_Specialite}}">
+                              {{speciality.nom}}
+                            </option>
+                          </select>
+                        </div>
+                        <label *ngIf="submitted&&!study.id_level" class="validation-error-label">Ce champs
+                          est
+                          obligatoire.</label>
+                      </div>
+                    </div>
                     <div class=" row ">
                       <div class="col-md-12 form-group">
                         <label>Piéce(s) jointe(s) :</label>

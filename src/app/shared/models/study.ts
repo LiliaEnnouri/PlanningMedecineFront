@@ -10,4 +10,5 @@ export class Study {
   public id_university: number;
   public id_credit: number;
   public medias: Array<any>;
+  id_specialite: number;
 }
