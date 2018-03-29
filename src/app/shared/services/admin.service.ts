@@ -168,4 +168,18 @@ export class AdminService extends GenericService {
       .map(res => res.json())
       .catch(this.handleErrors);
   }
+
+  generateStudentFile(selectedLevel: number) {
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const url = Config.baseUrl + "/admin/student/student-files-level/" + selectedLevel;
+
+    return this.http.get(url,
+      {
+        headers: this.headers,
+        responseType: ResponseContentType.Blob
+      }
+    )
+      .map(res => res.json())
+      .catch(this.handleErrors);
+  }
 }

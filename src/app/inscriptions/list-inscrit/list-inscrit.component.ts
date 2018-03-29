@@ -10,6 +10,7 @@ import {Level} from "../../shared/models/level";
 
 import * as FileSaver from "file-saver";
 import {Student} from "../../shared/models/student";
+
 declare let jQuery: any;
 declare let swal: any;
 
@@ -152,6 +153,24 @@ export class ListInscritComponent implements OnInit {
         (error) => {
 
         })
+  }
+
+  generateStudentFileByLevel() {
+    const baseContext = this;
+    if (this.selectedLevel) {
+      this.adminService.generateStudentFile(this.selectedLevel)
+        .subscribe(
+          (data) => {
+            FileSaver.saveAs(data, "Liste_Dossiers_" + baseContext.selectedLevel + ".zip");
+          }
+        )
+    } else {
+      swal({
+        title: "Attention !",
+        text: "Séléctionner le niveau SVP !",
+        type: 'warning',
+      })
+    }
   }
 
   retirerInscriptionStudent(registration_id_student: number, index: number) {
