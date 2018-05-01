@@ -161,7 +161,7 @@ export class ListInscritComponent implements OnInit {
       this.adminService.generateStudentFile(this.selectedLevel)
         .subscribe(
           (data) => {
-            FileSaver.saveAs(data, "Liste_Dossiers_" + baseContext.selectedLevel + ".zip");
+            FileSaver.saveAs(data, "Liste_Dossiers_" + baseContext.selectedLevel + ".pdf");
           }
         )
     } else {
