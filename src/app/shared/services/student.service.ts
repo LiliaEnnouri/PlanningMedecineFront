@@ -3,6 +3,7 @@ import {Http} from "@angular/http";
 import {GenericService} from "./generic.service";
 import {Config} from "../config";
 import {StorageService} from "./storage.service";
+
 @Injectable()
 export class StudentService extends GenericService {
   constructor(private http: Http, private storageService: StorageService) {
@@ -19,7 +20,7 @@ export class StudentService extends GenericService {
       .catch(this.handleErrors);
   }
 
-  getAllStudentsByStatus(requestedStatus: number) {
+  getAllStudentsByStatus( requestedStatus: number) {
     const url = Config.baseUrl + '/admin/student/status/' + requestedStatus;
     console.log(url);
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
@@ -101,7 +102,7 @@ export class StudentService extends GenericService {
   }
 
   getLevelStudent(studentId: number) {
-    const url = Config.baseUrl + '/admin/student/' + studentId + '/level' ;
+    const url = Config.baseUrl + '/admin/student/' + studentId + '/level';
     console.log(url);
     this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.get(url, {

@@ -18,7 +18,7 @@ export class TeacherFileService extends GenericService {
 
   editInformations(teacher: Teacher) {
     const url = Config.baseUrl + "/admin/teacher/" + teacher.id_Teacher + "/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("teacher-token"));
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, teacher,
       {
         headers: this.headers
@@ -29,7 +29,7 @@ export class TeacherFileService extends GenericService {
 
   editBacInformation(bac: Bac, id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/bac/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("teacher-token"));
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, bac,
       {
         headers: this.headers
@@ -40,7 +40,7 @@ export class TeacherFileService extends GenericService {
 
   editFonctionInformation(fonctions: Fonction[], id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/fonctions/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("teacher-token"));
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, fonctions, {
       headers: this.headers
     })
@@ -72,7 +72,7 @@ export class TeacherFileService extends GenericService {
 
   submitAdmin(sectionIds: number[]) {
     const url = Config.baseUrl + "/teacher/me/submitForReview";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("teacher-token"));
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.post(url, sectionIds,
       {
         headers: this.headers
@@ -85,7 +85,7 @@ export class TeacherFileService extends GenericService {
 
   removeDoctaurat(id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/doctaurat/remove";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("teacher-token"));
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.delete(url,
       {
         headers: this.headers
@@ -97,7 +97,7 @@ export class TeacherFileService extends GenericService {
 
   editConcours(concour: TeacherConcour, id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/concour/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("teacher-token"));
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(url, concour, {
       headers: this.headers
     })
@@ -107,7 +107,7 @@ export class TeacherFileService extends GenericService {
 
   removeConcour(concourType: number, id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/concour/" + concourType + "/remove";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("teacher-token"));
+    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.delete(url,
       {
         headers: this.headers

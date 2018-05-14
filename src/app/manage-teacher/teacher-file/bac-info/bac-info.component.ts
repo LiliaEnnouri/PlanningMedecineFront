@@ -14,8 +14,10 @@ import {Config} from "app/shared/config";
 import {Teacher} from "../../../shared/models/Teacher";
 import {TeacherFileService} from "../../../shared/services/teacher-file.service";
 import {SharedService} from "../../../shared/services/shared.service";
+
 declare let jQuery: any;
 declare let swal: any;
+
 @Component({
   selector: 'app-bac-component',
   templateUrl: 'bac-info.component.html',
@@ -128,8 +130,9 @@ export class BacInfoComponent implements OnInit {
     this.busy = this.teacherFileService.editBacInformation(bac, this.teacher.id_Teacher)
       .subscribe(
         (data) => {
-          data.id_Teacher = this.teacher.id_Teacher;
           this.teacher.bac = data;
+          this.teacher.bac.id_Teacher = this.teacher.id_Teacher;
+          console.log(this.teacher.bac);
           swal({
             title: "Succès!",
             text: 'Bac ' + baseContext.editAction ? 'Section éditée' : 'ajoutée' + ' avec succées',
