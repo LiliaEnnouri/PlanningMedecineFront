@@ -9,6 +9,7 @@ import {StorageService} from "./storage.service";
 import {City} from "../models/city";
 import {Observable} from "rxjs/Observable";
 import {Country} from "../models/country";
+
 @Injectable()
 export class SharedService extends GenericService {
 
@@ -60,18 +61,6 @@ export class SharedService extends GenericService {
 
   getAllLevels() {
     const url = Config.baseUrl + "/levels";
-
-    return this.http.get(url,
-      {
-        headers: this.headers
-      })
-      .map(res => res.json())
-      .catch(this.handleErrors);
-  }
-
-
-  getAllSpecialities() {
-    const url = Config.baseUrl + "/specialities";
 
     return this.http.get(url,
       {

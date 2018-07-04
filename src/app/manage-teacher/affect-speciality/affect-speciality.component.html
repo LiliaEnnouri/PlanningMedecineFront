@@ -1,0 +1,40 @@
+<!-- Content area -->
+<div class="content">
+
+  <!-- Invoice archive -->
+  <div class="panel panel-white">
+    <div class="panel-heading" [ngBusy]="busy">
+      <h6 class="panel-title">Liste des spécialités</h6>
+      <div class="heading-elements">
+      </div>
+    </div>
+    <br>
+
+    <table class="table datatable-basic">
+      <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Responsable</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let speciality of specialities;let i=index;">
+        <td>
+          {{speciality.nom}}
+        </td>
+        <td>
+          <select name="enseignant" class="select-enseignant-speciality-{{i}}">
+            <option value="0">Select Enseignant</option>
+            <option *ngFor="let enseignant of speciality.enseignants" value="{{enseignant.id_Teacher}}">
+              {{enseignant.first_name}} {{enseignant.last_name}}
+            </option>
+          </select>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- /invoice archive -->
+</div>
+<!-- /content area -->

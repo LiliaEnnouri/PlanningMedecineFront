@@ -18,8 +18,11 @@ import {TeacherFileService} from "../../../shared/services/teacher-file.service"
 import {Specialite} from "../../../shared/models/specialite";
 import {Service} from "../../../shared/models/service";
 import {Grade} from "../../../shared/models/grade";
+import {SpecialityService} from "../../../shared/services/speciality.service";
+
 declare let jQuery: any;
 declare let swal: any;
+
 @Component({
   selector: 'app-teacher-general-info',
   templateUrl: './teacher-general-info.component.html',
@@ -75,10 +78,7 @@ export class TeacherGeneralInfoComponent implements OnInit {
   constructor(private router: Router,
               private sharedService: SharedService,
               private teacherFileService: TeacherFileService,
-              private inscriptionService: InscriptionService,
-              private stoarageService: StorageService,
-              private userService: UserService,
-              private adminService: AdminService) {
+              private specialityService: SpecialityService) {
   }
 
   initializeRadioBox() {
@@ -394,7 +394,7 @@ export class TeacherGeneralInfoComponent implements OnInit {
           }
         }
       );
-    this.sharedService.getAllSpecialities()
+    this.specialityService.getAll()
       .subscribe(
         (data) => {
           this.specialites = data;

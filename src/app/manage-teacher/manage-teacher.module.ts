@@ -13,6 +13,7 @@ import {FonctionTeacherFileComponent} from "./teacher-file/fonction/fonction-tea
 import {DoctauratTeacherFileComponent} from "./teacher-file/doctaurat/doctaurat-teacher-file.component";
 import {ResidanatTeacherFileComponent} from "./teacher-file/residanat/residanat-teacher-file.component";
 import {ValidationNoteComponent} from "./teacher-file/shared/validation-note.component";
+import { AffectSpecialityComponent } from './affect-speciality/affect-speciality.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {ValidationNoteComponent} from "./teacher-file/shared/validation-note.com
     DoctauratTeacherFileComponent,
     ResidanatTeacherFileComponent,
     AssisAggrProfessComponent,
-    ValidationNoteComponent
+    ValidationNoteComponent,
+    AffectSpecialityComponent
   ]
 })
 export class ManageTeacherModule {

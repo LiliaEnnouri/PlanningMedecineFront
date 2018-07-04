@@ -5,7 +5,9 @@ import {UserService} from "../shared/services/user.service";
 import {Admin} from "app/shared/models/admin";
 import {ReclamationService} from "../shared/services/reclamation.service";
 import {ConversationService} from "../shared/services/conversation.service";
+
 declare let jQuery: any;
+
 @Component({
   selector: 'app-full-layout',
   templateUrl: './full-layout.component.html'
@@ -67,7 +69,13 @@ export class FullLayoutComponent implements OnInit {
           }, {
             name: "Dossiers en cours",
             url: "/teacher/list-current"
-          }]
+          },
+          {
+            name: 'Affectation Responsable Spécialité',
+            url: "/teacher/affect-speciality"
+          }
+
+        ]
       },
       {
         name: "Inscriptions",
@@ -248,6 +256,7 @@ export class FullLayoutComponent implements OnInit {
     }
   }
 }
+
 export class NavigationMain {
   public name: string;
   public icon: string;
@@ -258,6 +267,7 @@ export class NavigationMain {
   public notification?: number;
 
 }
+
 export class ChildrenNavigation {
   public name: string;
   public active?: string;

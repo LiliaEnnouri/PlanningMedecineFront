@@ -34,6 +34,7 @@ import {SharedService} from "./shared/services/shared.service";
 import {ImpressionsModule} from "./impressions/impressions.module";
 import {StatsModule} from "./stats/stats.module";
 import {StatsService} from "./shared/services/stats.service";
+import {SpecialityService} from "./shared/services/speciality.service";
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import {StatsService} from "./shared/services/stats.service";
     TeacherService,
     SharedService,
     TeacherFileService,
-    StatsService
+    StatsService,
+    SpecialityService
   ],
   bootstrap: [AppComponent]
 })

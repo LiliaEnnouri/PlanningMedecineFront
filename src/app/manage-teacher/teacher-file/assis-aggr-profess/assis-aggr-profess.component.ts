@@ -9,8 +9,11 @@ import {Teacher} from "../../../shared/models/Teacher";
 import {TeacherFileService} from "../../../shared/services/teacher-file.service";
 import {SharedService} from "../../../shared/services/shared.service";
 import {TeacherConcour} from "../../../shared/models/Teacher_Concour";
+import {SpecialityService} from "../../../shared/services/speciality.service";
+
 declare let jQuery: any;
 declare let swal: any;
+
 @Component({
   selector: 'app-assis-aggr-component',
   templateUrl: 'assis-aggr-profess.component.html',
@@ -64,7 +67,8 @@ export class AssisAggrProfessComponent implements OnInit {
   constructor(private stoarageService: StorageService,
               private teacherFileService: TeacherFileService,
               private router: Router,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private specialityService: SpecialityService) {
   }
 
   private initYearSelect() {
@@ -119,7 +123,7 @@ export class AssisAggrProfessComponent implements OnInit {
   }
 
   private getAllSpecialities() {
-    this.busy = this.sharedService.getAllSpecialities()
+    this.busy = this.specialityService.getAll()
       .subscribe(
         (data) => {
           this.specialities = data;

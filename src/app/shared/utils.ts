@@ -276,7 +276,7 @@ export class Utils {
 
   static getCurrentUniversityYear() {
     let fullYear = new Date().getFullYear();
-    if (new Date().getMonth() >= 0 && new Date().getMonth() <= 5) {
+    if (new Date().getMonth() >= 0 && new Date().getMonth() <= 7) {
       fullYear -= 1;
     }
     return (fullYear) + "-" + (fullYear + 1)
