@@ -4,7 +4,9 @@
 import {StorageService} from "app/shared/services/storage.service";
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {Http, ResponseContentType} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
+import { map, catchError } from 'rxjs/operators';
+import { ResponseContentType } from '@angular/http';
 import {Config} from "../config";
 import {Conversation} from "../models/conversation";
 import {UserService} from "./user.service";
@@ -12,38 +14,36 @@ import {UserService} from "./user.service";
 @Injectable()
 export class ImpressionService extends GenericService {
 
-  constructor(private http: Http, private storageService: StorageService, private userService: UserService) {
+  constructor(private http: HttpClient, private storageService: StorageService, private userService: UserService) {
     super();
   }
 
   attestationInscription(langueId: number, studentCode: string) {
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     const url = Config.baseUrl + "/admin/student/impression/inscription";
-
-    return this.http.post(url, {
+    const options = {
+      headers: headers,
+      responseType: 'blob' as 'json'
+    }
+    return this.http.post<any>(url, {
       id_Langue: langueId,
       studentCode: studentCode
-    }, {
-      headers: this.headers,
-      responseType: ResponseContentType.Blob
-    })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+    }, options)
+      .pipe(catchError(this.handleErrors));
   }
 
   attestationPresence(langueId: number, studentCode: string) {
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     const url = Config.baseUrl + "/admin/student/impression/presence";
-
-    return this.http.post(url, {
+    const options = {
+      headers: headers,
+      responseType: 'blob' as 'json'
+    };
+    return this.http.post<any>(url, {
       id_Langue: langueId,
       studentCode: studentCode
-    }, {
-      headers: this.headers,
-      responseType: ResponseContentType.Blob
-    })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+    }, options)
+      .pipe(catchError(this.handleErrors));
   }
 }
 

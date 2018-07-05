@@ -1,23 +1,19 @@
 import {NgModule} from "@angular/core";
-import {BusyModule} from "angular2-busy";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {NgBusyModule} from "ng-busy";
 import {StorageService} from "./services/storage.service";
-import {MomentModule} from "angular2-moment";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    BusyModule,
-    MomentModule],
-  exports: [
-    CommonModule,
-    FormsModule,
-    BusyModule,
-    MomentModule],
-  declarations: [],
-  providers: [StorageService]
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgBusyModule],
+    exports: [
+        CommonModule,
+        FormsModule],
+    declarations: [],
+    providers: [StorageService]
 })
 export class SharedModule {
 

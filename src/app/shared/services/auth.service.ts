@@ -1,4 +1,6 @@
-import {Http} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
+import { map, catchError } from 'rxjs/operators';
+import { ResponseContentType } from '@angular/http';
 import {GenericService} from "./generic.service";
 import {Config} from "../config";
 import {Injectable} from "@angular/core";
@@ -10,7 +12,7 @@ import {Student} from "app/shared/models/student";
 @Injectable()
 export class AuthService extends GenericService {
 
-  constructor(private http: Http, private stoarageService: StorageService) {
+  constructor(private http: HttpClient, private stoarageService: StorageService) {
     super();
   }
 
@@ -18,11 +20,11 @@ export class AuthService extends GenericService {
   login(credentials: Credentials) {
     const url = Config.baseUrl + '/auth/login/admin';
     console.log("login", JSON.stringify(credentials));
-    return this.http.post(url, credentials, {
-      headers: this.headers
+    const headers = this.headers;
+    return this.http.post<any>(url, credentials, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
 

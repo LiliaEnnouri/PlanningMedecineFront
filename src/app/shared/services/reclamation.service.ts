@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {Http} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
+import { map, catchError } from 'rxjs/operators';
+import { ResponseContentType } from '@angular/http';
 import {StorageService} from "./storage.service";
 import {Config} from '../config';
 import {Reclamation} from "../models/reclamation";
@@ -10,71 +12,64 @@ import {Reclamation} from "../models/reclamation";
 @Injectable()
 export class ReclamationService extends GenericService {
 
-  constructor(private http: Http, private stoarageService: StorageService) {
+  constructor(private http: HttpClient, private stoarageService: StorageService) {
     super();
   }
 
   getAllReclamations() {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/reclamation";
 
-    return this.http.get(url, {
-      headers: this.headers
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
 
 
   updateStatus(reclamationId:number , status: number){
 
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/reclamation/status/" + reclamationId  ;
 
-    return this.http.put(url, {"status" : status,"template" : "emailReponseReclamationAuto"},
+    return this.http.put<any>(url, {"status" : status,"template" : "emailReponseReclamationAuto"},
       {
-        headers: this.headers
+        headers: headers
       }
-    )
-      .catch(this.handleErrors);
+    ).pipe(catchError(this.handleErrors));
   }
   sendRepMail(reclamationId:number , content: string) {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/reclamation/mail/" + reclamationId  ;
 
-    return this.http.post(url, {"content" : content},
+    return this.http.post<any>(url, {"content" : content},
       {
-        headers: this.headers
+        headers: headers
       }
-    )
-      .catch(this.handleErrors);
+    ).pipe(catchError(this.handleErrors));
 
 
   }
   sendMail(adminId:number , content: string ,topic: string) {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/reclamation/mail/" + adminId  ;
 
-    return this.http.post(url, {"content" : content,"topic" : topic},
+    return this.http.post<any>(url, {"content" : content,"topic" : topic},
       {
-        headers: this.headers
+        headers: headers
       }
-    )
-      .catch(this.handleErrors);
-
-
+    ).pipe(catchError(this.handleErrors));
   }
 
   getNumberOfReclamations() {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/reclamation/number";
 
-    return this.http.get(url, {
-      headers: this.headers
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
 

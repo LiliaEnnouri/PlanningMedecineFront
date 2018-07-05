@@ -1,7 +1,9 @@
 import {StorageService} from "app/shared/services/storage.service";
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {Http} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
+import { map, catchError } from 'rxjs/operators';
+import { ResponseContentType } from '@angular/http';
 import {Config} from "../config";
 import {Conversation} from "../models/conversation";
 import {UserService} from "./user.service";
@@ -10,67 +12,62 @@ import {UserService} from "./user.service";
 export class ConversationService extends GenericService {
   supportObserver: SupportObserver;
 
-  constructor(private http: Http, private storageService: StorageService, private userService: UserService) {
+  constructor(private http: HttpClient, private storageService: StorageService, private userService: UserService) {
     super();
   }
 
 
   getAllConversations(user: string) {
     const url = Config.baseUrl + '/conversation/admin/' + user;
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.get(url, {
-      headers: this.headers
-    })
-      .map(res => {
-        const data = res.json();
-        const conversations = [];
-        data.forEach(function (conversation) {
-          conversation.user = conversation.student ? conversation.student : conversation.teacher;
-          conversations.push(conversation);
-        });
-        return conversations;
-      })
-      .catch(this.handleErrors);
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
+    }).pipe(map(res => {
+      const data = res;
+      const conversations = [];
+      data.forEach(function (conversation) {
+        conversation.user = conversation.student ? conversation.student : conversation.teacher;
+        conversations.push(conversation);
+      });
+      return conversations;
+    }), catchError(this.handleErrors));
   }
 
   getConversationById(id_conversation: number) {
     const url = Config.baseUrl + '/conversation/' + id_conversation;
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.get(url, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   getConversationMessages(id_conversation: number) {
     const url = Config.baseUrl + '/conversation/' + id_conversation + '/message';
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.get(url, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   startConversation(id_student: number, id_admin: number, content?: string, topic?: string) {
     const url = Config.baseUrl + '/conversation/start';
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.post(url, {
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post<any>(url, {
       id_Student: id_student,
       id_Admin: id_admin,
       content: content,
       topic: topic
     }, {
-      headers: this.headers
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   addConversationMessage(conversation: Conversation, content: string) {
     const url = Config.baseUrl + '/conversation/' + conversation.id_Conversation + '/message/add';
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     let requestObj: any;
     if (conversation.id_Student) {
       requestObj = {
@@ -85,20 +82,18 @@ export class ConversationService extends GenericService {
         content: content
       };
     }
-    return this.http.post(url, requestObj, {
-      headers: this.headers
+    return this.http.post<any>(url, requestObj, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   getConversationByStatus(user: string, status: number) {
     const url = Config.baseUrl + '/conversation/admin/' + user + '/status/' + status;
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.get(url, {
-      headers: this.headers
-    })
-      .map(res => {
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
+    }).pipe(map(res => {
         const data = res.json();
         const conversations = [];
         data.forEach(function (conversation) {
@@ -106,60 +101,54 @@ export class ConversationService extends GenericService {
           conversations.push(conversation);
         });
         return conversations;
-      })
-      .catch(this.handleErrors);
+      }), catchError(this.handleErrors));
   }
 
   updateConversationStatus(conversation: Conversation, status: number) {
     const url = Config.baseUrl + '/conversation/' + conversation.id_Conversation + '/status/{status}';
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.post(url, {
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post<any>(url, {
       status: status
     }, {
-      headers: this.headers
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   getConversationsCount() {
     const url = Config.baseUrl + '/conversation/admin/count';
-    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
-    return this.http.get(url, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   getConversationsWithStudentCount() {
     const url = Config.baseUrl + '/conversation/admin/count/student';
-    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
-    return this.http.get(url, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   getConversationsWithTeacherCount() {
     const url = Config.baseUrl + '/conversation/admin/count/teacher';
-    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
-    return this.http.get(url, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   setConversationViewed(conversation: Conversation) {
     const url = Config.baseUrl + '/conversation/' + conversation.id_Conversation + '/viewed';
-    this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
-    return this.http.put(url, {}, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.userService.getTokent());
+    return this.http.put<any>(url, {}, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 }
 

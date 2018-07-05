@@ -7,14 +7,13 @@ import {AuthService} from "./shared/services/auth.service";
 import {StorageService} from "app/shared/services/storage.service";
 import {UserService} from "./shared/services/user.service";
 import {SharedModule} from "./shared/shared.module";
-import {LaddaModule} from "angular2-ladda";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpModule} from "@angular/http";
+import {HttpClientModule} from "@angular/common/http";
 import {FullLayoutComponent} from "./layouts/full-layout.component";
 import {StudentService} from "./shared/services/student.service";
-
+import {NgBusyModule} from "ng-busy";
 import {SupportModule} from "./support/support.module";
 import {ReclamationService} from "./shared/services/reclamation.service";
 import {StudentFileService} from "./shared/services/student-file.service";
@@ -50,8 +49,8 @@ import {SpecialityService} from "./shared/services/speciality.service";
     BrowserAnimationsModule,
     CommonModule,
     FormsModule,
-    HttpModule,
-    LaddaModule,
+    NgBusyModule,
+    HttpClientModule,
     ManageStudentModule,
     SupportModule,
     InscriptionsModule,

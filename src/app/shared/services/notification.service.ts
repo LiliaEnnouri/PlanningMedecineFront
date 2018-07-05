@@ -1,7 +1,9 @@
 import {StorageService} from "app/shared/services/storage.service";
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {Http} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
+import { map, catchError } from 'rxjs/operators';
+import { ResponseContentType } from '@angular/http';
 import {Config} from "../config";
 import {UserService} from "./user.service";
 import {Notification} from "../models/notification";
@@ -9,71 +11,65 @@ import {Notification} from "../models/notification";
 @Injectable()
 export class NotificationService extends GenericService {
 
-  constructor(private http: Http, private storageService: StorageService, private userService: UserService) {
+  constructor(private http: HttpClient, private storageService: StorageService, private userService: UserService) {
     super();
   }
 
 
   getAllNotifications() {
     const url = Config.baseUrl + '/notification';
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.get(url, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   getNotificationById(id_notification: number) {
     const url = Config.baseUrl + '/notification/' + id_notification;
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.get(url, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   addNotification(notifiation: Notification) {
     const url = Config.baseUrl + '/notification/add';
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.post(url, notifiation, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post<any>(url, notifiation, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   updateNotificationStatus(notification: Notification, status: number) {
     const url = Config.baseUrl + '/notification/' + notification.id_Notification + '/status/{status}';
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.post(url, {
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post<any>(url, {
       status: status
     }, {
-      headers: this.headers
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   deleteNotification(id_Notification: number) {
     const url = Config.baseUrl + '/notification/' + id_Notification;
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.delete(url, {
-      headers: this.headers
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   editNotification(notification: Notification) {
     const url = Config.baseUrl + '/notification/' + notification.id_Notification;
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(url, notification
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put<any>(url, notification
       , {
-        headers: this.headers
+        headers: headers
       })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 }

@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {Http} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
+import { map, catchError } from 'rxjs/operators';
+import { ResponseContentType } from '@angular/http';
 import {Config} from "../config";
 import {StorageService} from "./storage.service";
 import {Bac} from "app/shared/models/bac";
@@ -12,122 +14,112 @@ import {TeacherConcour} from "../models/Teacher_Concour";
 @Injectable()
 export class TeacherFileService extends GenericService {
 
-  constructor(private http: Http, private storageService: StorageService) {
+  constructor(private http: HttpClient, private storageService: StorageService) {
     super();
   }
 
   editInformations(teacher: Teacher) {
     const url = Config.baseUrl + "/admin/teacher/" + teacher.id_Teacher + "/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(url, teacher,
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put<any>(url, teacher,
       {
-        headers: this.headers
+        headers: headers
       })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   editBacInformation(bac: Bac, id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/bac/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(url, bac,
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put<any>(url, bac,
       {
-        headers: this.headers
+        headers: headers
       })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   editFonctionInformation(fonctions: Fonction[], id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/fonctions/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(url, fonctions, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put<any>(url, fonctions, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   editDoctaurat(doctaurat: Doctaurat, id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/doctaurat/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(url, doctaurat,
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put<any>(url, doctaurat,
 
       {
-        headers: this.headers
+        headers: headers
       })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   editResidanatInformation(residanat: Residanat, id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/edit-residanat";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(url, residanat, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put<any>(url, residanat, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   submitAdmin(sectionIds: number[]) {
     const url = Config.baseUrl + "/teacher/me/submitForReview";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.post(url, sectionIds,
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post<any>(url, sectionIds,
       {
-        headers: this.headers
+        headers: headers
       }
     )
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
 
   removeDoctaurat(id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/doctaurat/remove";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.delete(url,
       {
-        headers: this.headers
+        headers: headers
       })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
 
   editConcours(concour: TeacherConcour, id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/concour/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(url, concour, {
-      headers: this.headers
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put<any>(url, concour, {
+      headers: headers
     })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   removeConcour(concourType: number, id_Teacher: number) {
     const url = Config.baseUrl + "/admin/teacher/" + id_Teacher + "/concour/" + concourType + "/remove";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.delete(url,
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.delete<Teacher>(url,
       {
-        headers: this.headers
+        headers: headers
       })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 
   changeStatusFileTeacher(teacherId: number, status: number) {
     const url = Config.baseUrl + "/admin/teacher/" + teacherId + "/status-file/edit";
-    this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.post(url,
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.post<any>(url,
       {
         status: status
       },
       {
-        headers: this.headers
+        headers: headers
       }
     )
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));
   }
 }

@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {Http} from '@angular/http';
+import {HttpClient} from "@angular/common/http";
+import { map, catchError } from 'rxjs/operators';
+import { ResponseContentType } from '@angular/http';
 import {Config} from '../config';
 import {Student} from "../models/student";
 import {RegistrationYearUniversity} from "../models/RegistrationYearUniversity";
@@ -8,7 +10,7 @@ import {StorageService} from "./storage.service";
 @Injectable()
 export class InscriptionService extends GenericService {
 
-  constructor(private http: Http, private stoarageService: StorageService) {
+  constructor(private http: HttpClient, private stoarageService: StorageService) {
     super();
   }
 
@@ -16,28 +18,26 @@ export class InscriptionService extends GenericService {
 
 
   openInscription(registrationYear: RegistrationYearUniversity) {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/admin/registration/university-year/open";
 
-    return this.http.post(url, registrationYear,
+    return this.http.post<any>(url, registrationYear,
       {
-        headers: this.headers
+        headers: headers
       }
-    )
-      .catch(this.handleErrors);
+    ).pipe(catchError(this.handleErrors));
   }
 
   getCurrentInscription(year_university: string) {
-    this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
+    const headers = this.headers.set("Authorization", "Bearer " + this.stoarageService.read("admin-token"));
     const url = Config.baseUrl + "/admin/registration/university-year/get";
 
-    return this.http.post(url, {
+    return this.http.post<any>(url, {
         year_university: year_university
       },
       {
-        headers: this.headers
+        headers: headers
       })
-      .map(res => res.json())
-      .catch(this.handleErrors);
+      .pipe(catchError(this.handleErrors));;
   }
 }
