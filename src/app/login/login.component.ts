@@ -4,8 +4,10 @@ import {StorageService} from "app/shared/services/storage.service";
 import {AuthService} from "app/shared/services/auth.service";
 import {Credentials} from "app/shared/models/credentials";
 import {UserService} from "../shared/services/user.service";
+import {Subscription} from "rxjs/Rx";
 
 declare let jQuery: any;
+
 @Component({
   templateUrl: './login.component.html',
   styleUrls: [],
@@ -14,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   isLoading: boolean;
   credentials: Credentials = new Credentials();
+  busy: Subscription;
 
   ngOnInit() {
     // jQuery(".alert").alert('close');
@@ -31,9 +34,9 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     jQuery(".alert").hide();
     this.credentials.password = this.credentials.password.split(' ').join('');
-    this.authService.login(this.credentials)
+    this.busy = this.authService.login(this.credentials)
       .subscribe(
-        (data) => {
+        (data: any) => {
           this.isLoading = false;
           this.stoarageService.write("admin", data.admin);
           this.userService.loggedAdmin = data.admin;

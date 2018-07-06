@@ -9,7 +9,7 @@
       <div class="content-wrapper">
 
         <!-- Content area -->
-        <div class="content pb-20">
+        <div [ngBusy]="busy" class="content pb-20">
 
           <!-- Form with validation -->
           <form #loginForm="ngForm" class="form-validate">
@@ -70,7 +70,7 @@
                                   <button type="button" class="btn btn-default btn-ladda btn-ladda-spinner" data-spinner-color="#333" data-style="slide-up"><span class="ladda-label">Spinner</span></button>
                                   <button type="button" class="btn bg-slate-400 btn-ladda btn-ladda-progress" data-style="slide-up"><span class="ladda-label">Spinner + Progress</span></button>
                                 </div> -->
-                <button [ladda]="isLoading" (click)="loginSubmit()" type="submit" class="btn bg-blue btn-block"
+                <button (click)="loginSubmit()" type="submit" class="btn bg-blue btn-block"
                         [disabled]="!loginForm.form.valid">Login <i
                   class="icon-arrow-right14 position-right"></i></button>
               </div>
