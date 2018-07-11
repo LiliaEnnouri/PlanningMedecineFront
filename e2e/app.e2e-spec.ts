@@ -1,6 +1,6 @@
 import { PlateformeMedecineAdminPage } from './app.po';
 
-describe('plateforme-medecine-admin App', () => {
+describe('plateforme-medecine-planning App', () => {
   let page: PlateformeMedecineAdminPage;
 
   beforeEach(() => {
