@@ -25,6 +25,7 @@ export class FullLayoutComponent implements OnInit {
   constructor(private storageService: StorageService, private conversationService: ConversationService,
               public router: Router, private userService: UserService,
               private route: ActivatedRoute, private reclamationService: ReclamationService) {
+/*
     this.admin = this.userService.loggedAdmin;
     if (!this.admin) {
       this.admin = new Admin();
@@ -38,6 +39,7 @@ export class FullLayoutComponent implements OnInit {
         this.router.navigateByUrl('login');
       }
     });
+    */
   }
 
   ngOnInit() {
@@ -163,7 +165,7 @@ export class FullLayoutComponent implements OnInit {
     );
 
     this.changeActiveUrl(this.router.url);
-
+/*
     if (!this.storageService.read("admin-token")) {
       this.router.navigate(["/login"]);
     }
@@ -176,7 +178,7 @@ export class FullLayoutComponent implements OnInit {
     });
     this.conversationService.getConversationsWithTeacherCount().subscribe(data => {
       this.components[4].childrens[1].notification = data.count;
-    });
+    });*/
   }
 
   changeActiveUrl(url: string) {
@@ -212,7 +214,7 @@ export class FullLayoutComponent implements OnInit {
     }
   }
 
-  getNumberReclamations() {
+  getNumberReclamations() {/*
     const baseContext = this;
     this.reclamationService.getNumberOfReclamations()
       .subscribe(
@@ -222,7 +224,7 @@ export class FullLayoutComponent implements OnInit {
         (error) => {
 
         }
-      )
+      )*/
   }
 
   getUserImg() {

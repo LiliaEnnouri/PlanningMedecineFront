@@ -4,7 +4,7 @@ import { ResponseContentType } from '@angular/http';
 import {GenericService} from "./generic.service";
 import {Config} from "../config";
 import {Injectable} from "@angular/core";
-import {Credentials} from "../models/credentials";
+import {Credentials} from "../models/Credentials";
 import {StorageService} from "./storage.service";
 import {Student} from "app/shared/models/student";
 
@@ -18,6 +18,7 @@ export class AuthService extends GenericService {
 
 
   login(credentials: Credentials) {
+    /*
     const url = Config.baseUrl + '/auth/login/admin';
     console.log("login", JSON.stringify(credentials));
     const headers = this.headers;
@@ -25,6 +26,7 @@ export class AuthService extends GenericService {
       headers: headers
     })
       .pipe(catchError(this.handleErrors));
+      */
   }
 
 

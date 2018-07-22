@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import { map, catchError } from 'rxjs/operators';
-import { ResponseContentType } from '@angular/http';
 import {GenericService} from "./generic.service";
 import {Config} from "../config";
 import {StorageService} from "./storage.service";

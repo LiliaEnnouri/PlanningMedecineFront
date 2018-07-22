@@ -31,26 +31,30 @@ export class LoginComponent implements OnInit {
   }
 
   loginSubmit() {
+    /*
     this.isLoading = true;
     jQuery(".alert").hide();
     this.credentials.password = this.credentials.password.split(' ').join('');
     this.busy = this.authService.login(this.credentials)
       .subscribe(
         (data: any) => {
+
           this.isLoading = false;
           this.stoarageService.write("admin", data.admin);
           this.userService.loggedAdmin = data.admin;
           this.stoarageService.write("admin-token", data.token);
-          const baseContext = this;
-          setTimeout(function () {
-            baseContext.router.navigate(["/"], {queryParams: {reload: true}});
-          }, 1000);
+
+
         },
         (error) => {
           this.isLoading = false;
           jQuery(".alert").show();
         }
-      )
+      )*/
+    const baseContext = this;
+    setTimeout(function () {
+      baseContext.router.navigate(["/"], {queryParams: {reload: true}});
+    }, 1000);
   }
 
 }

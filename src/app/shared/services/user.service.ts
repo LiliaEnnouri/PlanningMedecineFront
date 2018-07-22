@@ -14,15 +14,17 @@ export class UserService extends GenericService {
     constructor(private http:HttpClient, private storageService:StorageService) {
         super();
         this.loggedAdmin = <Admin> storageService.read('admin');
+
     }
 
     getLoggedAdmin() {
-        const headers = this.headers.set("Authorization", "Bearer " + this.getTokent());
+      const headers = this.headers.set("Authorization", "Bearer " + this.getTokent());
         const url = Config.baseUrl + "/admin/me";
 
         return this.http.get<any>(url, {
             headers: headers
         }).pipe(catchError(this.handleErrors));
+
     }
 
     getTokent() {

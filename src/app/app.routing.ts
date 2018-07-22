@@ -8,89 +8,83 @@ import {ManageTeacherModule} from "./manage-teacher/manage-teacher.module";
 import {SupportModule} from "./support/support.module";
 import {ManageNotificationModule} from "./manage-notification/manage-notification.module";
 import {InscriptionsModule} from "./inscriptions/inscriptions.module";
-import {ImpressionsModule} from "./impressions/impressions.module";
-import {StatsModule} from "./stats/stats.module";
 import {ErrorModule} from "./error/error.module";
+import {AdministrateurModule} from "./administrateur/administrateur.module";
 
 export function loadManageStudentModule() {
-    return ManageStudentModule
+  return ManageStudentModule
 }
 
 export function loadManageTeacherModule() {
-    return ManageTeacherModule
+  return ManageTeacherModule
 }
 
 export function loadSupportModule() {
-    return SupportModule
+  return SupportModule
 }
 
 export function loadManageNotificationModule() {
-    return ManageNotificationModule
+  return ManageNotificationModule
 }
 
 export function loadInscriptionsModule() {
-    return InscriptionsModule
+  return InscriptionsModule
 }
 
-export function loadImpressionsModule() {
-    return ImpressionsModule
-}
-
-export function loadStatsModule() {
-    return StatsModule
-}
 
 export function loadErrorModule() {
-    return ErrorModule
+  return ErrorModule
 }
 
-export const routes:Routes = [
-    {
-        path: '',
-        component: FullLayoutComponent,
-        children: [
-            {
-                path: 'student',
-                loadChildren: loadManageStudentModule
-            },
-            {
-                path: 'teacher',
-                loadChildren: loadManageTeacherModule
-            },
-            {
-                path: 'support',
-                loadChildren: loadSupportModule
-            },
-            {
-                path: 'notification',
-                loadChildren: loadManageNotificationModule
-            }, {
-                path: 'inscriptions',
-                loadChildren: loadInscriptionsModule
-            },
-            {
-                path: 'impressions',
-                loadChildren: loadImpressionsModule
-            },
-            {
-                path: 'stats',
-                loadChildren: loadStatsModule
-            }, {
-                path: 'error',
-                loadChildren: loadErrorModule
-            }
-        ],
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {path: '**', component: NotFoundComponent}
+export function loadAdministrateurModule() {
+  return AdministrateurModule
+}
+
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: FullLayoutComponent,
+    children: [
+      {
+        path: 'student',
+        loadChildren: loadManageStudentModule
+      },
+      {
+        path: 'teacher',
+        loadChildren: loadManageTeacherModule
+      },
+      {
+        path: 'support',
+        loadChildren: loadSupportModule
+      },
+      {
+        path: 'notification',
+        loadChildren: loadManageNotificationModule
+      }, {
+        path: 'inscriptions',
+        loadChildren: loadInscriptionsModule
+      },
+      {
+        path: 'error',
+        loadChildren: loadErrorModule
+      },
+      {
+        path: 'admin',
+        loadChildren: loadAdministrateurModule
+      }
+    ],
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

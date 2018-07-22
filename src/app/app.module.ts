@@ -29,11 +29,11 @@ import {TeacherService} from "./shared/services/teacher.service";
 import {TeacherFileService} from "./shared/services/teacher-file.service";
 import {ManageStudentModule} from "./manage-student/manage-student.module";
 import {ManageTeacherModule} from "./manage-teacher/manage-teacher.module";
-import {SharedService} from "./shared/services/shared.service";
-import {ImpressionsModule} from "./impressions/impressions.module";
-import {StatsModule} from "./stats/stats.module";
 import {StatsService} from "./shared/services/stats.service";
 import {SpecialityService} from "./shared/services/speciality.service";
+import {ManagePlageUniteModule} from "./administrateur/manage-plage-unite/manage-plage-unite.module";
+import {AdministrateurModule} from "./administrateur/administrateur.module";
+import {SharedService} from "./administrateur/shared/services/shared.service";
 
 
 @NgModule({
@@ -57,8 +57,8 @@ import {SpecialityService} from "./shared/services/speciality.service";
     ManageNotificationModule,
     ManageTeacherModule,
     ErrorModule,
-    ImpressionsModule,
-    StatsModule
+    ManagePlageUniteModule,
+    AdministrateurModule
   ],
   providers: [
     {

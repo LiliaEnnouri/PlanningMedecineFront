@@ -1,0 +1,58 @@
+<div class="panel panel-flat">
+  <div class="panel-heading">
+    <h6 class="panel-title">List des examens de la session : <b></b> </h6>
+    <div class="heading-elements">
+
+
+
+    </div>
+  </div>
+
+
+  <div class="table-responsive">
+    <table class="table text-nowrap">
+      <thead>
+      <tr>
+        <th style="width: 50px" >Sélectionnez le niveau :</th>
+        <th style="width: 300px;">
+          <select name="niveau" class="select-niveau">
+            <option value="0" disabled>Choisir un niveau</option>
+            <option *ngFor="let niveau of niveaux" value="{{niveau.niveau_id}}">
+              {{niveau.nom}}
+            </option>
+          </select>
+        </th>
+        <th class="text-center" style="width: 20px;"></th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr  *ngFor="let unite of unites; let i=index">
+        <td class="text-center">
+          <i class="icon-checkmark3 text-success"></i>
+
+        </td>
+        <td>
+          <div class="media-left media-middle">
+            <a href="#" class="btn bg-teal-400 btn-rounded btn-icon btn-xs">
+              <span class="letter-icon"></span>
+            </a>
+          </div>
+
+          <div class="media-body">
+            <a href="#" class="display-inline-block text-default text-semibold letter-icon-title">{{unite.code}}</a>
+          </div>
+          <div class="media-body">
+            <a href="#" class="display-inline-block text-default text-semibold letter-icon-title">{{unite.intitule}}</a>
+          </div>
+        </td>
+      </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- /support tickets -->
+
+
