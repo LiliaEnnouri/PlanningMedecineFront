@@ -1,12 +1,9 @@
 import {NgModule} from '@angular/core';
 import {ListPlageUniteComponent} from "./list-plage-unite/list-plage-unite.component";
 import {ConfigurePlageUniteComponent} from "./configure-plage-unite/configure-plage-unite.component";
-import {RouterModule, Routes} from "@angular/router";
-import {LoginComponent} from "../login/login.component";
 import {CommonModule} from "@angular/common";
 import {SharedModule} from "../shared/shared.module";
-import {ManagePlageUniteModuleRouting} from "./manage-plage-unite.routing";
-
+import {ManagePlageUniteRouting} from "./manage-plage-unite.routing";
 
 
 @NgModule({
@@ -17,7 +14,7 @@ import {ManagePlageUniteModuleRouting} from "./manage-plage-unite.routing";
   imports: [
     SharedModule,
     CommonModule,
-    ManagePlageUniteModuleRouting
+    ManagePlageUniteRouting
   ]
 })
 

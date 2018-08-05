@@ -1,8 +1,7 @@
 <div class="panel panel-flat">
   <div class="panel-heading">
-    <h6 class="panel-title">List des examens de la session : <b></b> </h6>
+    <h6 class="panel-title">List des examens de la session : <b></b></h6>
     <div class="heading-elements">
-
 
 
     </div>
@@ -13,7 +12,7 @@
     <table class="table text-nowrap">
       <thead>
       <tr>
-        <th style="width: 50px" >Sélectionnez le niveau :</th>
+        <th style="width: 50px">Sélectionnez le niveau :</th>
         <th style="width: 300px;">
           <select name="niveau" class="select-niveau">
             <option value="0" disabled>Choisir un niveau</option>
@@ -27,24 +26,27 @@
       </thead>
       <tbody>
 
-      <tr  *ngFor="let unite of unites; let i=index">
+      <tr *ngFor="let unite of unites; let i=index">
         <td class="text-center">
           <i class="icon-checkmark3 text-success"></i>
 
         </td>
         <td>
-          <div class="media-left media-middle">
-            <a href="#" class="btn bg-teal-400 btn-rounded btn-icon btn-xs">
-              <span class="letter-icon"></span>
-            </a>
-          </div>
+          <a routerLink="/admin/manage-plage-unite/configure-plage-unite/{{i+1}}">
+            <div class="media-left media-middle">
+              <a href="#" class="btn bg-teal-400 btn-rounded btn-icon btn-xs">
+                <span class="letter-icon"></span>
+              </a>
+            </div>
 
-          <div class="media-body">
-            <a href="#" class="display-inline-block text-default text-semibold letter-icon-title">{{unite.code}}</a>
-          </div>
-          <div class="media-body">
-            <a href="#" class="display-inline-block text-default text-semibold letter-icon-title">{{unite.intitule}}</a>
-          </div>
+            <div class="media-body">
+              <a href="#" class="display-inline-block text-default text-semibold letter-icon-title">{{unite.code}}</a>
+            </div>
+            <div class="media-body">
+              <a href="#"
+                 class="display-inline-block text-default text-semibold letter-icon-title">{{unite.intitule}}</a>
+            </div>
+          </a>
         </td>
       </tr>
 

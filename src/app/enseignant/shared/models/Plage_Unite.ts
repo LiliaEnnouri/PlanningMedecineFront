@@ -1,7 +1,7 @@
 
 export class Plage_Unite {
   public plage_unite_id: number;
-  public jour: String;
+  public jour: string;
   public heure_debut: string;
   public heure_fin: string;
   public unite_id: number;

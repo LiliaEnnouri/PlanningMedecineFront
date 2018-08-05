@@ -34,6 +34,7 @@ import {SpecialityService} from "./shared/services/speciality.service";
 import {ManagePlageUniteModule} from "./administrateur/manage-plage-unite/manage-plage-unite.module";
 import {AdministrateurModule} from "./administrateur/administrateur.module";
 import {SharedService} from "./administrateur/shared/services/shared.service";
+import {EnseignantModule} from "./enseignant/enseignant.module";
 
 
 @NgModule({
@@ -57,8 +58,8 @@ import {SharedService} from "./administrateur/shared/services/shared.service";
     ManageNotificationModule,
     ManageTeacherModule,
     ErrorModule,
-    ManagePlageUniteModule,
-    AdministrateurModule
+    AdministrateurModule,
+    EnseignantModule
   ],
   providers: [
     {

@@ -10,6 +10,7 @@ import {ManageNotificationModule} from "./manage-notification/manage-notificatio
 import {InscriptionsModule} from "./inscriptions/inscriptions.module";
 import {ErrorModule} from "./error/error.module";
 import {AdministrateurModule} from "./administrateur/administrateur.module";
+import {EnseignantModule} from "./enseignant/enseignant.module";
 
 export function loadManageStudentModule() {
   return ManageStudentModule
@@ -39,7 +40,9 @@ export function loadErrorModule() {
 export function loadAdministrateurModule() {
   return AdministrateurModule
 }
-
+export function loadEnseignantModule() {
+  return EnseignantModule
+}
 
 export const routes: Routes = [
   {
@@ -72,6 +75,9 @@ export const routes: Routes = [
       {
         path: 'admin',
         loadChildren: loadAdministrateurModule
+      },{
+        path: 'enseignant',
+        loadChildren: loadEnseignantModule
       }
     ],
   },

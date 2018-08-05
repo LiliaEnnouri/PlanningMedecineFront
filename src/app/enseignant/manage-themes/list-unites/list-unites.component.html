@@ -1,0 +1,26 @@
+<!-- Default functionality -->
+<div class="panel panel-flat">
+  <div class="panel-heading">
+    <h6 class="panel-title text-semibold">Default functionality</h6>
+    <div class="heading-elements">
+      <ul class="icons-list">
+        <li><a data-action="collapse"></a></li>
+        <li><a data-action="reload"></a></li>
+        <li><a data-action="close"></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <p class="content-group">Enable a group of DOM elements to be sortable. Click on and drag an element to a new spot
+      within the list, and the other items will adjust to fit. By default, sortable items share draggable
+      properties.</p>
+
+    <div *ngFor="let theme of themes" class="text-center">
+      <ul class="selectable-demo-list" id="sortable-list-basic">
+        <li> {{theme.code}}: {{theme.contenu}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- /default functionality -->

@@ -8,6 +8,4 @@ export class Enseignant {
   public password: string;
   public passwordDecrypt: string;
   public privilege_id: number;
-  public section_id: number;
-  public service_id: number;
 }

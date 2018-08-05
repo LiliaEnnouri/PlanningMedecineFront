@@ -1,4 +1,3 @@
-
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {ListPlageUniteComponent} from "./list-plage-unite/list-plage-unite.component";
@@ -18,6 +17,6 @@ export const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ManagePlageUniteModuleRouting {
+export class ManagePlageUniteRouting {
 }
 

@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-  <form action="#" [ngBusy]="busy">
+  <form action="#" [ngBusy]="busy" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-flat">
@@ -13,7 +13,7 @@
 
           <div *ngFor="let plage of plages ;let i = index">
 
-          <div class="table-responsive">
+          <div class="table-responsive" id="border1">
             <table class="table text-nowrap">
 
                 <tr>
@@ -21,7 +21,7 @@
                   <th style="width: 300px;">
                     <select name="jour" class="select-jour_{{i}}">
                       <option value="0" disabled>Choisir un jour</option>
-                      <option *ngFor="let jour of jours" value="{{jour}}">
+                      <option *ngFor="let jour of jours ; let i=index" value={{i}} >
                         {{jour}}
                       </option>
                     </select>
