@@ -71,7 +71,7 @@ export class ListUnitesComponent implements OnInit {
             },
             function (isConfirm) {
               if (isConfirm) {
-                baseContext.router.navigate(['admin/manage-theme/list-unites']);
+                baseContext.router.navigate(['enseignant/manage-theme/list-unites/1']);
               }
             });
         },
