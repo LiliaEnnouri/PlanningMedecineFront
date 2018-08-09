@@ -4,4 +4,5 @@ export class Theme {
   public code: string;
   public contenu: string;
   nb_heures_id: number;
+  ordre: number;
 }

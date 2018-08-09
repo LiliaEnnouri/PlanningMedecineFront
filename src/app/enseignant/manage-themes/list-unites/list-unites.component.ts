@@ -29,7 +29,9 @@ export class ListUnitesComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('hello');
     this.uniteId = parseInt(this.route.snapshot.paramMap.get('uniteId'), 0);
+    console.log(this.uniteId);
     this.getAllThemesByUnite(this.uniteId);
 
   }
@@ -40,8 +42,48 @@ export class ListUnitesComponent implements OnInit {
     this.themeService.getAllThemesByUnite(uniteId)
       .subscribe(
         (data: any) => {
-          this.themes = data;
+          baseContext.themes = data;
+          setTimeout(function () {
+            baseContext.initSortable();
+          }, 20);
         }
       );
   }
+
+  private initSortable() {
+    jQuery('#classement-choice').sortable();
+    jQuery('#classement-choice').disableSelection();
+  }
+
+  onSubmit() {
+    console.log("submit");
+    const posIdsChoices = jQuery("#classement-choice").sortable("toArray");
+    console.log(posIdsChoices);
+    this.busy = this.themeService.definirOrdre(posIdsChoices)
+      .subscribe(data => {
+          console.log(data);
+          console.log("success");
+          const baseContext = this;
+          swal({
+              title: "Bien joué!",
+              text: "Les thèmes ont été ordonnés",
+              type: "success"
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                baseContext.router.navigate(['admin/manage-theme/list-unites']);
+              }
+            });
+        },
+        error => {
+          console.log(error);
+          swal({
+            title: "Errer!",
+            text: "Les thèmes n'ont pas été ordonnés",
+            type: "error"
+          });
+        }
+      );
+  }
+
 }

@@ -59,15 +59,27 @@ export class ConfigurePlageUniteComponent implements OnInit {
       .subscribe(data => {
           console.log(data);
           console.log("success");
-          swal("Bien joué!", "Les plages ont été ajoutées", "success").then((isConfirm) => {
-            this.router.navigate(['admin/manage-plage-unite/list-plage-unite']);
-          });
+          const baseContext = this;
+          swal({
+              title: "Bien joué!",
+              text: "Les plages ont été ajoutées",
+              type: "success"
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                baseContext.router.navigate(['admin/manage-plage-unite/list-plage-unite']);
+              }
+            });
         },
         error => {
           console.log(error);
-          swal("Errer!", "Les plages n'ont pas été ajoutées", "error");
-        });
-
+          swal({
+            title: "Errer!",
+            text: "Les plages n'ont pas été ajoutées",
+            type: "error"
+          });
+        }
+      );
   }
 
 

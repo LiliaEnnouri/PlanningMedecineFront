@@ -75,7 +75,8 @@ export const routes: Routes = [
       {
         path: 'admin',
         loadChildren: loadAdministrateurModule
-      },{
+      },
+      {
         path: 'enseignant',
         loadChildren: loadEnseignantModule
       }

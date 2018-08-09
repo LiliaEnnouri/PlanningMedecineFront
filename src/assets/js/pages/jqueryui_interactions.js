@@ -8,7 +8,6 @@
 *  Latest update: Nov 12, 2015
 *
 * ---------------------------------------------------------------------------- */
-
 $(function() {
 
 
@@ -41,7 +40,7 @@ $(function() {
         containment: "#draggable-containment-container",
         axis: "x"
     });
- 
+
 
     //
     // Revert position
@@ -214,7 +213,7 @@ $(function() {
         containment: "#droppable-revert-container",
         revert: "invalid"
     });
- 
+
     // Drop
     $("#droppable-revert-target").droppable({
         drop: function(event, ui) {

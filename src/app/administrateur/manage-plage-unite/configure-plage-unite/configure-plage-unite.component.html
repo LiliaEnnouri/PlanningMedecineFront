@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-  <form action="#" [ngBusy]="busy" (ngSubmit)="onSubmit()">
+  <form action="#" [ngBusy]="busy" >
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-flat">
@@ -31,7 +31,7 @@
 
                 <tr>
                   <th style="width: 50px">Sélectionnez un types :</th>
-                  <th style="width: 300px;">
+                  <th style="width: 300px;" *ngIf="types.length">
                     <select name="theme" class="select-type_{{i}}">
                       <option value="0" disabled>Choisir un type</option>
                       <option *ngFor="let type of types" value="{{type.type_id}}">
@@ -82,7 +82,7 @@
           </div>
 
           <div class="text-right">
-            <button type="submit" class="btn btn-primary">Envoyer<i
+            <button class="btn btn-primary" (click)="onSubmit()">Envoyer<i
               class="icon-arrow-right14 position-right"></i></button>
           </div>
 

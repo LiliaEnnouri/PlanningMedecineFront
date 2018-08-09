@@ -18,7 +18,7 @@ export class AuthService extends GenericService {
 
 
   login(credentials: Credentials) {
-    const url = Config.baseUrl + '/auth/login/admin';
+    const url = Config.baseUrl + '/auth/login';
     console.log("login", JSON.stringify(credentials));
     const headers = this.headers;
     return this.http.post<any>(url, credentials, {

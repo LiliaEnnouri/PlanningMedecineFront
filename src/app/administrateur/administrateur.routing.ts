@@ -1,6 +1,7 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {ManagePlageUniteModule} from "./manage-plage-unite/manage-plage-unite.module";
+import {LoginComponent} from "./login/login.component";
 
 
 export function loadManagePlageUniteModule() {
@@ -8,6 +9,10 @@ export function loadManagePlageUniteModule() {
 }
 
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: 'manage-plage-unite',
     loadChildren: loadManagePlageUniteModule

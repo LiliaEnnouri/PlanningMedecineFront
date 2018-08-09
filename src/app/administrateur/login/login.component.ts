@@ -7,6 +7,7 @@ import {UserService} from "../shared/services/user.service";
 import {Subscription} from "rxjs/Rx";
 
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
   templateUrl: './login.component.html',
@@ -42,9 +43,17 @@ export class LoginComponent implements OnInit {
           this.userService.loggedAdmin = data.admin;
           this.stoarageService.write("admin-token", data.token);
           const baseContext = this;
-          setTimeout(function () {
-            baseContext.router.navigate(["/"], {queryParams: {reload: true}});
-          }, 1000);
+          console.log("success");
+          swal({
+              title: "Bien joué!",
+              text: "Vous êtes connectés",
+              type: "success"
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                baseContext.router.navigate(["/"]);
+              }
+            });
         },
         (error) => {
           this.isLoading = false;

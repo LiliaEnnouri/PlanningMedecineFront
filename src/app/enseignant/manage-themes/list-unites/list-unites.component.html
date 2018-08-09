@@ -1,7 +1,7 @@
 <!-- Default functionality -->
 <div class="panel panel-flat">
   <div class="panel-heading">
-    <h6 class="panel-title text-semibold">Default functionality</h6>
+    <h6 class="panel-title text-semibold">Ordre chronologique</h6>
     <div class="heading-elements">
       <ul class="icons-list">
         <li><a data-action="collapse"></a></li>
@@ -12,15 +12,18 @@
   </div>
 
   <div class="panel-body">
-    <p class="content-group">Enable a group of DOM elements to be sortable. Click on and drag an element to a new spot
-      within the list, and the other items will adjust to fit. By default, sortable items share draggable
-      properties.</p>
+    <p class="content-group">Classez les thèmes de cette unité selon l'ordre chronologique qu'ils doivent suivre</p>
 
-    <div *ngFor="let theme of themes" class="text-center">
-      <ul class="selectable-demo-list" id="sortable-list-basic">
-        <li> {{theme.code}}: {{theme.contenu}}</li>
+    <div   class="text-center" >
+      <ul class="selectable-demo-list" id="classement-choice">
+        <li *ngFor="let theme of themes" id={{theme.theme_id}}> {{theme.code}}: {{theme.contenu}} </li>
       </ul>
     </div>
+    <div class="text-right">
+      <button class="btn btn-primary" (click)="onSubmit()">Envoyer<i
+        class="icon-arrow-right14 position-right"></i></button>
+    </div>
   </div>
+
 </div>
 <!-- /default functionality -->

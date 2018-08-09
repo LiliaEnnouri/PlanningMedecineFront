@@ -15,11 +15,15 @@ export class ThemeService extends GenericService {
 
   getAllThemesByUnite(uniteId: number) {
     const url = Config.baseUrl + '/theme/unite/' + uniteId;
-    console.log(url);
     const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.get<any>(url, {
       headers: headers
     })
       .pipe(catchError(this.handleErrors));
+  }
+
+  definirOrdre(themes: number[]) {
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.put(Config.baseUrl + "/theme/definirOrdre", themes);
   }
 }
