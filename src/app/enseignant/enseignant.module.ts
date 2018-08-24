@@ -4,28 +4,36 @@ import {LoginComponent} from "./login/login.component";
 import {SharedModule} from "./shared/shared.module";
 import {ManageThemesModule} from "./manage-themes/manage-themes.module";
 import {EnseignantModuleRouting} from "./enseignant.routing";
-import {AuthService} from "../shared/services/auth.service";
-import {UserService} from "../administrateur/shared/services/user.service";
-import {GenericService} from "../administrateur/shared/services/generic.service";
-import {StorageService} from "../shared/services/storage.service";
 import {ThemeService} from "./shared/services/theme.service";
+import {EnseignantService} from "./shared/services/enseignant.service";
+import {AuthService} from "./shared/services/auth.service";
+import {GenericService} from "./shared/services/generic.service";
+import {UserService} from "./shared/services/user.service";
+import {StorageService} from "./shared/services/storage.service";
+import {AfficherUnitesComponent} from "./afficher-unites/afficher-unites.component";
+import {SeanceService} from "./shared/services/seance.service";
+import {PlageUniteService} from "./shared/services/plage_unite.service";
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    AfficherUnitesComponent
   ],
   imports: [
     SharedModule,
     CommonModule,
-    ManageThemesModule,
-    EnseignantModuleRouting
+    EnseignantModuleRouting,
+    ManageThemesModule
   ],
   providers: [
     AuthService,
     GenericService,
     StorageService,
     UserService,
-    ThemeService
+    ThemeService,
+    EnseignantService,
+    SeanceService,
+    PlageUniteService
   ]
 })
 export class EnseignantModule { }

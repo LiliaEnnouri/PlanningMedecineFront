@@ -1,6 +1,5 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {LoginComponent} from "./login/login.component";
 import {FullLayoutComponent} from "./layouts/full-layout.component";
 import {NotFoundComponent} from "./error/not-found/not-found.component";
 import {ManageStudentModule} from "./manage-student/manage-student.module";
@@ -11,6 +10,7 @@ import {InscriptionsModule} from "./inscriptions/inscriptions.module";
 import {ErrorModule} from "./error/error.module";
 import {AdministrateurModule} from "./administrateur/administrateur.module";
 import {EnseignantModule} from "./enseignant/enseignant.module";
+import {LoginComponent} from "./login/login.component";
 
 export function loadManageStudentModule() {
   return ManageStudentModule

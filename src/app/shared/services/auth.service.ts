@@ -1,6 +1,6 @@
 import {HttpClient} from "@angular/common/http";
-import { map, catchError } from 'rxjs/operators';
-import { ResponseContentType } from '@angular/http';
+import {map, catchError} from 'rxjs/operators';
+import {ResponseContentType} from '@angular/http';
 import {GenericService} from "./generic.service";
 import {Config} from "../config";
 import {Injectable} from "@angular/core";
@@ -18,13 +18,15 @@ export class AuthService extends GenericService {
 
 
   login(credentials: Credentials) {
-    const url = Config.baseUrl + '/auth/login';
+
+    const url = Config.baseUrl + '/auth/login/admin';
     console.log("login", JSON.stringify(credentials));
     const headers = this.headers;
     return this.http.post<any>(url, credentials, {
       headers: headers
     })
       .pipe(catchError(this.handleErrors));
+
   }
 
 

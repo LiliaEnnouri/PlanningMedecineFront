@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {Theme} from "../../shared/models/Theme";
 import {ThemeService} from "../../shared/services/theme.service";
+import {Unite} from "../../shared/models/Unite";
+import {EnseignantService} from "../../shared/services/enseignant.service";
 
 
 declare let swal: any;
@@ -16,26 +18,41 @@ declare let jQuery;
 })
 export class ListUnitesComponent implements OnInit {
 
-
+  enseignantId: number;
   themes: Theme[] = [];
   uniteId: number;
+  unites: Unite[] = [];
 
   busy: Subscription;
 
 
   constructor(private themeService: ThemeService,
+              private enseignantService: EnseignantService,
               private router: Router,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     console.log('hello');
-    this.uniteId = parseInt(this.route.snapshot.paramMap.get('uniteId'), 0);
-    console.log(this.uniteId);
-    this.getAllThemesByUnite(this.uniteId);
-
+    this.enseignantId = parseInt(this.route.snapshot.paramMap.get('enseignantId'), 0);
+    console.log(this.enseignantId);
+    const baseContext = this;
+    this.enseignantService.getUnites(this.enseignantId)
+      .subscribe(
+        (data: any) => {
+          baseContext.unites = data;
+          console.log(baseContext.unites);
+        }
+      );
   }
 
+
+  openModalOrdre(index: number) {
+    this.uniteId = this.unites[index].unite_id;
+    this.getAllThemesByUnite(this.uniteId);
+    jQuery("#modal_ordre").modal();
+
+  }
 
   getAllThemesByUnite(uniteId: number) {
     const baseContext = this;
@@ -55,6 +72,7 @@ export class ListUnitesComponent implements OnInit {
     jQuery('#classement-choice').disableSelection();
   }
 
+
   onSubmit() {
     console.log("submit");
     const posIdsChoices = jQuery("#classement-choice").sortable("toArray");
@@ -67,10 +85,12 @@ export class ListUnitesComponent implements OnInit {
           swal({
               title: "Bien joué!",
               text: "Les thèmes ont été ordonnés",
-              type: "success"
+              type: "success",
+              closeOnConfirm: true
             },
             function (isConfirm) {
               if (isConfirm) {
+                jQuery(".ordre").modal("hide");
                 baseContext.router.navigate(['enseignant/manage-theme/list-unites/1']);
               }
             });

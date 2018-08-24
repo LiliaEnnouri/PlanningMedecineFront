@@ -18,7 +18,7 @@ export class AuthService extends GenericService {
 
 
   login(credentials: Credentials) {
-    /*
+
     const url = Config.baseUrl + '/auth/login/admin';
     console.log("login", JSON.stringify(credentials));
     const headers = this.headers;
@@ -26,7 +26,7 @@ export class AuthService extends GenericService {
       headers: headers
     })
       .pipe(catchError(this.handleErrors));
-      */
+
   }
 
 

@@ -1,18 +1,18 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {ListUnitesComponent} from "./list-unites/list-unites.component";
+import {LoginComponent} from "./login.component";
 
 export const routes: Routes = [
   {
-    path: 'list-unites/:enseignantId',
-    component: ListUnitesComponent,
+    path: 'login',
+    component: LoginComponent
   }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ManageThemesRouting {
+export class EtudiantModuleRouting {
 }
 

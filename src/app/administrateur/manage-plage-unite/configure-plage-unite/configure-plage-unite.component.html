@@ -46,7 +46,7 @@
                   <th style="width: 50px">Sélectionnez l'heure de début :</th>
                   <th style="width: 300px;">
                     <input type="time" class="form-control" name="heure_debut" min="08:00" max="18:00"
-                           [(ngModel)]="plage.heure_debut" value="08:00"/>
+                           [(ngModel)]="plage.heure_debut" value="08:00" [ngModelOptions]="{standalone: true}"/>
                   </th>
                   <th class="text-center" style="width: 20px;"></th>
                 </tr>
@@ -56,7 +56,7 @@
                   <th style="width: 50px">Sélectionnez l'heure de fin :</th>
                   <th style="width: 300px;">
                     <input type="time" class="form-control" name="heure_fin" min="09:00" max="20:00"
-                           [(ngModel)]="plage.heure_fin"/>
+                           [(ngModel)]="plage.heure_fin" [ngModelOptions]="{standalone: true}"/>
                   </th>
                   <th class="text-center" style="width: 20px;"></th>
                 </tr>

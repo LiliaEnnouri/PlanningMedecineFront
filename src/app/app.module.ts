@@ -3,7 +3,6 @@ import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {LoginComponent} from "./login/login.component";
 import {AppRoutingModule} from "./app.routing";
-import {AuthService} from "./shared/services/auth.service";
 import {StorageService} from "app/shared/services/storage.service";
 import {UserService} from "./shared/services/user.service";
 import {SharedModule} from "./shared/shared.module";
@@ -31,10 +30,13 @@ import {ManageStudentModule} from "./manage-student/manage-student.module";
 import {ManageTeacherModule} from "./manage-teacher/manage-teacher.module";
 import {StatsService} from "./shared/services/stats.service";
 import {SpecialityService} from "./shared/services/speciality.service";
-import {ManagePlageUniteModule} from "./administrateur/manage-plage-unite/manage-plage-unite.module";
 import {AdministrateurModule} from "./administrateur/administrateur.module";
 import {SharedService} from "./administrateur/shared/services/shared.service";
 import {EnseignantModule} from "./enseignant/enseignant.module";
+import {AuthService} from "./shared/services/auth.service";
+import {SeanceService} from "./enseignant/shared/services/seance.service";
+import {PlageUniteService} from "./enseignant/shared/services/plage_unite.service";
+import {ThemeService} from "./enseignant/shared/services/theme.service";
 
 
 @NgModule({

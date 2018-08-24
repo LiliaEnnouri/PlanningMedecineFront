@@ -3,6 +3,7 @@ export class Theme {
   public theme_id: number;
   public code: string;
   public contenu: string;
-  nb_heures_id: number;
-  ordre: number;
+  public nb_heures_id: number;
+  public semaine_debut: number;
+  public semaine_fin: number;
 }

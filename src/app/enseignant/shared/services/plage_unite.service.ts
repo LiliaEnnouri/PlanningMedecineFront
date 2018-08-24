@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Plage_Unite} from "../models/Plage_Unite";
 import {StorageService} from "./storage.service";
 import {Config} from "../config";
-import {catchError} from "rxjs/operators";
 
 @Injectable()
 export class PlageUniteService {
@@ -22,6 +21,6 @@ export class PlageUniteService {
   getPlageById(plageUniteId: number) {
 
     const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.get(Config.baseUrl + "/plageUnite/" + plageUniteId, {headers});
+    return this.http.get<any>(Config.baseUrl + "/plageUnite/" + plageUniteId, {headers});
   }
 }

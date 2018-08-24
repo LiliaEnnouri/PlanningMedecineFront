@@ -63,7 +63,9 @@
               "src/assets/js/core/libraries/jquery_ui/effects.min.js",
               "src/assets/js/core/libraries/jquery_ui/globalize/globalize.js",
               "src/assets/js/core/libraries/jquery_ui/globalize/cultures/globalize.culture.de-DE.js",
-              "src/assets/js/core/libraries/jquery_ui/globalize/cultures/globalize.culture.ja-JP.js"
+              "src/assets/js/core/libraries/jquery_ui/globalize/cultures/globalize.culture.ja-JP.js",
+              "src/assets/js/plugins/ui/fullcalendar/fullcalendar.min.js",
+              "src/assets/js/plugins/ui/fullcalendar/lang/fr.js"
             ]
           },
           "configurations": {

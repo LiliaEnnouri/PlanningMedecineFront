@@ -1,12 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {StorageService} from "app/shared/services/storage.service";
-import {AuthService} from "app/shared/services/auth.service";
-import {Credentials} from "app/shared/models/credentials";
 import {UserService} from "../shared/services/user.service";
 import {Subscription} from "rxjs/Rx";
+import {AuthService} from "../shared/services/auth.service";
+import {StorageService} from "../shared/services/storage.service";
+import {Credentials} from "../shared/models/Credentials";
 
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
   templateUrl: './login.component.html',
@@ -42,9 +43,17 @@ export class LoginComponent implements OnInit {
           this.userService.loggedAdmin = data.admin;
           this.stoarageService.write("admin-token", data.token);
           const baseContext = this;
-          setTimeout(function () {
-            baseContext.router.navigate(["/"], {queryParams: {reload: true}});
-          }, 1000);
+          console.log("success");
+          swal({
+              title: "Bien joué!",
+              text: "Vous êtes connectés",
+              type: "success"
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                baseContext.router.navigate(["/"]);
+              }
+            });
         },
         (error) => {
           this.isLoading = false;

@@ -19,7 +19,7 @@ declare let jQuery;
 export class ConfigurePlageUniteComponent implements OnInit {
 
   types: Type[] = [];
-  jours: String[] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+  jours: number[] = [1,2,3,4,5,6,7];
   uniteId: number;
   plages: Plage_Unite[] = [];
   busy: Subscription;

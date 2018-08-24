@@ -6,15 +6,24 @@ import {GenericService} from "./generic.service";
 import {StorageService} from "./storage.service";
 
 @Injectable()
-export class ThemeService extends GenericService {
+export class SeanceService extends GenericService {
 
   constructor(private http: HttpClient, private storageService: StorageService) {
     super();
   }
 
 
-  getAllThemesByUnite(uniteId: number) {
-    const url = Config.baseUrl + '/theme/unite/' + uniteId;
+  getAllSeancesByUnite(uniteId: number) {
+    const url = Config.baseUrl + '/seance/unite/' + uniteId;
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
+    })
+      .pipe(catchError(this.handleErrors));
+  }
+
+  getAllSeancesByUniteWithThemeWithPlage(uniteId: number) {
+    const url = Config.baseUrl + '/seance/withThemeWithPlage/unite/' + uniteId;
     const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.get<any>(url, {
       headers: headers
@@ -24,14 +33,8 @@ export class ThemeService extends GenericService {
 
 
 
-  definirOrdre(themes: number[]) {
+  definirOrdre(seances: number[]) {
     const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.put(Config.baseUrl + "/theme/definirOrdre", themes);
-  }
-
-  getThemeById(themeId: number) {
-
-    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
-    return this.http.get(Config.baseUrl + "/theme/" + themeId, {headers});
+    return this.http.put(Config.baseUrl + "/seance/definirOrdre", seances);
   }
 }
