@@ -1,3 +1,4 @@
+import {Niveau} from "./Niveau";
 
 export class Unite {
   public Unite_id: number;
@@ -13,4 +14,5 @@ export class Unite {
   public semaine_fin: number;
   public unite_id: number;
   public type_id: number;
+
 }

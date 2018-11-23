@@ -11,7 +11,14 @@ export class SeanceService extends GenericService {
   constructor(private http: HttpClient, private storageService: StorageService) {
     super();
   }
-
+  getAllSeances() {
+    const url = Config.baseUrl + '/seance/getAll';
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
+    })
+      .pipe(catchError(this.handleErrors));
+  }
 
 
   getAllSeancesByUnite(uniteId: number) {
@@ -32,13 +39,19 @@ export class SeanceService extends GenericService {
       .pipe(catchError(this.handleErrors));
   }
 
+  getAllSeancesByNiveau(niveauId: number) {
+    const url = Config.baseUrl + '/seance/niveau/' + niveauId;
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get<any>(url, {
+      headers: headers
+    })
+      .pipe(catchError(this.handleErrors));
+  }
+
 
 
   definirOrdre(seances: number[]) {
     const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
     return this.http.put(Config.baseUrl + "/seance/definirOrdre", seances);
   }
-
-
-
 }

@@ -1,0 +1,208 @@
+<!-- Content area -->
+<div class="content">
+
+  <!-- Agenda view -->
+  <div class="panel panel-flat">
+    <div class="panel-heading">
+      <h5 class="panel-title">Votre Calendrier d'enseignement</h5>
+      <div class="heading-elements">
+        <ul class="icons-list">
+          <li><a data-action="collapse"></a></li>
+          <li><a data-action="reload"></a></li>
+          <li><a data-action="close"></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel-body">
+
+      <div class="fullcalendar-agenda"></div>
+    </div>
+  </div>
+  <!-- /agenda view -->
+
+</div>
+<!-- /content area -->
+
+<!-- Modal détail séance -->
+
+<div id="modal_detail" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h5 class="modal-title">Détails séance</h5>
+      </div>
+
+      <div class="modal-body">
+
+
+        <h6 class="no-margin text-semibold">{{seance.theme.contenu}}</h6>
+        <p class="content-group-sm text-muted">Les détails de cette séance</p>
+
+        <div class="well">
+          <dl class="dl-horizontal">
+
+            <dt><b>Unité</b></dt>
+            <dd>{{seance.theme.unite.code}}: {{seance.theme.unite.intitule}}</dd>
+            <dt><b>Date</b></dt>
+            <dd>{{newEvent.start ? newEvent.start.substr(0,10) : ""}}</dd>
+            <dt><b>Heure de début</b></dt>
+            <dd>{{newEvent.start ? newEvent.start.substr(11,5) : ""}}</dd>
+            <dt><b>Heure de fin</b></dt>
+            <dd>{{newEvent.end ? newEvent.end.substr(11,5) : ""}}</dd>
+
+            <!--<dt><b>Ressources</b></dt>
+            <dd>
+              <li *ngFor="let ressource of ressources">
+                <a href="{{ressource.path}}">
+                  {{ressource.libelle}}
+                </a>
+              </li>
+            </dd>
+
+            <dt></dt>
+            <dd>
+              <button (click)="ajouterRessources(seance.theme.theme_id)"
+                      class="btn bg-blue btn-labeled btn-labeled-right ml-10"><b><i
+                class="icon-plus3"></i></b> Ajouter Ressources
+              </button>
+            </dd>
+            -->
+
+            <div *ngFor="let ressource of ressources ;let i = index">
+              <div class="table-responsive" id="border1">
+                <table class="table text-nowrap">
+
+                  <tr><h6>Ressource {{i+1}}</h6>
+                  <tr>
+                    <th style="width: 50px">Lien de la ressource</th>
+                    <th style="width: 300px;">
+                      <input type="text" class="form-control" [(ngModel)]="ressource.path"
+                             [ngModelOptions]="{standalone: true}">
+                    </th>
+                    <th class="text-center" style="width: 20px;"></th>
+                  </tr>
+
+                  <tr>
+                    <th style="width: 50px">Libelle de la ressource</th>
+                    <th style="width: 300px;">
+                      <input type="text" class="form-control" [(ngModel)]="ressource.libelle"
+                             [ngModelOptions]="{standalone: true}">
+                    </th>
+                    <th class="text-center" style="width: 20px;"></th>
+                  </tr>
+
+                  <tr>
+                    <th style="width: 50px">
+
+                    <div class="col-md-6  text-right" style="margin-bottom: 15px">
+                      <button *ngIf="ressources.length>1" (click)="removeRessource()"
+                              class="btn bg-danger btn-labeled btn-labeled-right ml-10"><b><i
+                        class="icon-cross2"></i></b> Supprimer
+                      </button>
+                    </div>
+                    </th>
+                    <th>
+                    <div class="col-md-6 text-left" style="margin-bottom: 15px">
+                      <button (click)="addRessource()"
+                              class="btn bg-blue btn-labeled btn-labeled-right ml-10"><b><i
+                        class="icon-plus3"></i></b> Ajouter
+                      </button>
+                    </div>
+                    </th>
+                  </tr>
+
+                </table>
+              </div>
+
+            </div>
+
+            <div class="text-right">
+              <button class="btn btn-primary" (click)="onSubmit()">Envoyer<i
+                class="icon-arrow-right14 position-right"></i></button>
+            </div>
+
+          </dl>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /modal détail séance -->
+
+<!-- Modal ajouter ressources -->
+
+<div id="modal_ajouter_ressources" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h5 class="modal-title">Ajouter ressources</h5>
+      </div>
+
+      <div class="modal-body">
+
+
+        <h6 class="no-margin text-semibold">{{seance.theme.contenu}}</h6>
+        <p class="content-group-sm text-muted">Les liens utiles pour ce cours</p>
+
+        <div class="well">
+
+          <div *ngFor="let ressource of newRessources ;let i = index">
+            <div class="table-responsive" id="border1">
+              <table class="table text-nowrap">
+
+                <tr>
+                  <th style="width: 50px">Lien de la ressource</th>
+                  <th style="width: 300px;">
+                    <input type="text" class="form-control" [(ngModel)]="ressource.path"
+                           [ngModelOptions]="{standalone: true}">
+                  </th>
+                  <th class="text-center" style="width: 20px;"></th>
+                </tr>
+
+                <tr>
+                  <th style="width: 50px">Libelle de la ressource</th>
+                  <th style="width: 300px;">
+                    <input type="text" class="form-control" [(ngModel)]="ressource.libelle"
+                           [ngModelOptions]="{standalone: true}">
+                  </th>
+                  <th class="text-center" style="width: 20px;"></th>
+                </tr>
+
+                <div class="row">
+                  <div class="col-md-6  text-right" style="margin-bottom: 15px">
+                    <button *ngIf="newRessources.length>1" (click)="removeRessource()"
+                            class="btn bg-danger btn-labeled btn-labeled-right ml-10"><b><i
+                      class="icon-cross2"></i></b> Supprimer
+                    </button>
+                  </div>
+                  <div class="col-md-6 text-left" style="margin-bottom: 15px">
+                    <button (click)="addRessource()"
+                            class="btn bg-blue btn-labeled btn-labeled-right ml-10"><b><i
+                      class="icon-plus3"></i></b> Ajouter
+                    </button>
+                  </div>
+
+                </div>
+
+              </table>
+            </div>
+
+          </div>
+
+          <div class="text-right">
+            <button class="btn btn-primary" (click)="onSubmit()">Envoyer<i
+              class="icon-arrow-right14 position-right"></i></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /modal ajouter ressources -->

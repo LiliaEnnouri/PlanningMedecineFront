@@ -10,6 +10,10 @@ export const routes: Routes = [
   }, {
     path: 'configure-plage-unite/:uniteId',
     component: ConfigurePlageUniteComponent,
+  },
+  {
+    path: 'configure-plage-unite/edit/:uniteId',
+    component: ConfigurePlageUniteComponent,
   }
 ];
 

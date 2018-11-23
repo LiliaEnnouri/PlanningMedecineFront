@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Plage_Unite} from "../models/Plage_Unite";
 import {StorageService} from "./storage.service";
 import {Config} from "../config";
+import {GenericService} from "../../../administrateur/shared/services/generic.service";
 
 @Injectable()
-export class PlageUniteService {
+export class PlageUniteService extends GenericService {
   headers: HttpHeaders;
 
   constructor(private http: HttpClient, private storageService: StorageService) {
-    this.headers = new HttpHeaders({'Content-Type': 'application/json'});
+    super();
   }
 
   addPlages(plages: Plage_Unite[]) {

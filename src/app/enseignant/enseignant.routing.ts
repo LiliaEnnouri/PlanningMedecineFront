@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {ManageThemesModule} from "./manage-themes/manage-themes.module";
 import {LoginComponent} from "./login/login.component";
 import {AfficherUnitesComponent} from "./afficher-unites/afficher-unites.component";
+import {AfficherEnseignantComponent} from "./afficher-enseignant/afficher-enseignant.component";
 
 
 export function loadManageThemesModule() {
@@ -21,6 +22,10 @@ export const routes: Routes = [
   {
     path: 'afficher-unites/:uniteId',
     component: AfficherUnitesComponent
+  },
+  {
+    path: 'afficher-enseignant/:enseignantId',
+    component: AfficherEnseignantComponent
   }
 ]
 

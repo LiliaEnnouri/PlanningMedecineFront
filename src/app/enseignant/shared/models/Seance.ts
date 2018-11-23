@@ -7,7 +7,7 @@ export class Seance {
   public theme_id: number;
   public plage_unite_id: number;
 
-  public theme: Theme;
-  public plage_unite: Plage_Unite;
+  public theme: Theme = new Theme();
+  public plage_unite: Plage_Unite = new Plage_Unite();
 
 }

@@ -7,26 +7,26 @@ import {Theme} from "../shared/models/Theme";
 import {ThemeService} from "../shared/services/theme.service";
 import {DateTime} from "date-time-js";
 import {PlageUniteService} from "../shared/services/plage_unite.service";
-import {Unite} from "../shared/models/Unite";
-import {UniteService} from "../shared/services/unite.service";
-import {Utils} from "../../shared/utils";
+import {Enseignant} from "../shared/models/Enseignant";
+import {EnseignantService} from "../shared/services/enseignant.service";
 import {Ressource} from "../shared/models/Ressource";
 import {RessourceService} from "../shared/services/ressource.service";
 
 
 declare let jQuery: any;
+declare let swal: any;
 
 
 @Component({
-  selector: 'app-afficher-unites',
-  templateUrl: './afficher-unites.component.html',
-  styleUrls: ['./afficher-unites.component.css']
+  selector: 'app-afficher-enseignant',
+  templateUrl: './afficher-enseignant.component.html',
+  styleUrls: ['./afficher-enseignant.component.css']
 })
-export class AfficherUnitesComponent implements OnInit {
+export class AfficherEnseignantComponent implements OnInit {
 
   seances: Seance[] = [];
-  uniteId: number;
-  unite: Unite = new Unite();
+  enseignantId: number;
+  enseignant: Enseignant = new Enseignant();
   evenements: Event[] = [];
   newEvent: Event = new Event();
   theme: Theme;
@@ -34,13 +34,13 @@ export class AfficherUnitesComponent implements OnInit {
   busy: Subscription;
   seance: Seance = new Seance();
   ressources: Ressource[];
-
+  submitted: boolean;
 
 
   constructor(private seanceService: SeanceService,
               private themeService: ThemeService,
               private plageUniteService: PlageUniteService,
-              private uniteService: UniteService,
+              private enseignantService: EnseignantService,
               private ressourceService: RessourceService,
               private router: Router,
               private route: ActivatedRoute) {
@@ -48,14 +48,14 @@ export class AfficherUnitesComponent implements OnInit {
 
   ngOnInit() {
 
-    // Get seances by uniteId
-    this.uniteId = parseInt(this.route.snapshot.paramMap.get('uniteId'), 0);
-    this.busy = this.uniteService.getUniteById(this.uniteId).subscribe(
+    // Get seances by enseignantId
+    this.enseignantId = parseInt(this.route.snapshot.paramMap.get('enseignantId'), 0);
+    this.busy = this.enseignantService.getEnseignantById(this.enseignantId).subscribe(
       (data: any) => {
-        this.unite = data;
+        this.enseignant = data;
       });
     const baseContext = this;
-    this.seanceService.getAllSeancesByUnite(this.uniteId)
+    this.seanceService.getAllSeancesByEnseignant(this.enseignantId)
       .subscribe(
         (data: any) => {
           baseContext.seances = data;
@@ -131,19 +131,19 @@ export class AfficherUnitesComponent implements OnInit {
       );
   }
 
-  openModalDetail(seanceID: number) {
+  openModalDetail(seanceId: number) {
 
     const indexSeance = this.seances.map(
       seance => {
         return seance.seance_id
       }
-    ).indexOf(seanceID);
+    ).indexOf(seanceId);
 
     const indexEvent = this.evenements.map(
       event => {
         return event.id
       }
-    ).indexOf(seanceID);
+    ).indexOf(seanceId);
 
     this.newEvent = this.evenements[indexEvent];
     this.seance = this.seances[indexSeance];
@@ -153,9 +153,82 @@ export class AfficherUnitesComponent implements OnInit {
           this.ressources = data;
         }
       );
+
     jQuery("#modal_detail").modal();
 
   }
+
+  AjouterRessources(themeId) {
+    jQuery("#modal_ajouter_ressources").modal();
+  }
+
+
+  private isChampFulled() {
+    console.log("is champ fulled");
+
+    for (let i = 0; i < this.ressources.length; i++) {
+      console.log(this.ressources.length);
+      if (!this.ressources[i].path ||
+        !this.ressources[i].libelle) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  addRessource() {
+    this.submitted = true;
+    console.log("is champ fulled:  " + this.isChampFulled());
+    console.log(this.ressources);
+    if (!this.isChampFulled()) {
+      return;
+    }
+    this.submitted = false;
+
+    const ressource = new Ressource();
+    ressource.theme_id = this.seance.theme_id;
+    this.ressources.push(ressource);
+    console.log(this.ressources);
+  }
+
+  removeRessource() {
+    console.log("remove ressource");
+
+    this.ressources.splice(this.ressources.length - 1, 1);
+  }
+
+  onSubmit() {
+    console.log("submit");
+    console.log(this.ressources);
+
+    this.busy = this.ressourceService.editRessourcesTheme(this.ressources, this.seance.theme_id)
+      .subscribe(data => {
+          console.log(data);
+          console.log("success");
+          const baseContext = this;
+          swal({
+              title: "Bien joué!",
+              text: "Les ressources ont été ajoutées",
+              type: "success"
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                baseContext.router.navigate(['enseignant/afficher-enseignant']);
+              }
+            });
+        },
+        error => {
+          console.log(error);
+          swal({
+            title: "Errer!",
+            text: "Les plages n'ont pas été ajoutées",
+            type: "error"
+          });
+        }
+      );
+  }
+
 
 }
 

@@ -1,3 +1,4 @@
+import {Unite} from "./Unite";
 
 export class Plage_Unite {
   public plage_unite_id: number;
@@ -6,5 +7,7 @@ export class Plage_Unite {
   public heure_fin: string;
   public unite_id: number;
   public type_id: number;
+
+  public unite: Unite = new Unite();
 
 }

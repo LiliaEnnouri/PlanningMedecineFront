@@ -13,11 +13,16 @@ import {StorageService} from "./shared/services/storage.service";
 import {AfficherUnitesComponent} from "./afficher-unites/afficher-unites.component";
 import {SeanceService} from "./shared/services/seance.service";
 import {PlageUniteService} from "./shared/services/plage_unite.service";
+import {UniteService} from "./shared/services/unite.service";
+import {AfficherEnseignantComponent} from "./afficher-enseignant/afficher-enseignant.component";
+import {Ressource} from "./shared/models/Ressource";
+import {RessourceService} from "./shared/services/ressource.service";
 
 @NgModule({
   declarations: [
     LoginComponent,
-    AfficherUnitesComponent
+    AfficherUnitesComponent,
+    AfficherEnseignantComponent,
   ],
   imports: [
     SharedModule,
@@ -33,7 +38,9 @@ import {PlageUniteService} from "./shared/services/plage_unite.service";
     ThemeService,
     EnseignantService,
     SeanceService,
-    PlageUniteService
+    PlageUniteService,
+    UniteService,
+    RessourceService
   ]
 })
 export class EnseignantModule { }

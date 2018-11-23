@@ -1,61 +1,56 @@
 import {Component, OnInit} from '@angular/core';
-import {Seance} from "../shared/models/Seance";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
-import {SeanceService} from "../shared/services/seance.service";
-import {Theme} from "../shared/models/Theme";
-import {ThemeService} from "../shared/services/theme.service";
 import {DateTime} from "date-time-js";
+import {Seance} from "../shared/models/Seance";
+import {Enseignant} from "../shared/models/Enseignant";
+import {Theme} from "../shared/models/Theme";
 import {PlageUniteService} from "../shared/services/plage_unite.service";
-import {Unite} from "../shared/models/Unite";
-import {UniteService} from "../shared/services/unite.service";
-import {Utils} from "../../shared/utils";
-import {Ressource} from "../shared/models/Ressource";
-import {RessourceService} from "../shared/services/ressource.service";
+import {SeanceService} from "../shared/services/seance.service";
+import {ThemeService} from "../shared/services/theme.service";
+import {NiveauService} from "../shared/services/niveau.service";
+import {Niveau} from "../shared/models/Niveau";
 
 
 declare let jQuery: any;
 
 
 @Component({
-  selector: 'app-afficher-unites',
-  templateUrl: './afficher-unites.component.html',
-  styleUrls: ['./afficher-unites.component.css']
+  selector: 'app-afficher-enseignant',
+  templateUrl: './afficher-niveau.component.html',
+  styleUrls: ['./afficher-niveau.component.css']
 })
-export class AfficherUnitesComponent implements OnInit {
+export class AfficherNiveauComponent implements OnInit {
 
   seances: Seance[] = [];
-  uniteId: number;
-  unite: Unite = new Unite();
+  niveauId: number;
+  niveau: Niveau = new Niveau();
   evenements: Event[] = [];
   newEvent: Event = new Event();
   theme: Theme;
   firstWeek: DateTime;
   busy: Subscription;
   seance: Seance = new Seance();
-  ressources: Ressource[];
-
 
 
   constructor(private seanceService: SeanceService,
               private themeService: ThemeService,
+              private niveauService: NiveauService,
               private plageUniteService: PlageUniteService,
-              private uniteService: UniteService,
-              private ressourceService: RessourceService,
               private router: Router,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
 
-    // Get seances by uniteId
-    this.uniteId = parseInt(this.route.snapshot.paramMap.get('uniteId'), 0);
-    this.busy = this.uniteService.getUniteById(this.uniteId).subscribe(
+    // Get seances by enseignantId
+    this.niveauId = parseInt(this.route.snapshot.paramMap.get('niveauId'), 0);
+    this.busy = this.niveauService.getNiveauById(this.niveauId).subscribe(
       (data: any) => {
-        this.unite = data;
+        this.niveau = data;
       });
     const baseContext = this;
-    this.seanceService.getAllSeancesByUnite(this.uniteId)
+    this.seanceService.getAllSeancesByNiveau(this.niveauId)
       .subscribe(
         (data: any) => {
           baseContext.seances = data;
@@ -64,7 +59,7 @@ export class AfficherUnitesComponent implements OnInit {
             console.log(baseContext.seances);
 
             // La date de la premiere semaine du semestre
-            baseContext.firstWeek = new DateTime("2018/09/03");
+            baseContext.firstWeek = new DateTime("2018/08/27");
             baseContext.firstWeek.format("yyyy-MM-ddTHH:mm");
 
             for (let i = 0; i < baseContext.seances.length; i++) {
@@ -131,28 +126,22 @@ export class AfficherUnitesComponent implements OnInit {
       );
   }
 
-  openModalDetail(seanceID: number) {
+  openModalDetail(seanceId: number) {
 
     const indexSeance = this.seances.map(
       seance => {
         return seance.seance_id
       }
-    ).indexOf(seanceID);
+    ).indexOf(seanceId);
 
     const indexEvent = this.evenements.map(
       event => {
         return event.id
       }
-    ).indexOf(seanceID);
+    ).indexOf(seanceId);
 
     this.newEvent = this.evenements[indexEvent];
     this.seance = this.seances[indexSeance];
-    this.ressourceService.getAllRessourcesByTheme(this.seance.theme_id)
-      .subscribe(
-        (data: any) => {
-          this.ressources = data;
-        }
-      );
     jQuery("#modal_detail").modal();
 
   }

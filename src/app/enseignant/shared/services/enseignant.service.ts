@@ -22,6 +22,11 @@ export class EnseignantService extends GenericService {
       .pipe(catchError(this.handleErrors));
   }
 
+  getEnseignantById(enseignantId) {
+    const headers = this.headers.set("Authorization", "Bearer " + this.storageService.read("admin-token"));
+    return this.http.get(Config.baseUrl + "/enseignant/" + enseignantId, {headers});
+  }
+
 
 
 }

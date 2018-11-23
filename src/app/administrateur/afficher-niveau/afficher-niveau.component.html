@@ -3,8 +3,8 @@
 
   <!-- Agenda view -->
   <div class="panel panel-flat">
-    <div class="panel-heading">
-      <h5 class="panel-title">Calendrier de l'unité: {{unite.intitule}}</h5>
+    <div class="panel-heading" *ngIf="niveau.nom">
+      <h5 class="panel-title">Calendrier de {{niveau.nom}}</h5>
       <div class="heading-elements">
         <ul class="icons-list">
           <li><a data-action="collapse"></a></li>
@@ -31,19 +31,21 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Détail séance</h5>
+        <h5 class="modal-title">Détails séance</h5>
       </div>
 
       <div class="modal-body">
 
 
-            <h6 class="no-margin text-semibold">{{seance.theme.contenu}}</h6>
+            <h6 class="no-margin text-semibold">{{seance.theme.unite.code}}: {{seance.theme.unite.intitule}}</h6>
         <p class="content-group-sm text-muted">Les détails de cette séance</p>
 
             <div class="well">
               <dl class="dl-horizontal">
                 <dt><b>thème</b></dt>
                 <dd>{{newEvent.title}}</dd>
+                <dt><b>Unité</b></dt>
+                <dd>{{seance.theme.unite.code}}: {{seance.theme.unite.intitule}}</dd>
                 <dt><b>Date</b></dt>
                 <dd>{{newEvent.start ? newEvent.start.substr(0,10) : ""}}</dd>
                 <dt><b>Heure de début</b></dt>
@@ -52,6 +54,7 @@
                 <dd>{{newEvent.end ? newEvent.end.substr(11,5) : ""}}</dd>
                 <dt><b>Enseignant</b></dt>
                 <dd>{{seance.theme.enseignant.prenom}} {{seance.theme.enseignant.nom}}</dd>
+                <dt><b>Ressources</b></dt>
                 <dd>
                   <li *ngFor="let ressource of ressources">
                     <a href="{{ressource.path}}">
